@@ -1,13 +1,116 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Samir Khan - Professional Electrician Services</title>
-    <link href="https://cdn.tailwindcss.com" rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Khan Electrics | Electrician Services</title>
+
+  <!-- Basic CSS (inline for now, easy to edit) -->
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background: #f7f7f7;
+      color: #333;
+    }
+    header {
+      background: #0d47a1;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+    }
+    nav {
+      background: #08306b;
+      padding: 10px;
+      text-align: center;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    section {
+      padding: 30px;
+      max-width: 1000px;
+      margin: auto;
+      background: #fff;
+      margin-top: 20px;
+      border-radius: 6px;
+    }
+    .services li {
+      margin-bottom: 10px;
+    }
+    .contact {
+      background: #e3f2fd;
+    }
+    footer {
+      background: #0d47a1;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      margin-top: 20px;
+    }
+    .btn {
+      display: inline-block;
+      background: #0d47a1;
+      color: #fff;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Khan Electrics</h1>
+    <p>Professional Electrician Services</p>
+  </header>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section id="about">
+    <h2>About Us</h2>
+    <p>
+      Khan Electrics provides reliable and affordable electrical services for
+      homes, shops, and offices. We focus on safety, quality work, and customer
+      satisfaction.
+    </p>
+  </section>
+
+  <section id="services">
+    <h2>Our Services</h2>
+    <ul class="services">
+      <li>✔ House Wiring & Rewiring</li>
+      <li>✔ Switch Board & Socket Repair</li>
+      <li>✔ Fan, Light & MCB Installation</li>
+      <li>✔ Inverter & UPS Connection</li>
+      <li>✔ Electrical Fault Repair</li>
+    </ul>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Contact Us</h2>
+    <p><strong>Name:</strong> Samir Khan</p>
+    <p><strong>Phone:</strong> +91-XXXXXXXXXX</p>
+    <p><strong>Location:</strong> Your City, India</p>
+
+    <a class="btn" href="tel:+91XXXXXXXXXX">Call Now</a>
+  </section>
+
+  <footer>
+    <p>© 2026 Khan Electrics. All Rights Reserved.</p>
+  </footer>
+
+</body>
 </html>
