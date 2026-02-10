@@ -1,480 +1,646 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khan Electrician - Professional Electrical Services</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khan Electrician</title>
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        /* Header Section */
-        .header {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            padding: 60px 20px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
 
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="%23ffd700" opacity="0.1"/></svg>') repeat;
-            background-size: 50px 50px;
-        }
+body{
+  font-family:Poppins,sans-serif;
+  background:#000;
+  color:#fff;
+  transition:.4s;
+  overflow-x:hidden;
+}
 
-        .header-content {
-            position: relative;
-            z-index: 1;
-        }
+/* ================= GLOWING STARS BACKGROUND ================= */
+.stars-bg{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:0;
+  pointer-events:none;
+}
+.stars-bg .star{
+  position:absolute;
+  background:#fff;
+  border-radius:50%;
+  opacity:0;
+  transition:0.5s;
+}
 
-        .logo-icon {
-            font-size: 60px;
-            color: #ffd700;
-            margin-bottom: 20px;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
+/* Different star sizes */
+.star.small{width:2px;height:2px}
+.star.medium{width:4px;height:4px}
+.star.big{width:6px;height:6px}
 
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
-            }
-            to {
-                text-shadow: 0 0 20px #ffd700, 0 0 40px #ffd700, 0 0 60px #ffd700;
-            }
-        }
+/* Star positions */
+.star:nth-child(1){top:5%;left:10%}
+.star:nth-child(2){top:15%;left:25%}
+.star:nth-child(3){top:8%;left:45%}
+.star:nth-child(4){top:20%;left:60%}
+.star:nth-child(5){top:10%;left:80%}
+.star:nth-child(6){top:25%;left:15%}
+.star:nth-child(7){top:35%;left:5%}
+.star:nth-child(8){top:30%;left:35%}
+.star:nth-child(9){top:40%;left:55%}
+.star:nth-child(10){top:28%;left:75%}
+.star:nth-child(11){top:45%;left:90%}
+.star:nth-child(12){top:50%;left:20%}
+.star:nth-child(13){top:55%;left:40%}
+.star:nth-child(14){top:48%;left:65%}
+.star:nth-child(15){top:60%;left:85%}
+.star:nth-child(16){top:65%;left:8%}
+.star:nth-child(17){top:70%;left:30%}
+.star:nth-child(18){top:75%;left:50%}
+.star:nth-child(19){top:68%;left:70%}
+.star:nth-child(20){top:80%;left:92%}
+.star:nth-child(21){top:85%;left:18%}
+.star:nth-child(22){top:90%;left:42%}
+.star:nth-child(23){top:78%;left:58%}
+.star:nth-child(24){top:88%;left:78%}
+.star:nth-child(25){top:95%;left:12%}
+.star:nth-child(26){top:12%;left:92%}
+.star:nth-child(27){top:38%;left:22%}
+.star:nth-child(28){top:52%;left:88%}
+.star:nth-child(29){top:72%;left:3%}
+.star:nth-child(30){top:33%;left:68%}
 
-        .main-title {
-            font-size: 48px;
-            font-weight: 700;
-            color: #ffffff;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
+/* Stars glow when light ON */
+body.light-on .star{
+  opacity:1;
+  box-shadow:0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff;
+  animation:twinkle 2s infinite;
+}
 
-        .main-title span {
-            color: #ffd700;
-        }
+/* Different animation delays */
+body.light-on .star:nth-child(odd){animation-delay:0s}
+body.light-on .star:nth-child(even){animation-delay:1s}
+body.light-on .star:nth-child(3n){animation-delay:0.5s}
+body.light-on .star:nth-child(4n){animation-delay:1.5s}
+body.light-on .star:nth-child(5n){animation-delay:0.3s}
 
-        .tagline {
-            font-size: 20px;
-            color: #e0e0e0;
-            font-weight: 300;
-            max-width: 600px;
-            margin: 0 auto 30px;
-            line-height: 1.6;
-        }
+/* Colored stars */
+body.light-on .star:nth-child(3n){
+  background:#ffd700;
+  box-shadow:0 0 10px #ffd700, 0 0 20px #ffd700;
+}
+body.light-on .star:nth-child(5n){
+  background:#00ffff;
+  box-shadow:0 0 10px #00ffff, 0 0 20px #00ffff;
+}
+body.light-on .star:nth-child(7n){
+  background:#ff69b4;
+  box-shadow:0 0 10px #ff69b4, 0 0 20px #ff69b4;
+}
 
-        /* WhatsApp Button */
-        .whatsapp-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
-            color: white;
-            padding: 15px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
-        }
+@keyframes twinkle{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:0.3;transform:scale(0.5)}
+}
 
-        .whatsapp-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.5);
-        }
+/* ================= RGB BORDER LIGHT ================= */
+.rgb-border{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:97;
+  opacity:0;
+  transition:0.5s;
+}
+body.light-on .rgb-border{
+  opacity:1;
+}
+.rgb-border::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;bottom:0;
+  border:4px solid transparent;
+  background:linear-gradient(90deg,#ff0000,#ff7700,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000) border-box;
+  -webkit-mask:linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  animation:rgb-move 3s linear infinite;
+}
+@keyframes rgb-move{
+  0%{filter:hue-rotate(0deg)}
+  100%{filter:hue-rotate(360deg)}
+}
 
-        .whatsapp-btn i {
-            font-size: 24px;
-        }
+/* ================= RGB GLOW CORNERS ================= */
+.rgb-corner{
+  position:fixed;
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  filter:blur(80px);
+  opacity:0;
+  z-index:1;
+  transition:0.5s;
+}
+body.light-on .rgb-corner{
+  opacity:0.6;
+}
+.rgb-corner.top-left{
+  top:-50px;left:-50px;
+  background:#ff0000;
+  animation:rgb-glow 4s infinite;
+}
+.rgb-corner.top-right{
+  top:-50px;right:-50px;
+  background:#00ff00;
+  animation:rgb-glow 4s infinite 1s;
+}
+.rgb-corner.bottom-left{
+  bottom:-50px;left:-50px;
+  background:#0000ff;
+  animation:rgb-glow 4s infinite 2s;
+}
+.rgb-corner.bottom-right{
+  bottom:-50px;right:-50px;
+  background:#ff00ff;
+  animation:rgb-glow 4s infinite 3s;
+}
+@keyframes rgb-glow{
+  0%,100%{filter:blur(80px) hue-rotate(0deg)}
+  50%{filter:blur(100px) hue-rotate(180deg)}
+}
 
-        /* Projects Section */
-        .projects-section {
-            padding: 80px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+/* ================= SWITCH ================= */
+.switch-box{
+  position:fixed;
+  top:20px;
+  right:20px;
+  z-index:999;
+}
+.switch-box input{display:none}
+.switch{
+  width:55px;height:28px;
+  background:#444;
+  border-radius:20px;
+  position:relative;
+  cursor:pointer;
+}
+.switch::after{
+  content:'';
+  width:22px;height:22px;
+  background:#fff;
+  position:absolute;
+  top:3px;left:3px;
+  border-radius:50%;
+  transition:.3s;
+}
+input:checked + .switch{
+  background:#ffd700;
+}
+input:checked + .switch::after{
+  left:30px;
+}
 
-        .section-title {
-            text-align: center;
-            font-size: 36px;
-            font-weight: 700;
-            color: #1a1a2e;
-            margin-bottom: 50px;
-            position: relative;
-        }
+/* ================= 3 BULBS TOP ================= */
+.top-bulbs{
+  position:fixed;
+  top:15px;
+  left:20px;
+  display:flex;
+  gap:12px;
+  z-index:999;
+}
+.bulb{
+  width:28px;
+  height:36px;
+  background:#222;
+  border-radius:50% 50% 50% 50%;
+  position:relative;
+  transition:0.3s;
+}
+.bulb::before{
+  content:'';
+  position:absolute;
+  top:-8px;
+  left:50%;
+  transform:translateX(-50%);
+  width:10px;
+  height:8px;
+  background:#555;
+  border-radius:3px 3px 0 0;
+}
 
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(90deg, #ffd700, #ff6b35);
-            margin: 15px auto 0;
-            border-radius: 2px;
-        }
+body.light-on .bulb:nth-child(1){
+  background:#ff4444;
+  box-shadow:0 0 20px #ff4444, 0 0 40px #ff4444;
+  animation:bulb-glow 1.5s infinite;
+}
+body.light-on .bulb:nth-child(2){
+  background:#ffd700;
+  box-shadow:0 0 20px #ffd700, 0 0 40px #ffd700;
+  animation:bulb-glow 1.5s infinite 0.5s;
+}
+body.light-on .bulb:nth-child(3){
+  background:#00ff00;
+  box-shadow:0 0 20px #00ff00, 0 0 40px #00ff00;
+  animation:bulb-glow 1.5s infinite 1s;
+}
+@keyframes bulb-glow{
+  0%,100%{opacity:1}
+  50%{opacity:0.6}
+}
 
-        .projects-container {
-            display: flex;
-            gap: 30px;
-            justify-content: center;
-            flex-wrap: wrap;   /* mobile ke liye */
-        }
-        
-        .project-box {
-            width: 350px;
-            background: #fff;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
+/* ================= SIMPLE STRING LIGHTS (Reduced) ================= */
+.string-lights{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:50px;
+  z-index:99;
+  overflow:hidden;
+}
+.string-lights .light{
+  position:absolute;
+  width:8px;
+  height:12px;
+  border-radius:50%;
+  top:30px;
+  background:#222;
+  transition:0.3s;
+}
+.light:nth-child(1){left:10%}
+.light:nth-child(2){left:25%}
+.light:nth-child(3){left:40%}
+.light:nth-child(4){left:55%}
+.light:nth-child(5){left:70%}
+.light:nth-child(6){left:85%}
 
-        .project-box:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 60px rgba(0,0,0,0.15);
-        }
+body.light-on .light:nth-child(1){background:#ff0000;box-shadow:0 0 10px #ff0000}
+body.light-on .light:nth-child(2){background:#ffd700;box-shadow:0 0 10px #ffd700}
+body.light-on .light:nth-child(3){background:#00ff00;box-shadow:0 0 10px #00ff00}
+body.light-on .light:nth-child(4){background:#00ffff;box-shadow:0 0 10px #00ffff}
+body.light-on .light:nth-child(5){background:#ff00ff;box-shadow:0 0 10px #ff00ff}
+body.light-on .light:nth-child(6){background:#ff6600;box-shadow:0 0 10px #ff6600}
 
-        .project-image {
-            width: 100%;
-            height: auto;
-        }
+body.light-on .light{
+  animation: simple-blink 1.5s infinite;
+}
+body.light-on .light:nth-child(even){
+  animation-delay: 0.75s;
+}
+@keyframes simple-blink{
+  0%,100%{opacity:1}
+  50%{opacity:0.4}
+}
 
+/* ================= HERO ================= */
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  gap:70px;
+  padding:80px 80px 0 80px;
+  position:relative;
+  z-index:10;
+}
 
-        .project-image img {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-            background: #fff;
-        }
+/* ================= LIGHT BARS (Reduced) ================= */
+.light-bars{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.light-bars span{
+  width:100px;
+  height:10px;
+  background:#111;
+  border-radius:10px;
+}
+body.light-on .light-bars span{
+  background:#ffd700;
+  box-shadow:0 0 15px #ffd700;
+}
 
+/* ================= TEXT ================= */
+.hero-text h1{
+  font-size:48px;
+}
+.hero-text span{
+  color:#ffd700;
+}
+body.light-on .hero-text span{
+  text-shadow:0 0 20px #ffd700, 0 0 40px #ffd700;
+  animation:text-glow 2s infinite;
+}
+@keyframes text-glow{
+  0%,100%{text-shadow:0 0 20px #ffd700, 0 0 40px #ffd700}
+  50%{text-shadow:0 0 30px #ffd700, 0 0 60px #ffd700, 0 0 80px #ffd700}
+}
+.hero-text p{
+  margin-top:10px;
+  font-size:18px;
+}
 
-        .project-box:hover .project-image img {
-            transform: scale(1.1);
-        }
+/* ================= RGB TEXT EFFECT ================= */
+body.light-on .hero-text h1{
+  animation:rgb-text 5s linear infinite;
+}
+@keyframes rgb-text{
+  0%{filter:hue-rotate(0deg)}
+  100%{filter:hue-rotate(360deg)}
+}
 
-        .project-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to bottom, transparent 50%, rgba(26,26,46,0.8) 100%);
-        }
+/* ================= SERVICES ================= */
+.services{
+  padding:80px 60px;
+  position:relative;
+  z-index:10;
+}
+.services h2{
+  text-align:center;
+  margin-bottom:40px;
+  font-size:36px;
+}
+.service-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:25px;
+}
+.service{
+  background:#111;
+  padding:25px;
+  border-radius:14px;
+  text-align:center;
+  transition:0.3s;
+}
+body.light-on .service{
+  box-shadow:0 0 15px rgba(255,215,0,.3);
+  animation:service-rgb 4s linear infinite;
+}
+body.light-on .service:nth-child(2){animation-delay:1s}
+body.light-on .service:nth-child(3){animation-delay:2s}
+body.light-on .service:nth-child(4){animation-delay:3s}
 
-        .project-text {
-            padding: 25px;
-            text-align: center;
-        }
+@keyframes service-rgb{
+  0%{box-shadow:0 0 20px rgba(255,0,0,0.4)}
+  33%{box-shadow:0 0 20px rgba(0,255,0,0.4)}
+  66%{box-shadow:0 0 20px rgba(0,0,255,0.4)}
+  100%{box-shadow:0 0 20px rgba(255,0,0,0.4)}
+}
 
-        .project-text h3 {
-            font-size: 22px;
-            color: #1a1a2e;
-            margin-bottom: 10px;
-        }
+.service i{
+  font-size:34px;
+  margin-bottom:10px;
+  color:#ffd700;
+}
 
-        .project-text p {
-            font-size: 15px;
-            color: #666;
-            line-height: 1.6;
-        }
+/* ================= CONTACT ================= */
+.contact{
+  padding:80px 60px;
+  background:#0b0b0b;
+  position:relative;
+  z-index:10;
+}
+.contact h2{
+  text-align:center;
+  margin-bottom:30px;
+  font-size:34px;
+}
+.contact-box{
+  max-width:900px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;
+}
+.contact-item{
+  background:#111;
+  padding:25px;
+  border-radius:14px;
+  transition:0.3s;
+}
+body.light-on .contact-item{
+  box-shadow:0 0 15px rgba(255,215,0,.2);
+}
+.contact-item i{
+  color:#ffd700;
+  font-size:26px;
+  margin-bottom:10px;
+}
 
-        /* Services Section */
-        .services-section {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            padding: 60px 20px;
-        }
+/* ================= WHATSAPP ================= */
+.whatsapp{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:60px;
+  height:60px;
+  background:#25D366;
+  color:#fff;
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:30px;
+  text-decoration:none;
+  z-index:999;
+  transition:0.3s;
+}
+body.light-on .whatsapp{
+  box-shadow:0 0 20px #25D366;
+}
 
-        .services-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
+/* ================= SHOOTING STAR ================= */
+.shooting-star{
+  position:fixed;
+  width:100px;
+  height:2px;
+  background:linear-gradient(90deg, #fff, transparent);
+  opacity:0;
+  z-index:5;
+  transform:rotate(-45deg);
+}
+body.light-on .shooting-star{
+  animation:shoot 4s infinite;
+}
+.shooting-star:nth-child(1){top:20%;left:80%;animation-delay:0s}
+.shooting-star:nth-child(2){top:40%;left:70%;animation-delay:2s}
+.shooting-star:nth-child(3){top:60%;left:90%;animation-delay:3s}
 
-        .service-card {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            width: 200px;
-            transition: all 0.3s ease;
-        }
+@keyframes shoot{
+  0%{opacity:0;transform:translateX(0) translateY(0) rotate(-45deg)}
+  10%{opacity:1}
+  30%{opacity:0;transform:translateX(-200px) translateY(200px) rotate(-45deg)}
+  100%{opacity:0}
+}
 
-        .service-card:hover {
-            background: rgba(255,215,0,0.2);
-            transform: translateY(-5px);
-        }
-
-        .service-card i {
-            font-size: 40px;
-            color: #ffd700;
-            margin-bottom: 15px;
-        }
-
-        .service-card h4 {
-            color: white;
-            font-size: 16px;
-        }
-
-        /* Contact Section */
-        .contact-section {
-            background: #1a1a2e;
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        .contact-title {
-            font-size: 32px;
-            color: #ffd700;
-            margin-bottom: 40px;
-        }
-
-        .contact-container {
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            gap: 50px;
-            flex-wrap: wrap;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            color: white;
-        }
-
-        .contact-item i {
-            font-size: 30px;
-            color: #ffd700;
-            width: 60px;
-            height: 60px;
-            background: rgba(255,215,0,0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .contact-info h4 {
-            font-size: 14px;
-            color: #888;
-            margin-bottom: 5px;
-        }
-
-        .contact-info p {
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        /* Footer */
-        .footer {
-            background: #0f0f1a;
-            padding: 30px 20px;
-            text-align: center;
-        }
-
-        .footer p {
-            color: #666;
-            font-size: 14px;
-        }
-
-        .footer span {
-            color: #ffd700;
-        }
-
-        /* Floating WhatsApp Button */
-        .floating-whatsapp {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: #25d366;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 30px;
-            text-decoration: none;
-            box-shadow: 0 5px 20px rgba(37,211,102,0.5);
-            animation: bounce 2s infinite;
-            z-index: 1000;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .main-title {
-                font-size: 32px;
-            }
-
-            .tagline {
-                font-size: 16px;
-            }
-
-            .section-title {
-                font-size: 28px;
-            }
-
-            .project-box {
-                width: 100%;
-                max-width: 350px;
-            }
-
-            .project-image {
-                width: 100%;
-                height: 300px;
-            }
-
-            .contact-container {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-    </style>
+/* ================= RESPONSIVE ================= */
+@media(max-width:768px){
+  .hero{
+    flex-direction:column;
+    padding:100px 30px 40px 30px;
+    gap:30px;
+  }
+  .hero-text h1{
+    font-size:32px;
+  }
+  .top-bulbs{
+    left:50%;
+    transform:translateX(-50%);
+  }
+  .rgb-corner{
+    width:100px;
+    height:100px;
+  }
+}
+</style>
 </head>
+
 <body>
 
-    <!-- Header Section -->
-    <header class="header">
-        <div class="header-content">
-            <i class="fas fa-bolt logo-icon"></i>
-            <h1 class="main-title">Khan <span>Electrician</span></h1>
-            <p class="tagline">The Best Service We Give to You In Your Budget</p>
-<a href="https://wa.me/+91 7822886909 ?text=Hello! I need more information about your electrical services." class="whatsapp-btn">
-                <i class="fab fa-whatsapp"></i>
-                For More Information
-            </a>
-        </div>
-    </header>
+<!-- GLOWING STARS BACKGROUND -->
+<div class="stars-bg">
+  <div class="star small"></div>
+  <div class="star medium"></div>
+  <div class="star big"></div>
+  <div class="star small"></div>
+  <div class="star medium"></div>
+  <div class="star small"></div>
+  <div class="star big"></div>
+  <div class="star medium"></div>
+  <div class="star small"></div>
+  <div class="star medium"></div>
+  <div class="star small"></div>
+  <div class="star big"></div>
+  <div class="star medium"></div>
+  <div class="star small"></div>
+  <div class="star medium"></div>
+  <div class="star small"></div>
+  <div class="star big"></div>
+  <div class="star medium"></div>
+  <div class="star small"></div>
+  <div class="star medium"></div>
+  <div class="star small"></div>
+  <div class="star big"></div>
+  <div class="star medium"></div>
+  <div class="star small"></div>
+  <div class="star medium"></div>
+  <div class="star small"></div>
+  <div class="star big"></div>
+  <div class="star medium"></div>
+  <div class="star small"></div>
+  <div class="star medium"></div>
+</div>
 
-    <!-- Services Icons -->
-    <section class="services-section">
-        <div class="services-container">
-            <div class="service-card">
-                <i class="fas fa-home"></i>
-                <h4>Home Wiring</h4>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-lightbulb"></i>
-                <h4>Lighting</h4>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-fan"></i>
-                <h4>Fan Installation</h4>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-tools"></i>
-                <h4>Repairs</h4>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-plug"></i>
-                <h4>Wiring</h4>
-            </div>
-        </div>
-    </section>
+<!-- RGB BORDER -->
+<div class="rgb-border"></div>
 
-<!-- Projects Section -->
-<section class="projects-section">
-    <h2 class="section-title">Our Famous Room Decor Projects</h2>
+<!-- RGB CORNERS -->
+<div class="rgb-corner top-left"></div>
+<div class="rgb-corner top-right"></div>
+<div class="rgb-corner bottom-left"></div>
+<div class="rgb-corner bottom-right"></div>
 
-    <div class="projects-container">
+<!-- SHOOTING STARS -->
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
 
-        <!-- Project Box 1 -->
-        <div class="project-box">
-            <div class="project-image">
-                <img src="images/moon-design.jpg" alt="Moon Light Ceiling Design">
-            </div>
-            <div class="project-text">
-                <h3>Moon Light Ceiling</h3>
-                <p>Modern moon style ceiling light with premium LED fitting.</p>
-            </div>
-        </div>
+<!-- 3 BULBS TOP -->
+<div class="top-bulbs">
+  <div class="bulb"></div>
+  <div class="bulb"></div>
+  <div class="bulb"></div>
+</div>
 
-        <!-- Project Box 2 -->
-        <div class="project-box">
-            <div class="project-image">
-                <img src="images/profile-design.jpg" alt="LED Profile Design">
-            </div>
-            <div class="project-text">
-                <h3>LED Profile Design</h3>
-                <p>Stylish geometric LED profile lighting for modern rooms.</p>
-            </div>
-        </div>
+<!-- STRING LIGHTS (Reduced) -->
+<div class="string-lights">
+  <div class="light"></div>
+  <div class="light"></div>
+  <div class="light"></div>
+  <div class="light"></div>
+  <div class="light"></div>
+  <div class="light"></div>
+</div>
 
-    </div>
+<!-- SWITCH -->
+<div class="switch-box">
+  <label>
+    <input type="checkbox" onclick="toggleLight()">
+    <div class="switch"></div>
+  </label>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+
+  <div class="light-bars">
+    <span></span><span></span><span></span><span></span>
+  </div>
+
+  <div class="hero-text">
+    <h1>Khan <span>Electrician</span></h1>
+    <p>Reliable • Professional • Affordable</p>
+  </div>
+
+</div>
+
+<!-- SERVICES -->
+<section class="services">
+  <h2>Our Services</h2>
+  <div class="service-grid">
+    <div class="service"><i class="fas fa-lightbulb"></i><h3>Lighting Work</h3></div>
+    <div class="service"><i class="fas fa-plug"></i><h3>House Wiring</h3></div>
+    <div class="service"><i class="fas fa-fan"></i><h3>Fan Installation</h3></div>
+    <div class="service"><i class="fas fa-tools"></i><h3>Repair & Maintenance</h3></div>
+  </div>
 </section>
 
-    <!-- Contact Section -->
-    <section class="contact-section">
-        <h2 class="contact-title">Contact Us</h2>
-        
-        <div class="contact-container">
-            <div class="contact-item">
-                <i class="fas fa-phone"></i>
-                <div class="contact-info">
-                    <h4>Phone</h4>
-                    <p>+91 7822886909 </p>
-                </div>
-            </div>
+<!-- CONTACT -->
+<section class="contact">
+  <h2>Contact & Address</h2>
+  <div class="contact-box">
 
-            <div class="contact-item">
-                <i class="fas fa-envelope"></i>
-                <div class="contact-info">
-                    <h4>Email</h4>
-                    <p>spathan1862@gmail.com</p>
-                </div>
-            </div>
+    <div class="contact-item">
+      <i class="fas fa-phone"></i>
+      <h3>Phone</h3>
+      <p>+91 7822886909</p>
+    </div>
 
-            <div class="contact-item">
-                <i class="fas fa-map-marker-alt"></i>
-                <div class="contact-info">
-                    <h4>Address</h4>
-                    <p>AT - Manjargaon Tq. Badnapur Dt.Jalna 431202</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="contact-item">
+      <i class="fas fa-envelope"></i>
+      <h3>Email</h3>
+      <p>spathan1862@gmail.com</p>
+    </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>&copy; 2024 <span>Khan Electrician</span>. All Rights Reserved.</p>
-    </footer>
+    <div class="contact-item">
+      <i class="fas fa-location-dot"></i>
+      <h3>Address</h3>
+      <p>At Manjargaon ,<br>Tq Badnapur Dt Jalna, Maharashtra, India</p>
+    </div>
 
-    <!-- Floating WhatsApp Button -->
-<a href="https://wa.me/+91 7822886909 ?text=Hello! I need more information about your electrical services." class="floating-whatsapp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+  </div>
+</section>
+
+<a class="whatsapp"
+href="https://wa.me/917822886909?text=Hello%20Khan%20Electrician%2C%20mujhe%20electrical%20kaam%20karwana%20hai."
+target="_blank">
+<i class="fab fa-whatsapp"></i>
+</a>
+
+<script>
+function toggleLight(){
+  document.body.classList.toggle("light-on");
+}
+</script>
 
 </body>
 </html>
