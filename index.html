@@ -1,646 +1,814 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> Khan Electrician </title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khan Electrician | Professional Services</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
 
-body{
-  font-family:Poppins,sans-serif;
-  background:#000;
-  color:#fff;
-  transition:.4s;
-  overflow-x:hidden;
-}
+    html{scroll-behavior:smooth}
 
-/* ================= GLOWING STARS BACKGROUND ================= */
-.stars-bg{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  z-index:0;
-  pointer-events:none;
-}
-.stars-bg .star{
-  position:absolute;
-  background:#fff;
-  border-radius:50%;
-  opacity:0;
-  transition:0.5s;
-}
+    body{
+      font-family:Poppins,sans-serif;
+      background:#000;
+      color:#fff;
+      transition:.4s;
+      overflow-x:hidden;
+    }
 
-/* Different star sizes */
-.star.small{width:2px;height:2px}
-.star.medium{width:4px;height:4px}
-.star.big{width:6px;height:6px}
+    /* ================= STARS BACKGROUND ================= */
+    .stars-bg{
+      position:fixed;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+    }
+    .stars-bg .star{
+      position:absolute;
+      background:#fff;
+      border-radius:50%;
+      opacity:0;
+      transition:.5s;
+    }
+    .star.small{width:2px;height:2px}
+    .star.medium{width:3px;height:3px}
+    .star.big{width:5px;height:5px}
 
-/* Star positions */
-.star:nth-child(1){top:5%;left:10%}
-.star:nth-child(2){top:15%;left:25%}
-.star:nth-child(3){top:8%;left:45%}
-.star:nth-child(4){top:20%;left:60%}
-.star:nth-child(5){top:10%;left:80%}
-.star:nth-child(6){top:25%;left:15%}
-.star:nth-child(7){top:35%;left:5%}
-.star:nth-child(8){top:30%;left:35%}
-.star:nth-child(9){top:40%;left:55%}
-.star:nth-child(10){top:28%;left:75%}
-.star:nth-child(11){top:45%;left:90%}
-.star:nth-child(12){top:50%;left:20%}
-.star:nth-child(13){top:55%;left:40%}
-.star:nth-child(14){top:48%;left:65%}
-.star:nth-child(15){top:60%;left:85%}
-.star:nth-child(16){top:65%;left:8%}
-.star:nth-child(17){top:70%;left:30%}
-.star:nth-child(18){top:75%;left:50%}
-.star:nth-child(19){top:68%;left:70%}
-.star:nth-child(20){top:80%;left:92%}
-.star:nth-child(21){top:85%;left:18%}
-.star:nth-child(22){top:90%;left:42%}
-.star:nth-child(23){top:78%;left:58%}
-.star:nth-child(24){top:88%;left:78%}
-.star:nth-child(25){top:95%;left:12%}
-.star:nth-child(26){top:12%;left:92%}
-.star:nth-child(27){top:38%;left:22%}
-.star:nth-child(28){top:52%;left:88%}
-.star:nth-child(29){top:72%;left:3%}
-.star:nth-child(30){top:33%;left:68%}
+    .star:nth-child(1){top:5%;left:10%}
+    .star:nth-child(2){top:15%;left:25%}
+    .star:nth-child(3){top:8%;left:45%}
+    .star:nth-child(4){top:20%;left:60%}
+    .star:nth-child(5){top:10%;left:80%}
+    .star:nth-child(6){top:25%;left:15%}
+    .star:nth-child(7){top:35%;left:5%}
+    .star:nth-child(8){top:30%;left:35%}
+    .star:nth-child(9){top:40%;left:55%}
+    .star:nth-child(10){top:28%;left:75%}
+    .star:nth-child(11){top:45%;left:90%}
+    .star:nth-child(12){top:50%;left:20%}
+    .star:nth-child(13){top:55%;left:40%}
+    .star:nth-child(14){top:48%;left:65%}
+    .star:nth-child(15){top:60%;left:85%}
+    .star:nth-child(16){top:65%;left:8%}
+    .star:nth-child(17){top:70%;left:30%}
+    .star:nth-child(18){top:75%;left:50%}
+    .star:nth-child(19){top:68%;left:70%}
+    .star:nth-child(20){top:80%;left:92%}
+    .star:nth-child(21){top:85%;left:18%}
+    .star:nth-child(22){top:90%;left:42%}
+    .star:nth-child(23){top:78%;left:58%}
+    .star:nth-child(24){top:88%;left:78%}
+    .star:nth-child(25){top:95%;left:12%}
+    .star:nth-child(26){top:12%;left:92%}
+    .star:nth-child(27){top:38%;left:22%}
+    .star:nth-child(28){top:52%;left:88%}
+    .star:nth-child(29){top:72%;left:3%}
+    .star:nth-child(30){top:33%;left:68%}
 
-/* Stars glow when light ON */
-body.light-on .star{
-  opacity:1;
-  box-shadow:0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff;
-  animation:twinkle 2s infinite;
-}
+    body.light-on .star{
+      opacity:1;
+      box-shadow:0 0 8px #fff,0 0 16px #fff;
+      animation:twinkle 2s infinite;
+    }
+    body.light-on .star:nth-child(odd){animation-delay:0s}
+    body.light-on .star:nth-child(even){animation-delay:1s}
+    body.light-on .star:nth-child(3n){animation-delay:.5s}
+    body.light-on .star:nth-child(4n){animation-delay:1.5s}
+    body.light-on .star:nth-child(5n){animation-delay:.3s}
 
-/* Different animation delays */
-body.light-on .star:nth-child(odd){animation-delay:0s}
-body.light-on .star:nth-child(even){animation-delay:1s}
-body.light-on .star:nth-child(3n){animation-delay:0.5s}
-body.light-on .star:nth-child(4n){animation-delay:1.5s}
-body.light-on .star:nth-child(5n){animation-delay:0.3s}
+    body.light-on .star:nth-child(3n){
+      background:#ffd700;
+      box-shadow:0 0 10px #ffd700;
+    }
+    body.light-on .star:nth-child(5n){
+      background:#00ffff;
+      box-shadow:0 0 10px #00ffff;
+    }
+    body.light-on .star:nth-child(7n){
+      background:#ff69b4;
+      box-shadow:0 0 10px #ff69b4;
+    }
 
-/* Colored stars */
-body.light-on .star:nth-child(3n){
-  background:#ffd700;
-  box-shadow:0 0 10px #ffd700, 0 0 20px #ffd700;
-}
-body.light-on .star:nth-child(5n){
-  background:#00ffff;
-  box-shadow:0 0 10px #00ffff, 0 0 20px #00ffff;
-}
-body.light-on .star:nth-child(7n){
-  background:#ff69b4;
-  box-shadow:0 0 10px #ff69b4, 0 0 20px #ff69b4;
-}
+    @keyframes twinkle{
+      0%,100%{opacity:1;transform:scale(1)}
+      50%{opacity:.3;transform:scale(.5)}
+    }
 
-@keyframes twinkle{
-  0%,100%{opacity:1;transform:scale(1)}
-  50%{opacity:0.3;transform:scale(0.5)}
-}
+    /* ================= RGB BORDER ================= */
+    .rgb-border{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:97;
+      opacity:0;
+      transition:.5s;
+    }
+    body.light-on .rgb-border{opacity:1}
+    .rgb-border::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      border:3px solid transparent;
+      background:linear-gradient(90deg,#ff0000,#ff7700,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000) border-box;
+      -webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);
+      -webkit-mask-composite:xor;
+      mask-composite:exclude;
+      animation:rgb-move 4s linear infinite;
+    }
+    @keyframes rgb-move{
+      0%{filter:hue-rotate(0deg)}
+      100%{filter:hue-rotate(360deg)}
+    }
 
-/* ================= RGB BORDER LIGHT ================= */
-.rgb-border{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  pointer-events:none;
-  z-index:97;
-  opacity:0;
-  transition:0.5s;
-}
-body.light-on .rgb-border{
-  opacity:1;
-}
-.rgb-border::before{
-  content:'';
-  position:absolute;
-  top:0;left:0;right:0;bottom:0;
-  border:4px solid transparent;
-  background:linear-gradient(90deg,#ff0000,#ff7700,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000) border-box;
-  -webkit-mask:linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite:xor;
-  mask-composite:exclude;
-  animation:rgb-move 3s linear infinite;
-}
-@keyframes rgb-move{
-  0%{filter:hue-rotate(0deg)}
-  100%{filter:hue-rotate(360deg)}
-}
+    /* ================= RGB CORNERS ================= */
+    .rgb-corner{
+      position:fixed;
+      width:140px;
+      height:140px;
+      border-radius:50%;
+      filter:blur(80px);
+      opacity:0;
+      z-index:1;
+      transition:.5s;
+    }
+    body.light-on .rgb-corner{opacity:.55}
 
-/* ================= RGB GLOW CORNERS ================= */
-.rgb-corner{
-  position:fixed;
-  width:150px;
-  height:150px;
-  border-radius:50%;
-  filter:blur(80px);
-  opacity:0;
-  z-index:1;
-  transition:0.5s;
-}
-body.light-on .rgb-corner{
-  opacity:0.6;
-}
-.rgb-corner.top-left{
-  top:-50px;left:-50px;
-  background:#ff0000;
-  animation:rgb-glow 4s infinite;
-}
-.rgb-corner.top-right{
-  top:-50px;right:-50px;
-  background:#00ff00;
-  animation:rgb-glow 4s infinite 1s;
-}
-.rgb-corner.bottom-left{
-  bottom:-50px;left:-50px;
-  background:#0000ff;
-  animation:rgb-glow 4s infinite 2s;
-}
-.rgb-corner.bottom-right{
-  bottom:-50px;right:-50px;
-  background:#ff00ff;
-  animation:rgb-glow 4s infinite 3s;
-}
-@keyframes rgb-glow{
-  0%,100%{filter:blur(80px) hue-rotate(0deg)}
-  50%{filter:blur(100px) hue-rotate(180deg)}
-}
+    .rgb-corner.top-left{
+      top:-50px;left:-50px;
+      background:#ff0000;
+      animation:rgb-glow 5s infinite;
+    }
+    .rgb-corner.top-right{
+      top:-50px;right:-50px;
+      background:#00ff00;
+      animation:rgb-glow 5s infinite 1s;
+    }
+    .rgb-corner.bottom-left{
+      bottom:-50px;left:-50px;
+      background:#0000ff;
+      animation:rgb-glow 5s infinite 2s;
+    }
+    .rgb-corner.bottom-right{
+      bottom:-50px;right:-50px;
+      background:#ff00ff;
+      animation:rgb-glow 5s infinite 3s;
+    }
 
-/* ================= SWITCH ================= */
-.switch-box{
-  position:fixed;
-  top:20px;
-  right:20px;
-  z-index:999;
-}
-.switch-box input{display:none}
-.switch{
-  width:55px;height:28px;
-  background:#444;
-  border-radius:20px;
-  position:relative;
-  cursor:pointer;
-}
-.switch::after{
-  content:'';
-  width:22px;height:22px;
-  background:#fff;
-  position:absolute;
-  top:3px;left:3px;
-  border-radius:50%;
-  transition:.3s;
-}
-input:checked + .switch{
-  background:#ffd700;
-}
-input:checked + .switch::after{
-  left:30px;
-}
+    @keyframes rgb-glow{
+      0%,100%{filter:blur(80px) hue-rotate(0deg)}
+      50%{filter:blur(95px) hue-rotate(180deg)}
+    }
 
-/* ================= 3 BULBS TOP ================= */
-.top-bulbs{
-  position:fixed;
-  top:15px;
-  left:20px;
-  display:flex;
-  gap:12px;
-  z-index:999;
-}
-.bulb{
-  width:28px;
-  height:36px;
-  background:#222;
-  border-radius:50% 50% 50% 50%;
-  position:relative;
-  transition:0.3s;
-}
-.bulb::before{
-  content:'';
-  position:absolute;
-  top:-8px;
-  left:50%;
-  transform:translateX(-50%);
-  width:10px;
-  height:8px;
-  background:#555;
-  border-radius:3px 3px 0 0;
-}
+    /* ================= SWITCH ================= */
+    .switch-box{
+      position:fixed;
+      top:20px;
+      right:20px;
+      z-index:999;
+    }
+    .switch-box input{display:none}
+    .switch{
+      width:56px;
+      height:30px;
+      background:#333;
+      border-radius:30px;
+      position:relative;
+      cursor:pointer;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .switch::after{
+      content:'';
+      width:22px;
+      height:22px;
+      background:#fff;
+      position:absolute;
+      top:3px;
+      left:3px;
+      border-radius:50%;
+      transition:.3s;
+    }
+    input:checked + .switch{
+      background:#ffd700;
+    }
+    input:checked + .switch::after{
+      left:29px;
+    }
 
-body.light-on .bulb:nth-child(1){
-  background:#ff4444;
-  box-shadow:0 0 20px #ff4444, 0 0 40px #ff4444;
-  animation:bulb-glow 1.5s infinite;
-}
-body.light-on .bulb:nth-child(2){
-  background:#ffd700;
-  box-shadow:0 0 20px #ffd700, 0 0 40px #ffd700;
-  animation:bulb-glow 1.5s infinite 0.5s;
-}
-body.light-on .bulb:nth-child(3){
-  background:#00ff00;
-  box-shadow:0 0 20px #00ff00, 0 0 40px #00ff00;
-  animation:bulb-glow 1.5s infinite 1s;
-}
-@keyframes bulb-glow{
-  0%,100%{opacity:1}
-  50%{opacity:0.6}
-}
+    /* ================= SHOOTING STARS ================= */
+    .shooting-stars{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:5;
+    }
+    .shooting-star{
+      position:absolute;
+      width:120px;
+      height:2px;
+      background:linear-gradient(90deg,#fff,transparent);
+      opacity:0;
+      transform:rotate(-45deg);
+    }
+    body.light-on .shooting-star{
+      animation:shoot 5s linear infinite;
+    }
+    .shooting-stars .shooting-star:nth-child(1){
+      top:18%;
+      right:10%;
+      animation-delay:0s;
+    }
+    .shooting-stars .shooting-star:nth-child(2){
+      top:38%;
+      right:18%;
+      animation-delay:1.8s;
+    }
+    .shooting-stars .shooting-star:nth-child(3){
+      top:60%;
+      right:5%;
+      animation-delay:3.2s;
+    }
 
-/* ================= SIMPLE STRING LIGHTS (Reduced) ================= */
-.string-lights{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:50px;
-  z-index:99;
-  overflow:hidden;
-}
-.string-lights .light{
-  position:absolute;
-  width:8px;
-  height:12px;
-  border-radius:50%;
-  top:30px;
-  background:#222;
-  transition:0.3s;
-}
-.light:nth-child(1){left:10%}
-.light:nth-child(2){left:25%}
-.light:nth-child(3){left:40%}
-.light:nth-child(4){left:55%}
-.light:nth-child(5){left:70%}
-.light:nth-child(6){left:85%}
+    @keyframes shoot{
+      0%{opacity:0;transform:translateX(0) translateY(0) rotate(-45deg)}
+      10%{opacity:1}
+      30%{opacity:0;transform:translateX(-220px) translateY(220px) rotate(-45deg)}
+      100%{opacity:0}
+    }
 
-body.light-on .light:nth-child(1){background:#ff0000;box-shadow:0 0 10px #ff0000}
-body.light-on .light:nth-child(2){background:#ffd700;box-shadow:0 0 10px #ffd700}
-body.light-on .light:nth-child(3){background:#00ff00;box-shadow:0 0 10px #00ff00}
-body.light-on .light:nth-child(4){background:#00ffff;box-shadow:0 0 10px #00ffff}
-body.light-on .light:nth-child(5){background:#ff00ff;box-shadow:0 0 10px #ff00ff}
-body.light-on .light:nth-child(6){background:#ff6600;box-shadow:0 0 10px #ff6600}
+    /* ================= FULL SCREEN SERVICE HERO ================= */
+    .hero-slider{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:90px 20px 40px;
+      position:relative;
+      z-index:10;
+    }
+    .hero-slider::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at top, rgba(255,215,0,.08), transparent 40%);
+      pointer-events:none;
+    }
+    .slider-wrap{
+      width:min(920px,100%);
+      background:rgba(10,10,10,.78);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:24px;
+      padding:48px 34px;
+      text-align:center;
+      backdrop-filter:blur(12px);
+      position:relative;
+      z-index:2;
+      box-shadow:0 20px 60px rgba(0,0,0,.45);
+    }
+    body.light-on .slider-wrap{
+      border-color:rgba(255,215,0,.22);
+      box-shadow:0 0 25px rgba(255,215,0,.10),0 20px 60px rgba(0,0,0,.45);
+    }
+    .slider-label{
+      color:#ffd700;
+      font-size:13px;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      margin-bottom:10px;
+    }
+    .slider-wrap h1{
+      font-size:44px;
+      margin-bottom:16px;
+    }
+    .service-showcase{
+      max-width:650px;
+      margin:0 auto;
+    }
+    .service-showcase.animate{
+      animation:fadeUp .55s ease;
+    }
+    .service-count{
+      display:inline-block;
+      padding:7px 14px;
+      border-radius:999px;
+      background:#141414;
+      border:1px solid rgba(255,255,255,.08);
+      color:#e5e5e5;
+      font-size:13px;
+      margin-bottom:18px;
+    }
+    body.light-on .service-count{
+      border-color:rgba(255,215,0,.18);
+      box-shadow:0 0 10px rgba(255,215,0,.08);
+    }
+    .service-icon-box{
+      width:92px;
+      height:92px;
+      border-radius:22px;
+      background:#141414;
+      border:1px solid rgba(255,255,255,.08);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin:0 auto 18px;
+    }
+    body.light-on .service-icon-box{
+      border-color:rgba(255,215,0,.18);
+      box-shadow:0 0 16px rgba(255,215,0,.10);
+    }
+    .service-icon-box i{
+      font-size:36px;
+      color:#ffd700;
+    }
+    #serviceTitle{
+      font-size:30px;
+      margin-bottom:10px;
+    }
+    #serviceDesc{
+      color:#d0d0d0;
+      line-height:1.7;
+      font-size:15px;
+      max-width:580px;
+      margin:0 auto;
+    }
+    .service-dots{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin-top:28px;
+    }
+    .service-dot{
+      width:12px;
+      height:12px;
+      border:none;
+      border-radius:50%;
+      background:#333;
+      cursor:pointer;
+      transition:.3s;
+    }
+    .service-dot.active{
+      background:#ffd700;
+      transform:scale(1.15);
+      box-shadow:0 0 10px #ffd700;
+    }
+    .hero-note{
+      margin-top:18px;
+      color:#cfcfcf;
+      font-size:15px;
+    }
 
-body.light-on .light{
-  animation: simple-blink 1.5s infinite;
-}
-body.light-on .light:nth-child(even){
-  animation-delay: 0.75s;
-}
-@keyframes simple-blink{
-  0%,100%{opacity:1}
-  50%{opacity:0.4}
-}
+    @keyframes fadeUp{
+      0%{opacity:0;transform:translateY(14px)}
+      100%{opacity:1;transform:translateY(0)}
+    }
 
-/* ================= HERO ================= */
-.hero{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  gap:70px;
-  padding:80px 80px 0 80px;
-  position:relative;
-  z-index:10;
-}
+    /* ================= HEADLINE SECTION ================= */
+    .headline-section{
+      padding:0 20px 80px;
+      position:relative;
+      z-index:10;
+      margin-top:-10px;
+    }
+    .headline-box{
+      max-width:950px;
+      margin:auto;
+      text-align:center;
+      background:#0f0f0f;
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:22px;
+      padding:36px 28px;
+    }
+    body.light-on .headline-box{
+      border-color:rgba(255,215,0,.16);
+      box-shadow:0 0 18px rgba(255,215,0,.10);
+    }
+    .headline-tag{
+      color:#ffd700;
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      margin-bottom:10px;
+    }
+    .headline-box h2{
+      font-size:36px;
+      margin-bottom:12px;
+    }
+    .headline-box p{
+      color:#d4d4d4;
+      line-height:1.7;
+      font-size:16px;
+      max-width:780px;
+      margin:auto;
+    }
 
-/* ================= LIGHT BARS (Reduced) ================= */
-.light-bars{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-.light-bars span{
-  width:100px;
-  height:10px;
-  background:#111;
-  border-radius:10px;
-}
-body.light-on .light-bars span{
-  background:#ffd700;
-  box-shadow:0 0 15px #ffd700;
-}
+    /* ================= COMMON SECTION ================= */
+    .section{
+      padding:80px 60px;
+      position:relative;
+      z-index:10;
+    }
+    .section-title{
+      text-align:center;
+      margin-bottom:36px;
+      font-size:34px;
+      position:relative;
+    }
+    .section-title::after{
+      content:'';
+      display:block;
+      width:80px;
+      height:3px;
+      background:#ffd700;
+      margin:10px auto 0;
+      border-radius:2px;
+    }
+    body.light-on .section-title::after{
+      box-shadow:0 0 10px #ffd700;
+    }
 
-/* ================= TEXT ================= */
-.hero-text h1{
-  font-size:48px;
-}
-.hero-text span{
-  color:#ffd700;
-}
-body.light-on .hero-text span{
-  text-shadow:0 0 20px #ffd700, 0 0 40px #ffd700;
-  animation:text-glow 2s infinite;
-}
-@keyframes text-glow{
-  0%,100%{text-shadow:0 0 20px #ffd700, 0 0 40px #ffd700}
-  50%{text-shadow:0 0 30px #ffd700, 0 0 60px #ffd700, 0 0 80px #ffd700}
-}
-.hero-text p{
-  margin-top:10px;
-  font-size:18px;
-}
+    /* ================= SERVICES ================= */
+    .services-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:24px;
+    }
+    .service-card{
+      background:#101010;
+      padding:28px;
+      border-radius:16px;
+      transition:.3s;
+      border:1px solid rgba(255,255,255,.06);
+    }
+    .service-card:hover{
+      transform:translateY(-6px);
+      border-color:rgba(255,215,0,.18);
+    }
+    body.light-on .service-card{
+      border-color:rgba(255,215,0,.14);
+      box-shadow:0 0 14px rgba(255,215,0,.10);
+    }
+    .service-card i{
+      font-size:30px;
+      color:#ffd700;
+      margin-bottom:12px;
+    }
+    .service-card h3{
+      font-size:20px;
+      margin-bottom:8px;
+    }
+    .service-card p{
+      color:#d2d2d2;
+      line-height:1.6;
+      font-size:14px;
+    }
 
-/* ================= RGB TEXT EFFECT ================= */
-body.light-on .hero-text h1{
-  animation:rgb-text 5s linear infinite;
-}
-@keyframes rgb-text{
-  0%{filter:hue-rotate(0deg)}
-  100%{filter:hue-rotate(360deg)}
-}
+    /* ================= CONTACT ================= */
+    .contact{
+      background:#0b0b0b;
+    }
+    .contact-grid{
+      max-width:1000px;
+      margin:auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:26px;
+    }
+    .contact-item{
+      background:#101010;
+      padding:26px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.06);
+      transition:.3s;
+    }
+    body.light-on .contact-item{
+      border-color:rgba(255,215,0,.14);
+      box-shadow:0 0 12px rgba(255,215,0,.10);
+    }
+    .contact-item i{
+      color:#ffd700;
+      font-size:24px;
+      margin-bottom:10px;
+    }
+    .contact-item h3{
+      font-size:18px;
+      margin-bottom:6px;
+    }
+    .contact-item p{
+      color:#d2d2d2;
+      font-size:14px;
+      line-height:1.7;
+    }
 
-/* ================= SERVICES ================= */
-.services{
-  padding:80px 60px;
-  position:relative;
-  z-index:10;
-}
-.services h2{
-  text-align:center;
-  margin-bottom:40px;
-  font-size:36px;
-}
-.service-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:25px;
-}
-.service{
-  background:#111;
-  padding:25px;
-  border-radius:14px;
-  text-align:center;
-  transition:0.3s;
-}
-body.light-on .service{
-  box-shadow:0 0 15px rgba(255,215,0,.3);
-  animation:service-rgb 4s linear infinite;
-}
-body.light-on .service:nth-child(2){animation-delay:1s}
-body.light-on .service:nth-child(3){animation-delay:2s}
-body.light-on .service:nth-child(4){animation-delay:3s}
+    /* ================= WHATSAPP ================= */
+    .whatsapp{
+      position:fixed;
+      bottom:20px;
+      right:20px;
+      width:60px;
+      height:60px;
+      background:#25D366;
+      color:#fff;
+      border-radius:50%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size:30px;
+      text-decoration:none;
+      z-index:999;
+      transition:.3s;
+    }
+    body.light-on .whatsapp{
+      box-shadow:0 0 18px #25D366;
+    }
 
-@keyframes service-rgb{
-  0%{box-shadow:0 0 20px rgba(255,0,0,0.4)}
-  33%{box-shadow:0 0 20px rgba(0,255,0,0.4)}
-  66%{box-shadow:0 0 20px rgba(0,0,255,0.4)}
-  100%{box-shadow:0 0 20px rgba(255,0,0,0.4)}
-}
-
-.service i{
-  font-size:34px;
-  margin-bottom:10px;
-  color:#ffd700;
-}
-
-/* ================= CONTACT ================= */
-.contact{
-  padding:80px 60px;
-  background:#0b0b0b;
-  position:relative;
-  z-index:10;
-}
-.contact h2{
-  text-align:center;
-  margin-bottom:30px;
-  font-size:34px;
-}
-.contact-box{
-  max-width:900px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:30px;
-}
-.contact-item{
-  background:#111;
-  padding:25px;
-  border-radius:14px;
-  transition:0.3s;
-}
-body.light-on .contact-item{
-  box-shadow:0 0 15px rgba(255,215,0,.2);
-}
-.contact-item i{
-  color:#ffd700;
-  font-size:26px;
-  margin-bottom:10px;
-}
-
-/* ================= WHATSAPP ================= */
-.whatsapp{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  width:60px;
-  height:60px;
-  background:#25D366;
-  color:#fff;
-  border-radius:50%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:30px;
-  text-decoration:none;
-  z-index:999;
-  transition:0.3s;
-}
-body.light-on .whatsapp{
-  box-shadow:0 0 20px #25D366;
-}
-
-/* ================= SHOOTING STAR ================= */
-.shooting-star{
-  position:fixed;
-  width:100px;
-  height:2px;
-  background:linear-gradient(90deg, #fff, transparent);
-  opacity:0;
-  z-index:5;
-  transform:rotate(-45deg);
-}
-body.light-on .shooting-star{
-  animation:shoot 4s infinite;
-}
-.shooting-star:nth-child(1){top:20%;left:80%;animation-delay:0s}
-.shooting-star:nth-child(2){top:40%;left:70%;animation-delay:2s}
-.shooting-star:nth-child(3){top:60%;left:90%;animation-delay:3s}
-
-@keyframes shoot{
-  0%{opacity:0;transform:translateX(0) translateY(0) rotate(-45deg)}
-  10%{opacity:1}
-  30%{opacity:0;transform:translateX(-200px) translateY(200px) rotate(-45deg)}
-  100%{opacity:0}
-}
-
-/* ================= RESPONSIVE ================= */
-@media(max-width:768px){
-  .hero{
-    flex-direction:column;
-    padding:100px 30px 40px 30px;
-    gap:30px;
-  }
-  .hero-text h1{
-    font-size:32px;
-  }
-  .top-bulbs{
-    left:50%;
-    transform:translateX(-50%);
-  }
-  .rgb-corner{
-    width:100px;
-    height:100px;
-  }
-}
-</style>
+    /* ================= RESPONSIVE ================= */
+    @media(max-width:768px){
+      .hero-slider{
+        padding:100px 18px 30px;
+      }
+      .slider-wrap{
+        padding:36px 22px;
+      }
+      .slider-wrap h1{
+        font-size:32px;
+      }
+      #serviceTitle{
+        font-size:24px;
+      }
+      .headline-section{
+        padding:0 18px 60px;
+      }
+      .headline-box h2{
+        font-size:28px;
+      }
+      .section{
+        padding:60px 25px;
+      }
+      .rgb-corner{
+        width:90px;
+        height:90px;
+      }
+      .switch-box{
+        top:18px;
+        right:18px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- GLOWING STARS BACKGROUND -->
-<div class="stars-bg">
-  <div class="star small"></div>
-  <div class="star medium"></div>
-  <div class="star big"></div>
-  <div class="star small"></div>
-  <div class="star medium"></div>
-  <div class="star small"></div>
-  <div class="star big"></div>
-  <div class="star medium"></div>
-  <div class="star small"></div>
-  <div class="star medium"></div>
-  <div class="star small"></div>
-  <div class="star big"></div>
-  <div class="star medium"></div>
-  <div class="star small"></div>
-  <div class="star medium"></div>
-  <div class="star small"></div>
-  <div class="star big"></div>
-  <div class="star medium"></div>
-  <div class="star small"></div>
-  <div class="star medium"></div>
-  <div class="star small"></div>
-  <div class="star big"></div>
-  <div class="star medium"></div>
-  <div class="star small"></div>
-  <div class="star medium"></div>
-  <div class="star small"></div>
-  <div class="star big"></div>
-  <div class="star medium"></div>
-  <div class="star small"></div>
-  <div class="star medium"></div>
-</div>
-
-<!-- RGB BORDER -->
-<div class="rgb-border"></div>
-
-<!-- RGB CORNERS -->
-<div class="rgb-corner top-left"></div>
-<div class="rgb-corner top-right"></div>
-<div class="rgb-corner bottom-left"></div>
-<div class="rgb-corner bottom-right"></div>
-
-<!-- SHOOTING STARS -->
-<div class="shooting-star"></div>
-<div class="shooting-star"></div>
-<div class="shooting-star"></div>
-
-<!-- 3 BULBS TOP -->
-<div class="top-bulbs">
-  <div class="bulb"></div>
-  <div class="bulb"></div>
-  <div class="bulb"></div>
-</div>
-
-<!-- STRING LIGHTS (Reduced) -->
-<div class="string-lights">
-  <div class="light"></div>
-  <div class="light"></div>
-  <div class="light"></div>
-  <div class="light"></div>
-  <div class="light"></div>
-  <div class="light"></div>
-</div>
-
-<!-- SWITCH -->
-<div class="switch-box">
-  <label>
-    <input type="checkbox" onclick="toggleLight()">
-    <div class="switch"></div>
-  </label>
-</div>
-
-<!-- HERO -->
-<div class="hero">
-
-  <div class="light-bars">
-    <span></span><span></span><span></span><span></span>
+  <!-- STARS -->
+  <div class="stars-bg">
+    <div class="star small"></div>
+    <div class="star medium"></div>
+    <div class="star big"></div>
+    <div class="star small"></div>
+    <div class="star medium"></div>
+    <div class="star small"></div>
+    <div class="star big"></div>
+    <div class="star medium"></div>
+    <div class="star small"></div>
+    <div class="star medium"></div>
+    <div class="star small"></div>
+    <div class="star big"></div>
+    <div class="star medium"></div>
+    <div class="star small"></div>
+    <div class="star medium"></div>
+    <div class="star small"></div>
+    <div class="star big"></div>
+    <div class="star medium"></div>
+    <div class="star small"></div>
+    <div class="star medium"></div>
+    <div class="star small"></div>
+    <div class="star big"></div>
+    <div class="star medium"></div>
+    <div class="star small"></div>
+    <div class="star medium"></div>
+    <div class="star small"></div>
+    <div class="star big"></div>
+    <div class="star medium"></div>
+    <div class="star small"></div>
+    <div class="star medium"></div>
   </div>
 
-  <div class="hero-text">
-    <h1>Khan <span>Electrician</span></h1>
-    <p>Reliable • Professional • Affordable</p>
+  <!-- RGB BORDER -->
+  <div class="rgb-border"></div>
+
+  <!-- RGB CORNERS -->
+  <div class="rgb-corner top-left"></div>
+  <div class="rgb-corner top-right"></div>
+  <div class="rgb-corner bottom-left"></div>
+  <div class="rgb-corner bottom-right"></div>
+
+  <!-- SHOOTING STARS -->
+  <div class="shooting-stars">
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
   </div>
 
-</div>
-
-<!-- SERVICES -->
-<section class="services">
-  <h2>Our Services</h2>
-  <div class="service-grid">
-    <div class="service"><i class="fas fa-lightbulb"></i><h3>Lighting Work</h3></div>
-    <div class="service"><i class="fas fa-plug"></i><h3>House Wiring</h3></div>
-    <div class="service"><i class="fas fa-fan"></i><h3>Fan Installation</h3></div>
-    <div class="service"><i class="fas fa-tools"></i><h3>Repair & Maintenance</h3></div>
+  <!-- SWITCH -->
+  <div class="switch-box">
+    <label>
+      <input type="checkbox" onclick="toggleLight()">
+      <div class="switch"></div>
+    </label>
   </div>
-</section>
 
-<!-- CONTACT -->
-<section class="contact">
-  <h2>Contact & Address</h2>
-  <div class="contact-box">
+  <!-- FULL SCREEN TOP SERVICE SHOWCASE -->
+  <section class="hero-slider">
+    <div class="slider-wrap">
+      <p class="slider-label">Professional Multi Services</p>
+      <h1>Our Featured Services</h1>
 
-    <div class="contact-item">
-      <i class="fas fa-phone"></i>
-      <h3>Phone</h3>
-      <p>+91 7822886909</p>
+      <div class="service-showcase" id="serviceShowcase">
+        <div class="service-count" id="serviceCount">01 / 05</div>
+
+        <div class="service-icon-box">
+          <i id="serviceIcon" class="fas fa-plug"></i>
+        </div>
+
+        <h2 id="serviceTitle">House Wiring</h2>
+        <p id="serviceDesc">Safe and reliable electrical wiring for homes with clean finishing and proper support.</p>
+      </div>
+
+      <div class="service-dots" id="serviceDots"></div>
+
+      <p class="hero-note">Electrical, repair, welding, decor and digital services in one place.</p>
     </div>
+  </section>
 
-    <div class="contact-item">
-      <i class="fas fa-envelope"></i>
-      <h3>Email</h3>
-      <p>spathan1862@gmail.com</p>
+  <!-- HEADLINE BELOW TOP SECTION -->
+  <section class="headline-section">
+    <div class="headline-box">
+      <p class="headline-tag">Khan Electrician</p>
+      <h2>Trusted Professional Work for Home and Business Needs</h2>
+      <p>Reliable service, clean workmanship and affordable support for wiring, repair, welding, home decor and web design work.</p>
     </div>
+  </section>
 
-    <div class="contact-item">
-      <i class="fas fa-location-dot"></i>
-      <h3>Address</h3>
-      <p>At Manjargaon ,<br>Tq Badnapur Dt Jalna, Maharashtra, India</p>
+  <!-- SERVICES -->
+  <section class="section services">
+    <h2 class="section-title">Our Services</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <i class="fas fa-plug"></i>
+        <h3>House Wiring</h3>
+        <p>Safe and proper wiring work for homes with neat fitting and dependable results.</p>
+      </div>
+
+      <div class="service-card">
+        <i class="fas fa-hammer"></i>
+        <h3>Welding Work</h3>
+        <p>Strong welding support for repair, frame work and useful custom metal jobs.</p>
+      </div>
+
+      <div class="service-card">
+        <i class="fas fa-house"></i>
+        <h3>Home Decor</h3>
+        <p>Simple and practical decor support to improve the look and feel of your space.</p>
+      </div>
+
+      <div class="service-card">
+        <i class="fas fa-laptop-code"></i>
+        <h3>Web Developer & Designer</h3>
+        <p>Modern and clean website design for personal, business and portfolio needs.</p>
+      </div>
+
+      <div class="service-card">
+        <i class="fas fa-screwdriver-wrench"></i>
+        <h3>Repair & Maintenance</h3>
+        <p>Quick troubleshooting and maintenance work to keep your setup running smoothly.</p>
+      </div>
     </div>
+  </section>
 
-  </div>
-</section>
+  <!-- CONTACT -->
+  <section class="section contact">
+    <h2 class="section-title">Contact & Address</h2>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <i class="fas fa-phone"></i>
+        <h3>Phone</h3>
+        <p>+91 7822886909</p>
+      </div>
 
-<a class="whatsapp"
-href="https://wa.me/917822886909?text=Hello%20Khan%20Electrician%2C%20mujhe%20electrical%20kaam%20karwana%20hai."
-target="_blank">
-<i class="fab fa-whatsapp"></i>
-</a>
+      <div class="contact-item">
+        <i class="fas fa-envelope"></i>
+        <h3>Email</h3>
+        <p>spathan1862@gmail.com</p>
+      </div>
 
-<script>
-function toggleLight(){
-  document.body.classList.toggle("light-on");
-}
-</script>
+      <div class="contact-item">
+        <i class="fas fa-location-dot"></i>
+        <h3>Address</h3>
+        <p>At Manjargaon, Tq Badnapur, Dt Jalna,<br>Maharashtra, India</p>
+      </div>
+    </div>
+  </section>
+
+  <a class="whatsapp"
+     href="https://wa.me/917822886909?text=Hello%20Khan%20Electrician%2C%20mujhe%20service%20ke%20liye%20contact%20karna%20hai."
+     target="_blank">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <script>
+    const serviceData = [
+      {
+        icon: "fa-plug",
+        title: "House Wiring",
+        desc: "Safe and reliable electrical wiring for homes with clean finishing and proper support."
+      },
+      {
+        icon: "fa-hammer",
+        title: "Welding Work",
+        desc: "Strong welding support for repair work, frames and small utility metal jobs."
+      },
+      {
+        icon: "fa-house",
+        title: "Home Decor",
+        desc: "Simple and practical decor support to make your home look better and feel more organized."
+      },
+      {
+        icon: "fa-laptop-code",
+        title: "Web Developer & Designer",
+        desc: "Modern website design and development for business, personal brand and portfolio needs."
+      },
+      {
+        icon: "fa-screwdriver-wrench",
+        title: "Repair & Maintenance",
+        desc: "Quick repair and maintenance support to solve issues on time and keep things working properly."
+      }
+    ];
+
+    const showcase = document.getElementById("serviceShowcase");
+    const serviceCount = document.getElementById("serviceCount");
+    const serviceIcon = document.getElementById("serviceIcon");
+    const serviceTitle = document.getElementById("serviceTitle");
+    const serviceDesc = document.getElementById("serviceDesc");
+    const serviceDots = document.getElementById("serviceDots");
+
+    let currentIndex = 0;
+    let autoSlide;
+
+    function buildDots() {
+      serviceData.forEach((_, index) => {
+        const dot = document.createElement("button");
+        dot.className = "service-dot";
+        dot.type = "button";
+        dot.setAttribute("aria-label", "Show service " + (index + 1));
+        dot.addEventListener("click", () => {
+          showService(index);
+          resetAutoSlide();
+        });
+        serviceDots.appendChild(dot);
+      });
+    }
+
+    function showService(index) {
+      currentIndex = index;
+      const item = serviceData[index];
+
+      showcase.classList.remove("animate");
+      void showcase.offsetWidth;
+      showcase.classList.add("animate");
+
+      serviceCount.textContent =
+        String(index + 1).padStart(2, "0") + " / " +
+        String(serviceData.length).padStart(2, "0");
+
+      serviceIcon.className = "fas " + item.icon;
+      serviceTitle.textContent = item.title;
+      serviceDesc.textContent = item.desc;
+
+      document.querySelectorAll(".service-dot").forEach((dot, i) => {
+        dot.classList.toggle("active", i === index);
+      });
+    }
+
+    function nextService() {
+      showService((currentIndex + 1) % serviceData.length);
+    }
+
+    function resetAutoSlide() {
+      clearInterval(autoSlide);
+      autoSlide = setInterval(nextService, 3000);
+    }
+
+    function toggleLight() {
+      document.body.classList.toggle("light-on");
+    }
+
+    buildDots();
+    showService(0);
+    autoSlide = setInterval(nextService, 3000);
+  </script>
 
 </body>
 </html>
