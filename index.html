@@ -10,7 +10,6 @@
 
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
-
     html{scroll-behavior:smooth}
 
     body{
@@ -192,12 +191,8 @@
       border-radius:50%;
       transition:.3s;
     }
-    input:checked + .switch{
-      background:#ffd700;
-    }
-    input:checked + .switch::after{
-      left:29px;
-    }
+    input:checked + .switch{ background:#ffd700; }
+    input:checked + .switch::after{ left:29px; }
 
     /* ================= SHOOTING STARS ================= */
     .shooting-stars{
@@ -214,24 +209,10 @@
       opacity:0;
       transform:rotate(-45deg);
     }
-    body.light-on .shooting-star{
-      animation:shoot 5s linear infinite;
-    }
-    .shooting-stars .shooting-star:nth-child(1){
-      top:18%;
-      right:10%;
-      animation-delay:0s;
-    }
-    .shooting-stars .shooting-star:nth-child(2){
-      top:38%;
-      right:18%;
-      animation-delay:1.8s;
-    }
-    .shooting-stars .shooting-star:nth-child(3){
-      top:60%;
-      right:5%;
-      animation-delay:3.2s;
-    }
+    body.light-on .shooting-star{ animation:shoot 5s linear infinite; }
+    .shooting-stars .shooting-star:nth-child(1){ top:18%; right:10%; animation-delay:0s; }
+    .shooting-stars .shooting-star:nth-child(2){ top:38%; right:18%; animation-delay:1.8s; }
+    .shooting-stars .shooting-star:nth-child(3){ top:60%; right:5%;  animation-delay:3.2s; }
 
     @keyframes shoot{
       0%{opacity:0;transform:translateX(0) translateY(0) rotate(-45deg)}
@@ -288,9 +269,8 @@
       max-width:650px;
       margin:0 auto;
     }
-    .service-showcase.animate{
-      animation:fadeUp .55s ease;
-    }
+    .service-showcase.animate{ animation:fadeUp .55s ease; }
+
     .service-count{
       display:inline-block;
       padding:7px 14px;
@@ -320,14 +300,9 @@
       border-color:rgba(255,215,0,.18);
       box-shadow:0 0 16px rgba(255,215,0,.10);
     }
-    .service-icon-box i{
-      font-size:36px;
-      color:#ffd700;
-    }
-    #serviceTitle{
-      font-size:30px;
-      margin-bottom:10px;
-    }
+    .service-icon-box i{ font-size:36px; color:#ffd700; }
+
+    #serviceTitle{ font-size:30px; margin-bottom:10px; }
     #serviceDesc{
       color:#d0d0d0;
       line-height:1.7;
@@ -393,10 +368,7 @@
       letter-spacing:2px;
       margin-bottom:10px;
     }
-    .headline-box h2{
-      font-size:36px;
-      margin-bottom:12px;
-    }
+    .headline-box h2{ font-size:36px; margin-bottom:12px; }
     .headline-box p{
       color:#d4d4d4;
       line-height:1.7;
@@ -426,9 +398,7 @@
       margin:10px auto 0;
       border-radius:2px;
     }
-    body.light-on .section-title::after{
-      box-shadow:0 0 10px #ffd700;
-    }
+    body.light-on .section-title::after{ box-shadow:0 0 10px #ffd700; }
 
     /* ================= SERVICES ================= */
     .services-grid{
@@ -467,9 +437,7 @@
     }
 
     /* ================= CONTACT ================= */
-    .contact{
-      background:#0b0b0b;
-    }
+    .contact{ background:#0b0b0b; }
     .contact-grid{
       max-width:1000px;
       margin:auto;
@@ -503,6 +471,22 @@
       line-height:1.7;
     }
 
+    /* clickable contact cards (NEW) */
+    a.contact-item{
+      display:block;
+      text-decoration:none;
+      color:inherit;
+      cursor:pointer;
+    }
+    a.contact-item:hover{
+      transform:translateY(-4px);
+      border-color:rgba(255,215,0,.22);
+    }
+    a.contact-item:focus{
+      outline:2px solid #ffd700;
+      outline-offset:4px;
+    }
+
     /* ================= WHATSAPP ================= */
     .whatsapp{
       position:fixed;
@@ -521,41 +505,19 @@
       z-index:999;
       transition:.3s;
     }
-    body.light-on .whatsapp{
-      box-shadow:0 0 18px #25D366;
-    }
+    body.light-on .whatsapp{ box-shadow:0 0 18px #25D366; }
 
     /* ================= RESPONSIVE ================= */
     @media(max-width:768px){
-      .hero-slider{
-        padding:100px 18px 30px;
-      }
-      .slider-wrap{
-        padding:36px 22px;
-      }
-      .slider-wrap h1{
-        font-size:32px;
-      }
-      #serviceTitle{
-        font-size:24px;
-      }
-      .headline-section{
-        padding:0 18px 60px;
-      }
-      .headline-box h2{
-        font-size:28px;
-      }
-      .section{
-        padding:60px 25px;
-      }
-      .rgb-corner{
-        width:90px;
-        height:90px;
-      }
-      .switch-box{
-        top:18px;
-        right:18px;
-      }
+      .hero-slider{ padding:100px 18px 30px; }
+      .slider-wrap{ padding:36px 22px; }
+      .slider-wrap h1{ font-size:32px; }
+      #serviceTitle{ font-size:24px; }
+      .headline-section{ padding:0 18px 60px; }
+      .headline-box h2{ font-size:28px; }
+      .section{ padding:60px 25px; }
+      .rgb-corner{ width:90px; height:90px; }
+      .switch-box{ top:18px; right:18px; }
     }
   </style>
 </head>
@@ -564,36 +526,12 @@
 
   <!-- STARS -->
   <div class="stars-bg">
-    <div class="star small"></div>
-    <div class="star medium"></div>
-    <div class="star big"></div>
-    <div class="star small"></div>
-    <div class="star medium"></div>
-    <div class="star small"></div>
-    <div class="star big"></div>
-    <div class="star medium"></div>
-    <div class="star small"></div>
-    <div class="star medium"></div>
-    <div class="star small"></div>
-    <div class="star big"></div>
-    <div class="star medium"></div>
-    <div class="star small"></div>
-    <div class="star medium"></div>
-    <div class="star small"></div>
-    <div class="star big"></div>
-    <div class="star medium"></div>
-    <div class="star small"></div>
-    <div class="star medium"></div>
-    <div class="star small"></div>
-    <div class="star big"></div>
-    <div class="star medium"></div>
-    <div class="star small"></div>
-    <div class="star medium"></div>
-    <div class="star small"></div>
-    <div class="star big"></div>
-    <div class="star medium"></div>
-    <div class="star small"></div>
-    <div class="star medium"></div>
+    <div class="star small"></div><div class="star medium"></div><div class="star big"></div><div class="star small"></div><div class="star medium"></div>
+    <div class="star small"></div><div class="star big"></div><div class="star medium"></div><div class="star small"></div><div class="star medium"></div>
+    <div class="star small"></div><div class="star big"></div><div class="star medium"></div><div class="star small"></div><div class="star medium"></div>
+    <div class="star small"></div><div class="star big"></div><div class="star medium"></div><div class="star small"></div><div class="star medium"></div>
+    <div class="star small"></div><div class="star big"></div><div class="star medium"></div><div class="star small"></div><div class="star medium"></div>
+    <div class="star small"></div><div class="star big"></div><div class="star medium"></div><div class="star small"></div><div class="star medium"></div>
   </div>
 
   <!-- RGB BORDER -->
@@ -688,63 +626,51 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- CONTACT (UPDATED: Phone/Email/Address clickable) -->
   <section class="section contact">
     <h2 class="section-title">Contact & Address</h2>
     <div class="contact-grid">
-      <div class="contact-item">
+
+      <!-- Phone -> Dial pad -->
+      <a class="contact-item" href="tel:+917822886909" title="Call Khan Electrician">
         <i class="fas fa-phone"></i>
         <h3>Phone</h3>
         <p>+91 7822886909</p>
-      </div>
+      </a>
 
-      <div class="contact-item">
+      <!-- Email -> Gmail / mail app -->
+      <a class="contact-item" href="mailto:spathan1862@gmail.com" title="Email Khan Electrician">
         <i class="fas fa-envelope"></i>
         <h3>Email</h3>
         <p>spathan1862@gmail.com</p>
-      </div>
+      </a>
 
-      <div class="contact-item">
+      <!-- Address -> Google Maps -->
+      <a class="contact-item"
+         href="https://www.google.com/maps/search/?api=1&query=Manjargaon%2C%20Badnapur%2C%20Jalna%2C%20Maharashtra%2C%20India"
+         target="_blank" rel="noopener noreferrer"
+         title="Open location in Google Maps">
         <i class="fas fa-location-dot"></i>
         <h3>Address</h3>
-        <p>At Manjargaon, Tq Badnapur, Dt Jalna,<br>Maharashtra, India</p>
-      </div>
+        <p>At Manjargaon, Tq Badnapur Dt Jalna,<br>Maharashtra, India</p>
+      </a>
+
     </div>
   </section>
 
   <a class="whatsapp"
      href="https://wa.me/917822886909?text=Hello%20Khan%20Electrician%2C%20mujhe%20service%20ke%20liye%20contact%20karna%20hai."
-     target="_blank">
+     target="_blank" rel="noopener noreferrer">
     <i class="fab fa-whatsapp"></i>
   </a>
 
   <script>
     const serviceData = [
-      {
-        icon: "fa-plug",
-        title: "House Wiring",
-        desc: "Safe and reliable electrical wiring for homes with clean finishing and proper support."
-      },
-      {
-        icon: "fa-hammer",
-        title: "Welding Work",
-        desc: "Strong welding support for repair work, frames and small utility metal jobs."
-      },
-      {
-        icon: "fa-house",
-        title: "Home Decor",
-        desc: "Simple and practical decor support to make your home look better and feel more organized."
-      },
-      {
-        icon: "fa-laptop-code",
-        title: "Web Developer & Designer",
-        desc: "Modern website design and development for business, personal brand and portfolio needs."
-      },
-      {
-        icon: "fa-screwdriver-wrench",
-        title: "Repair & Maintenance",
-        desc: "Quick repair and maintenance support to solve issues on time and keep things working properly."
-      }
+      { icon: "fa-plug", title: "House Wiring", desc: "Safe and reliable electrical wiring for homes with clean finishing and proper support." },
+      { icon: "fa-hammer", title: "Welding Work", desc: "Strong welding support for repair work, frames and small utility metal jobs." },
+      { icon: "fa-house", title: "Home Decor", desc: "Simple and practical decor support to make your home look better and feel more organized." },
+      { icon: "fa-laptop-code", title: "Web Developer & Designer", desc: "Modern website design and development for business, personal brand and portfolio needs." },
+      { icon: "fa-screwdriver-wrench", title: "Repair & Maintenance", desc: "Quick repair and maintenance support to solve issues on time and keep things working properly." }
     ];
 
     const showcase = document.getElementById("serviceShowcase");
