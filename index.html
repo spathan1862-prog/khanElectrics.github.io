@@ -1,286 +1,956 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Khan Electrician | Electrician in Jalna | House Wiring | Welding | Repair</title>
 
-  <!-- SEO Meta -->
-  <meta name="description" content="Khan Electrician provides professional electrical services in Jalna Maharashtra including house wiring, repair, welding, home decor and electrical maintenance. Contact for reliable electrician service.">
-  <meta name="keywords" content="Electrician Jalna, Khan Electrician, Electrician in Badnapur, House Wiring Jalna, Welding Work Jalna, Electrical Repair Jalna, Electrician near me Jalna, Manjargaon electrician, Maharashtra electrician">
-  <meta name="author" content="Khan Electrician">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#000000">
+/* ===== RESET & BASE ===== */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
 
-  <!-- Geo -->
-  <meta name="geo.region" content="IN-MH">
-  <meta name="geo.placename" content="Jalna Maharashtra">
-  <meta name="geo.position" content="19.8410;75.8860">
+body{
+  font-family:'Poppins',sans-serif;
+  background:#000;
+  color:#fff;
+  transition:.4s;
+  overflow-x:hidden;
+}
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Khan Electrician - Professional Electrician in Jalna">
-  <meta property="og:description" content="House wiring, welding work, repair and maintenance services in Jalna Maharashtra.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://spathan1862-prog.github.io/khanElectrics.github.io/">
-  <meta property="og:image" content="https://spathan1862-prog.github.io/khanElectrics.github.io/logo.png">
+/* ===== STARS BACKGROUND ===== */
+.stars-bg{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
+.stars-bg .star{
+  position:absolute;
+  background:#fff;
+  border-radius:50%;
+  opacity:0;
+  transition:.5s;
+}
+.star.small{width:2px;height:2px}
+.star.medium{width:3px;height:3px}
+.star.big{width:5px;height:5px}
 
-  <!-- Canonical -->
-  <link rel="canonical" href="https://spathan1862-prog.github.io/khanElectrics.github.io/">
+.star:nth-child(1){top:5%;left:10%}
+.star:nth-child(2){top:15%;left:25%}
+.star:nth-child(3){top:8%;left:45%}
+.star:nth-child(4){top:20%;left:60%}
+.star:nth-child(5){top:10%;left:80%}
+.star:nth-child(6){top:25%;left:15%}
+.star:nth-child(7){top:35%;left:5%}
+.star:nth-child(8){top:30%;left:35%}
+.star:nth-child(9){top:40%;left:55%}
+.star:nth-child(10){top:28%;left:75%}
+.star:nth-child(11){top:45%;left:90%}
+.star:nth-child(12){top:50%;left:20%}
+.star:nth-child(13){top:55%;left:40%}
+.star:nth-child(14){top:48%;left:65%}
+.star:nth-child(15){top:60%;left:85%}
+.star:nth-child(16){top:65%;left:8%}
+.star:nth-child(17){top:70%;left:30%}
+.star:nth-child(18){top:75%;left:50%}
+.star:nth-child(19){top:68%;left:70%}
+.star:nth-child(20){top:80%;left:92%}
+.star:nth-child(21){top:85%;left:18%}
+.star:nth-child(22){top:90%;left:42%}
+.star:nth-child(23){top:78%;left:58%}
+.star:nth-child(24){top:88%;left:78%}
+.star:nth-child(25){top:95%;left:12%}
+.star:nth-child(26){top:12%;left:92%}
+.star:nth-child(27){top:38%;left:22%}
+.star:nth-child(28){top:52%;left:88%}
+.star:nth-child(29){top:72%;left:3%}
+.star:nth-child(30){top:33%;left:68%}
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="logo.png">
+body.light-on .star{
+  opacity:1;
+  box-shadow:0 0 8px #fff,0 0 16px #fff;
+  animation:twinkle 2s infinite;
+}
+body.light-on .star:nth-child(odd){animation-delay:0s}
+body.light-on .star:nth-child(even){animation-delay:1s}
+body.light-on .star:nth-child(3n){animation-delay:.5s}
+body.light-on .star:nth-child(4n){animation-delay:1.5s}
+body.light-on .star:nth-child(5n){animation-delay:.3s}
 
-  <!-- Preconnect -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+body.light-on .star:nth-child(3n){
+  background:#ffd700;
+  box-shadow:0 0 10px #ffd700;
+}
+body.light-on .star:nth-child(5n){
+  background:#00ffff;
+  box-shadow:0 0 10px #00ffff;
+}
+body.light-on .star:nth-child(7n){
+  background:#ff69b4;
+  box-shadow:0 0 10px #ff69b4;
+}
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H6J3T9CFB8"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-H6J3T9CFB8');
-  </script>
+@keyframes twinkle{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.3;transform:scale(.5)}
+}
 
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+/* ===== RGB BORDER ===== */
+.rgb-border{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:97;
+  opacity:0;
+  transition:.5s;
+}
+body.light-on .rgb-border{opacity:1}
+.rgb-border::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  border:3px solid transparent;
+  background:linear-gradient(90deg,#ff0000,#ff7700,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000) border-box;
+  -webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);
+  mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  animation:rgb-move 4s linear infinite;
+}
+@keyframes rgb-move{
+  0%{filter:hue-rotate(0deg)}
+  100%{filter:hue-rotate(360deg)}
+}
 
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css">
+/* ===== RGB CORNERS ===== */
+.rgb-corner{
+  position:fixed;
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  filter:blur(80px);
+  opacity:0;
+  z-index:1;
+  transition:.5s;
+}
+body.light-on .rgb-corner{opacity:.55}
 
-  <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Electrician",
-    "name": "Khan Electrician",
-    "description": "Professional electrical services in Jalna Maharashtra including house wiring, repair, welding, home decor and electrical maintenance.",
-    "url": "https://spathan1862-prog.github.io/khanElectrics.github.io/",
-    "logo": "https://spathan1862-prog.github.io/khanElectrics.github.io/logo.png",
-    "image": "https://spathan1862-prog.github.io/khanElectrics.github.io/logo.png",
-    "telephone": "+917822886909",
-    "email": "spathan1862@gmail.com",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "At Manjargaon, Tq Badnapur",
-      "addressLocality": "Jalna",
-      "addressRegion": "Maharashtra",
-      "addressCountry": "IN"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 19.8410,
-      "longitude": 75.8860
-    },
-    "areaServed": ["Jalna", "Badnapur", "Manjargaon", "Maharashtra"],
-    "serviceType": ["House Wiring", "Welding Work", "Home Decor", "Web Development", "Electrical Repair & Maintenance"],
-    "priceRange": "$$",
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-      "opens": "08:00",
-      "closes": "20:00"
-    }
+.rgb-corner.top-left{
+  top:-50px;left:-50px;
+  background:#ff0000;
+  animation:rgb-glow 5s infinite;
+}
+.rgb-corner.top-right{
+  top:-50px;right:-50px;
+  background:#00ff00;
+  animation:rgb-glow 5s infinite 1s;
+}
+.rgb-corner.bottom-left{
+  bottom:-50px;left:-50px;
+  background:#0000ff;
+  animation:rgb-glow 5s infinite 2s;
+}
+.rgb-corner.bottom-right{
+  bottom:-50px;right:-50px;
+  background:#ff00ff;
+  animation:rgb-glow 5s infinite 3s;
+}
+
+@keyframes rgb-glow{
+  0%,100%{filter:blur(80px) hue-rotate(0deg)}
+  50%{filter:blur(95px) hue-rotate(180deg)}
+}
+
+/* ===== HEADER / NAVBAR ===== */
+.site-header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:998;
+  background:rgba(0,0,0,.82);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  transition:border-color .4s, box-shadow .4s;
+}
+body.light-on .site-header{
+  border-bottom-color:rgba(255,215,0,.18);
+  box-shadow:0 2px 20px rgba(255,215,0,.08);
+}
+
+.header-inner{
+  max-width:1200px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 24px;
+}
+
+.logo-group{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-decoration:none;
+  color:#fff;
+}
+.logo-group img{
+  width:46px;
+  height:46px;
+  border-radius:10px;
+  object-fit:contain;
+}
+.logo-text{
+  display:flex;
+  flex-direction:column;
+  line-height:1.15;
+}
+.logo-text .brand{
+  font-size:18px;
+  font-weight:700;
+  color:#ffd700;
+}
+.logo-text .tagline{
+  font-size:11px;
+  color:#aaa;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:28px;
+  list-style:none;
+}
+.nav-links a{
+  color:#d0d0d0;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:500;
+  letter-spacing:.5px;
+  transition:color .3s;
+  position:relative;
+}
+.nav-links a::after{
+  content:'';
+  position:absolute;
+  bottom:-4px;
+  left:0;
+  width:0;
+  height:2px;
+  background:#ffd700;
+  border-radius:2px;
+  transition:width .3s;
+}
+.nav-links a:hover{color:#ffd700}
+.nav-links a:hover::after{width:100%}
+
+/* Hamburger */
+.hamburger{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  cursor:pointer;
+  background:none;
+  border:none;
+  padding:6px;
+}
+.hamburger span{
+  display:block;
+  width:24px;
+  height:2px;
+  background:#fff;
+  border-radius:2px;
+  transition:.3s;
+}
+
+/* ===== SWITCH ===== */
+.switch-box{
+  position:fixed;
+  top:80px;
+  right:20px;
+  z-index:999;
+}
+.switch-box input{display:none}
+.switch{
+  width:56px;
+  height:30px;
+  background:#333;
+  border-radius:30px;
+  position:relative;
+  cursor:pointer;
+  border:1px solid rgba(255,255,255,.08);
+}
+.switch::after{
+  content:'';
+  width:22px;
+  height:22px;
+  background:#fff;
+  position:absolute;
+  top:3px;
+  left:3px;
+  border-radius:50%;
+  transition:.3s;
+}
+input:checked + .switch{background:#ffd700}
+input:checked + .switch::after{left:29px}
+
+/* ===== SHOOTING STARS ===== */
+.shooting-stars{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:5;
+}
+.shooting-star{
+  position:absolute;
+  width:120px;
+  height:2px;
+  background:linear-gradient(90deg,#fff,transparent);
+  opacity:0;
+  transform:rotate(-45deg);
+}
+body.light-on .shooting-star{animation:shoot 5s linear infinite}
+.shooting-stars .shooting-star:nth-child(1){top:18%;right:10%;animation-delay:0s}
+.shooting-stars .shooting-star:nth-child(2){top:38%;right:18%;animation-delay:1.8s}
+.shooting-stars .shooting-star:nth-child(3){top:60%;right:5%;animation-delay:3.2s}
+
+@keyframes shoot{
+  0%{opacity:0;transform:translateX(0) translateY(0) rotate(-45deg)}
+  10%{opacity:1}
+  30%{opacity:0;transform:translateX(-220px) translateY(220px) rotate(-45deg)}
+  100%{opacity:0}
+}
+
+/* ===== FULL SCREEN SERVICE HERO ===== */
+.hero-slider{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:90px 20px 40px;
+  position:relative;
+  z-index:10;
+}
+.hero-slider::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at top,rgba(255,215,0,.08),transparent 40%);
+  pointer-events:none;
+}
+.slider-wrap{
+  width:min(920px,100%);
+  background:rgba(10,10,10,.78);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:24px;
+  padding:48px 34px;
+  text-align:center;
+  backdrop-filter:blur(12px);
+  position:relative;
+  z-index:2;
+  box-shadow:0 20px 60px rgba(0,0,0,.45);
+}
+body.light-on .slider-wrap{
+  border-color:rgba(255,215,0,.22);
+  box-shadow:0 0 25px rgba(255,215,0,.10),0 20px 60px rgba(0,0,0,.45);
+}
+.slider-label{
+  color:#ffd700;
+  font-size:13px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+.slider-wrap h1{
+  font-size:44px;
+  margin-bottom:16px;
+}
+.hero-slider-row{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  justify-content:center;
+}
+.hero-arrow{
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(20,20,20,.85);
+  backdrop-filter:blur(8px);
+  color:#ffd700;
+  font-size:18px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  transition:all .3s ease;
+  z-index:2;
+}
+.hero-arrow:hover{
+  background:rgba(255,215,0,.15);
+  border-color:rgba(255,215,0,.35);
+  box-shadow:0 0 18px rgba(255,215,0,.20);
+  transform:scale(1.08);
+}
+body.light-on .hero-arrow{
+  border-color:rgba(255,215,0,.22);
+  box-shadow:0 0 10px rgba(255,215,0,.08);
+}
+
+.service-showcase{
+  max-width:650px;
+  flex:1;
+}
+.service-showcase.animate{animation:fadeUp .55s ease}
+
+.service-count{
+  display:inline-block;
+  padding:7px 14px;
+  border-radius:999px;
+  background:#141414;
+  border:1px solid rgba(255,255,255,.08);
+  color:#e5e5e5;
+  font-size:13px;
+  margin-bottom:18px;
+}
+body.light-on .service-count{
+  border-color:rgba(255,215,0,.18);
+  box-shadow:0 0 10px rgba(255,215,0,.08);
+}
+.service-icon-box{
+  width:92px;
+  height:92px;
+  border-radius:22px;
+  background:#141414;
+  border:1px solid rgba(255,255,255,.08);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 18px;
+}
+body.light-on .service-icon-box{
+  border-color:rgba(255,215,0,.18);
+  box-shadow:0 0 16px rgba(255,215,0,.10);
+}
+.service-icon-box i{font-size:36px;color:#ffd700}
+
+#serviceTitle{font-size:30px;margin-bottom:10px}
+#serviceDesc{
+  color:#d0d0d0;
+  line-height:1.7;
+  font-size:15px;
+  max-width:580px;
+  margin:0 auto;
+}
+.service-dots{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:28px;
+}
+.service-dot{
+  width:12px;
+  height:12px;
+  border:none;
+  border-radius:50%;
+  background:#333;
+  cursor:pointer;
+  transition:.3s;
+}
+.service-dot.active{
+  background:#ffd700;
+  transform:scale(1.15);
+  box-shadow:0 0 10px #ffd700;
+}
+.hero-note{
+  margin-top:18px;
+  color:#cfcfcf;
+  font-size:15px;
+}
+.hero-enquire{
+  margin-top:16px;
+  color:#25D366;
+  font-size:13px;
+  font-weight:500;
+  letter-spacing:.5px;
+  opacity:.85;
+  transition:.3s;
+}
+.hero-enquire i{
+  margin-right:4px;
+  font-size:15px;
+}
+.service-showcase:hover .hero-enquire{
+  opacity:1;
+  text-shadow:0 0 8px rgba(37,211,102,.4);
+}
+
+@keyframes fadeUp{
+  0%{opacity:0;transform:translateY(14px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+
+/* ===== HEADLINE SECTION ===== */
+.headline-section{
+  padding:0 20px 80px;
+  position:relative;
+  z-index:10;
+  margin-top:-10px;
+}
+.headline-box{
+  max-width:950px;
+  margin:auto;
+  text-align:center;
+  background:#0f0f0f;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:22px;
+  padding:36px 28px;
+}
+body.light-on .headline-box{
+  border-color:rgba(255,215,0,.16);
+  box-shadow:0 0 18px rgba(255,215,0,.10);
+}
+.headline-tag{
+  color:#ffd700;
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  margin-bottom:10px;
+}
+.headline-box h2{font-size:36px;margin-bottom:12px}
+.headline-box p{
+  color:#d4d4d4;
+  line-height:1.7;
+  font-size:16px;
+  max-width:780px;
+  margin:auto;
+}
+
+/* ===== COMMON SECTION ===== */
+.section{
+  padding:80px 60px;
+  position:relative;
+  z-index:10;
+}
+.section-title{
+  text-align:center;
+  margin-bottom:36px;
+  font-size:34px;
+  position:relative;
+}
+.section-title::after{
+  content:'';
+  display:block;
+  width:80px;
+  height:3px;
+  background:#ffd700;
+  margin:10px auto 0;
+  border-radius:2px;
+}
+body.light-on .section-title::after{box-shadow:0 0 10px #ffd700}
+
+/* ===== SERVICES CAROUSEL ===== */
+.carousel-container{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  max-width:1100px;
+  margin:0 auto;
+  position:relative;
+}
+.carousel-track-wrapper{
+  overflow:hidden;
+  border-radius:18px;
+  flex:1;
+}
+.carousel-track{
+  display:flex;
+  transition:transform .5s cubic-bezier(.4,0,.2,1);
+  will-change:transform;
+}
+.carousel-track .service-card{
+  min-width:100%;
+  flex-shrink:0;
+  background:#101010;
+  padding:40px 32px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.06);
+  text-align:center;
+  transition:border-color .3s, box-shadow .3s;
+}
+.carousel-track .service-card:hover{
+  border-color:rgba(255,215,0,.22);
+}
+body.light-on .carousel-track .service-card{
+  border-color:rgba(255,215,0,.14);
+  box-shadow:0 0 14px rgba(255,215,0,.10);
+}
+.service-card i{
+  font-size:38px;
+  color:#ffd700;
+  margin-bottom:16px;
+}
+.service-card h3{
+  font-size:22px;
+  margin-bottom:10px;
+}
+.service-card p{
+  color:#d2d2d2;
+  line-height:1.7;
+  font-size:15px;
+  max-width:520px;
+  margin:0 auto;
+}
+
+/* Carousel Arrows */
+.carousel-arrow{
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(20,20,20,.85);
+  backdrop-filter:blur(8px);
+  color:#ffd700;
+  font-size:18px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  transition:all .3s ease;
+  z-index:2;
+}
+.carousel-arrow:hover{
+  background:rgba(255,215,0,.15);
+  border-color:rgba(255,215,0,.35);
+  box-shadow:0 0 18px rgba(255,215,0,.20);
+  transform:scale(1.08);
+}
+body.light-on .carousel-arrow{
+  border-color:rgba(255,215,0,.22);
+  box-shadow:0 0 10px rgba(255,215,0,.08);
+}
+
+/* Carousel Dots */
+.carousel-dots{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin-top:24px;
+}
+.c-dot{
+  width:12px;
+  height:12px;
+  border:none;
+  border-radius:50%;
+  background:#333;
+  cursor:pointer;
+  transition:all .3s;
+}
+.c-dot.active{
+  background:#ffd700;
+  transform:scale(1.2);
+  box-shadow:0 0 10px #ffd700;
+}
+
+/* ===== CONTACT ===== */
+.contact{background:#0b0b0b}
+.contact-grid{
+  max-width:1000px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:26px;
+}
+.contact-item{
+  background:#101010;
+  padding:26px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.06);
+  transition:.3s;
+}
+body.light-on .contact-item{
+  border-color:rgba(255,215,0,.14);
+  box-shadow:0 0 12px rgba(255,215,0,.10);
+}
+.contact-item i{
+  color:#ffd700;
+  font-size:24px;
+  margin-bottom:10px;
+}
+.contact-item h3{
+  font-size:18px;
+  margin-bottom:6px;
+}
+.contact-item p{
+  color:#d2d2d2;
+  font-size:14px;
+  line-height:1.7;
+}
+
+/* Clickable contact cards */
+a.contact-item{
+  display:block;
+  text-decoration:none;
+  color:inherit;
+  cursor:pointer;
+}
+a.contact-item:hover{
+  transform:translateY(-4px);
+  border-color:rgba(255,215,0,.22);
+}
+a.contact-item:focus{
+  outline:2px solid #ffd700;
+  outline-offset:4px;
+}
+
+/* ===== FOOTER ===== */
+.site-footer{
+  position:relative;
+  z-index:10;
+  text-align:center;
+  padding:32px 20px;
+  border-top:1px solid rgba(255,255,255,.06);
+  background:#080808;
+}
+body.light-on .site-footer{
+  border-top-color:rgba(255,215,0,.14);
+}
+.footer-inner{
+  max-width:1000px;
+  margin:0 auto;
+}
+.footer-logo{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+  text-decoration:none;
+  color:#fff;
+}
+.footer-logo img{
+  width:34px;
+  height:34px;
+  border-radius:8px;
+  object-fit:contain;
+}
+.footer-logo span{
+  font-size:16px;
+  font-weight:600;
+  color:#ffd700;
+}
+.footer-copy{
+  color:#888;
+  font-size:13px;
+}
+.footer-copy a{
+  color:#ffd700;
+  text-decoration:none;
+}
+
+/* ===== WHATSAPP WIDGET ===== */
+.wa-widget-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.wa-button {
+  width: 60px;
+  height: 60px;
+  background: #25D366;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+  transition: .3s;
+  outline: none;
+}
+.wa-button:hover {
+  transform: scale(1.08);
+}
+body.light-on .wa-button {
+  box-shadow: 0 0 18px #25D366;
+}
+
+.wa-popup {
+  width: 300px;
+  background: #111;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transform: scale(0);
+  transform-origin: bottom right;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  pointer-events: none;
+}
+.wa-popup.show {
+  transform: scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+body.light-on .wa-popup {
+  border-color: rgba(255, 215, 0, 0.2);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+}
+
+.wa-popup-header {
+  background: #075E54;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+}
+.wa-header-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.wa-header-icon {
+  font-size: 32px;
+  color: #fff;
+}
+.wa-header-info h4 {
+  font-size: 16px;
+  margin: 0;
+  font-weight: 600;
+  color: #fff;
+}
+.wa-header-info p {
+  font-size: 12px;
+  margin: 0;
+  opacity: 0.8;
+  color: #e5e5e5;
+}
+.wa-close {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: .2s;
+}
+.wa-close:hover {
+  opacity: 1;
+}
+
+.wa-popup-body {
+  padding: 18px;
+  background: #0b0b0b;
+}
+.wa-message-bubble {
+  background: #1e1e1e;
+  padding: 12px 14px;
+  border-radius: 0 16px 16px 16px;
+  font-size: 13px;
+  color: #e5e5e5;
+  line-height: 1.5;
+  margin-bottom: 18px;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.wa-message-bubble::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -8px;
+  width: 0;
+  height: 0;
+  border-top: 8px solid #1e1e1e;
+  border-left: 8px solid transparent;
+}
+.wa-select-container {
+  margin-bottom: 16px;
+}
+.wa-select {
+  width: 100%;
+  padding: 12px;
+  background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+}
+.wa-select:focus {
+  border-color: #25D366;
+}
+.wa-send-btn {
+  width: 100%;
+  padding: 12px;
+  background: #25D366;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  transition: .2s;
+}
+.wa-send-btn:hover {
+  background: #1EBE5D;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .hero-slider{padding:100px 18px 30px}
+  .slider-wrap{padding:36px 22px}
+  .slider-wrap h1{font-size:32px}
+  #serviceTitle{font-size:24px}
+  .headline-section{padding:0 18px 60px}
+  .headline-box h2{font-size:28px}
+  .section{padding:60px 25px}
+  .rgb-corner{width:90px;height:90px}
+  .switch-box{top:76px;right:18px}
+
+  /* Mobile carousel */
+  .carousel-arrow{width:38px;height:38px;font-size:14px}
+  .carousel-track .service-card{padding:30px 18px}
+
+  /* Mobile nav */
+  .hamburger{display:flex}
+  .nav-links{
+    position:fixed;
+    top:0;
+    right:-280px;
+    width:260px;
+    height:100vh;
+    background:rgba(10,10,10,.96);
+    backdrop-filter:blur(16px);
+    flex-direction:column;
+    padding:90px 30px 40px;
+    gap:24px;
+    transition:right .35s ease;
+    border-left:1px solid rgba(255,255,255,.06);
+    z-index:1000;
   }
-  </script>
-</head>
+  .nav-links.open{right:0}
+  .nav-links a{font-size:16px}
 
-<body>
-
-  <!-- ========== HEADER / NAVBAR ========== -->
-  <header class="site-header" id="siteHeader">
-    <div class="header-inner">
-      <a href="#" class="logo-group" aria-label="Khan Electrician Home">
-        <img src="logo.png" alt="Khan Electrician Logo" width="46" height="46" loading="eager">
-        <div class="logo-text">
-          <span class="brand">Khan Electrician</span>
-          <span class="tagline">Jalna • Maharashtra</span>
-        </div>
-      </a>
-
-      <nav>
-        <ul class="nav-links" id="navLinks">
-          <li><a href="#services">Services</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-
-      <button class="hamburger" id="hamburger" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
-  <div class="nav-overlay" id="navOverlay"></div>
-
-  <!-- STARS -->
-  <div class="stars-bg">
-    <div class="star small"></div><div class="star medium"></div><div class="star big"></div><div class="star small"></div><div class="star medium"></div>
-    <div class="star small"></div><div class="star big"></div><div class="star medium"></div><div class="star small"></div><div class="star medium"></div>
-    <div class="star small"></div><div class="star big"></div><div class="star medium"></div><div class="star small"></div><div class="star medium"></div>
-    <div class="star small"></div><div class="star big"></div><div class="star medium"></div><div class="star small"></div><div class="star medium"></div>
-    <div class="star small"></div><div class="star big"></div><div class="star medium"></div><div class="star small"></div><div class="star medium"></div>
-    <div class="star small"></div><div class="star big"></div><div class="star medium"></div><div class="star small"></div><div class="star medium"></div>
-  </div>
-
-  <!-- RGB BORDER -->
-  <div class="rgb-border"></div>
-
-  <!-- RGB CORNERS -->
-  <div class="rgb-corner top-left"></div>
-  <div class="rgb-corner top-right"></div>
-  <div class="rgb-corner bottom-left"></div>
-  <div class="rgb-corner bottom-right"></div>
-
-  <!-- SHOOTING STARS -->
-  <div class="shooting-stars">
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-  </div>
-
-  <!-- SWITCH -->
-  <div class="switch-box" title="Toggle light effects">
-    <label>
-      <input type="checkbox" onclick="toggleLight()">
-      <div class="switch"></div>
-    </label>
-  </div>
-
-  <!-- ========== HERO SERVICE SHOWCASE ========== -->
-  <section class="hero-slider">
-    <div class="slider-wrap">
-      <p class="slider-label">Professional Multi Services</p>
-      <h1>Our Featured Services</h1>
-
-      <div class="service-showcase" id="serviceShowcase">
-        <div class="service-count" id="serviceCount">01 / 05</div>
-
-        <div class="service-icon-box">
-          <i id="serviceIcon" class="fas fa-plug"></i>
-        </div>
-
-        <h2 id="serviceTitle">House Wiring</h2>
-        <p id="serviceDesc">Safe and reliable electrical wiring for homes with clean finishing and proper support.</p>
-      </div>
-
-      <div class="service-dots" id="serviceDots"></div>
-
-      <p class="hero-note">Electrical, repair, welding, decor and digital services in one place.</p>
-    </div>
-  </section>
-
-  <!-- HEADLINE BELOW TOP SECTION -->
-  <section class="headline-section">
-    <div class="headline-box">
-      <p class="headline-tag">Khan Electrician</p>
-      <h2>Trusted Professional Work for Home and Business Needs</h2>
-      <p>Reliable service, clean workmanship and affordable support for wiring, repair, welding, home decor and web design work.</p>
-    </div>
-  </section>
-
-  <!-- ========== SERVICES (5 CARDS ONLY) ========== -->
-  <section class="section services" id="services">
-    <h2 class="section-title">Our Services</h2>
-    <div class="services-grid">
-
-      <!-- 1. House Wiring -->
-      <div class="service-card">
-        <i class="fas fa-plug"></i>
-        <h3>House Wiring</h3>
-        <p>Safe and proper wiring work for homes with neat fitting and dependable results.</p>
-      </div>
-
-      <!-- 2. Welding Work -->
-      <div class="service-card">
-        <i class="fas fa-hammer"></i>
-        <h3>Welding Work</h3>
-        <p>Strong welding support for repair, frame work and useful custom metal jobs.</p>
-      </div>
-
-      <!-- 3. Home Decor -->
-      <div class="service-card">
-        <i class="fas fa-house"></i>
-        <h3>Home Decor</h3>
-        <p>Simple and practical decor support to improve the look and feel of your space.</p>
-      </div>
-
-      <!-- 4. Web Developer & Designer -->
-      <div class="service-card">
-        <i class="fas fa-laptop-code"></i>
-        <h3>Web Developer &amp; Designer</h3>
-        <p>Modern and clean website design for personal, business and portfolio needs.</p>
-      </div>
-
-      <!-- 5. Repair & Maintenance -->
-      <div class="service-card">
-        <i class="fas fa-screwdriver-wrench"></i>
-        <h3>Repair &amp; Maintenance</h3>
-        <p>Quick troubleshooting and maintenance work to keep your setup running smoothly.</p>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ========== CONTACT ========== -->
-  <section class="section contact" id="contact">
-    <h2 class="section-title">Contact &amp; Address</h2>
-    <div class="contact-grid">
-
-      <!-- Phone -->
-      <a class="contact-item" href="tel:+917822886909" title="Call Khan Electrician">
-        <i class="fas fa-phone"></i>
-        <h3>Phone</h3>
-        <p>+91 7822886909</p>
-      </a>
-
-      <!-- Email -->
-      <a class="contact-item" href="mailto:spathan1862@gmail.com" title="Email Khan Electrician">
-        <i class="fas fa-envelope"></i>
-        <h3>Email</h3>
-        <p>spathan1862@gmail.com</p>
-      </a>
-
-      <!-- Address -->
-      <a class="contact-item"
-         href="https://www.google.com/maps/search/?api=1&query=Manjargaon%2C%20Badnapur%2C%20Jalna%2C%20Maharashtra%2C%20India"
-         target="_blank" rel="noopener noreferrer"
-         title="Open location in Google Maps">
-        <i class="fas fa-location-dot"></i>
-        <h3>Address</h3>
-        <p>At Manjargaon, Tq Badnapur Dt Jalna,<br>Maharashtra, India</p>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- ========== FOOTER ========== -->
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <a href="#" class="footer-logo" aria-label="Khan Electrician">
-        <img src="logo.png" alt="Khan Electrician" width="34" height="34" loading="lazy">
-        <span>Khan Electrician</span>
-      </a>
-      <p class="footer-copy">&copy; 2026 Khan Electrician &mdash; Jalna, Maharashtra. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <!-- WHATSAPP -->
-  <a class="whatsapp"
-     href="https://wa.me/917822886909?text=Hello%20Khan%20Electrician%2C%20mujhe%20service%20ke%20liye%20contact%20karna%20hai."
-     target="_blank" rel="noopener noreferrer"
-     aria-label="Chat on WhatsApp">
-    <i class="fab fa-whatsapp"></i>
-  </a>
-
-  <noscript>
-    <p style="text-align:center;padding:40px;color:#ffd700;">Please enable JavaScript for the best experience on this site.</p>
-  </noscript>
-
-  <!-- Script -->
-  <script src="script.js" defer></script>
-
-</body>
-</html>
+  .nav-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    z-index:999;
+  }
+  .nav-overlay.show{display:block}
+}
