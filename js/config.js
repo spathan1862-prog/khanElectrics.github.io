@@ -6,7 +6,7 @@
 const CONFIG = {
     // Business Information
     businessName: "SK Electrical Services",
-    whatsappNumber: "+91 7822886909", // Replace with your WhatsApp number (include country code without +)
+    whatsappNumber: "+917822886909", // Replace with your WhatsApp number (include country code without +)
     phoneNumber: "+91 7822886909",
     email: "spathan1862@gmail.com ",
     address: "At Manjargaon , Badnapur , Jalna",
