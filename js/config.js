@@ -6,10 +6,10 @@
 const CONFIG = {
     // Business Information
     businessName: "SK Electrical Services",
-    whatsappNumber: "919822338978", // Replace with your WhatsApp number (include country code without +)
-    phoneNumber: "+91 9822338978",
-    email: "info@skelectrical.com",
-    address: "Your Shop Address, City, State",
+    whatsappNumber: "+91 7822886909", // Replace with your WhatsApp number (include country code without +)
+    phoneNumber: "+91 7822886909",
+    email: "spathan1862@gmail.com ",
+    address: "At Manjargaon , Badnapur , Jalna",
 
     // Google Sheet CSV URLs (Publish to web -> CSV)
     sheets: {
