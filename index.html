@@ -1,287 +1,240 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Khan Electrician | Electrician in Jalna | House Wiring | Welding | Repair</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SK Electrical Services | Professional Electrical Solutions</title>
 
-  <!-- SEO Meta -->
-  <meta name="description" content="Khan Electrician provides professional electrical services in Jalna Maharashtra including house wiring, repair, welding, home decor and electrical maintenance. Contact for reliable electrician service.">
-  <meta name="keywords" content="Khan Electrician Jalna, Electrician in Jalna, House Wiring Jalna, Electrical Repair Jalna, Welding Work Jalna, Best Electrician Jalna, Electrician near me Jalna, Jalna Tour and Travels, Travels in Jalna, Cab Service Jalna, Car Rental Jalna, Taxi Service Jalna, Jalna to Aurangabad cab, Jalna Maharashtra services">
-  <meta name="author" content="Khan Electrician">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#000000">
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Professional electrical services including home wiring, repairs, and maintenance. SK Electrical Services offers reliable and safe solutions for your home and business.">
+    <meta name="keywords"
+        content="electrician near me, house wiring, electrical repairs, solar installation, inverter maintenance, khan Electrical Services">
 
-  <!-- Geo -->
-  <meta name="geo.region" content="IN-MH">
-  <meta name="geo.placename" content="Jalna Maharashtra">
-  <meta name="geo.position" content="19.8410;75.8860">
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Khan Electrician - Professional Electrician in Jalna">
-  <meta property="og:description" content="House wiring, welding work, repair and maintenance services in Jalna Maharashtra.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://spathan1862-prog.github.io/khanElectrics.github.io/">
-  <meta property="og:image" content="https://spathan1862-prog.github.io/khanElectrics.github.io/logo.png">
-
-  <!-- Canonical -->
-  <link rel="canonical" href="https://spathan1862-prog.github.io/khanElectrics.github.io/">
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="logo.png">
-
-  <!-- Preconnect for faster external loads -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H6J3T9CFB8"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-H6J3T9CFB8');
-  </script>
-
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css">
-
-  <!-- JSON-LD Structured Data for Local Business -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Electrician",
-    "name": "Khan Electrician",
-    "description": "Professional electrical services in Jalna Maharashtra including house wiring, repair, welding, home decor and electrical maintenance.",
-    "url": "https://spathan1862-prog.github.io/khanElectrics.github.io/",
-    "logo": "https://spathan1862-prog.github.io/khanElectrics.github.io/logo.png",
-    "image": "https://spathan1862-prog.github.io/khanElectrics.github.io/logo.png",
-    "telephone": "+917822886909",
-    "email": "spathan1862@gmail.com",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "At Manjargaon, Tq Badnapur",
-      "addressLocality": "Jalna",
-      "addressRegion": "Maharashtra",
-      "addressCountry": "IN"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 19.8410,
-      "longitude": 75.8860
-    },
-    "areaServed": ["Jalna", "Badnapur", "Manjargaon", "Maharashtra"],
-    "serviceType": ["House Wiring", "Welding Work", "Home Decor", "Web Development", "Electrical Repair & Maintenance"],
-    "priceRange": "$$",
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-      "opens": "08:00",
-      "closes": "20:00"
-    }
-  }
-  </script>
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
 
-  <!-- ========== HEADER / NAVBAR ========== -->
-  <header class="site-header" id="siteHeader">
-    <div class="header-inner">
-      <a href="#" class="logo-group" aria-label="Khan Electrician Home">
-        <img src="logo.png" alt="Khan Electrician Logo" width="46" height="46" loading="eager">
-        <div class="logo-text">
-          <span class="brand">Khan Electrician</span>
-          <span class="tagline">Jalna • Maharashtra</span>
+    <!-- ─── Header ─── -->
+    <header class="header" id="header">
+        <div class="container nav-content">
+            <a href="#" class="logo">
+                <div class="logo-icon"><i data-lucide="zap"></i></div>
+                <span> Khan Electrical Services</span>
+            </a>
+
+            <nav class="nav-links" id="nav-links">
+                <a href="#home" class="active">Home</a>
+                <a href="#services">Services</a>
+                <a href="#products">Products</a>
+                <a href="#projects">Projects</a>
+                <a href="#about">About Us</a>
+                <a href="#contact">Contact</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" title="Toggle Theme">
+                    <i data-lucide="moon" id="theme-icon"></i>
+                </button>
+                <div class="hamburger" id="hamburger">
+                    <i data-lucide="menu"></i>
+                </div>
+            </div>
         </div>
-      </a>
+    </header>
 
-      <nav>
-        <ul class="nav-links" id="navLinks">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="index.html#services">Services</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </nav>
+    <main>
+        <!-- ─── Hero Section ─── -->
+        <section class="hero" id="home">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
 
-      <button class="hamburger" id="hamburger" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
-  <div class="nav-overlay" id="navOverlay"></div>
+            <div class="container hero-content">
+                <span class="badge fade-up">⚡ Professional & Certified Electricians</span>
+                <h1 class="fade-up">Professional <br><span class="gradient-text">Electrical Services</span></h1>
+                <p class="fade-up">Home Wiring, Repairs, Installation & Maintenance. We provide high-quality, safe, and
+                    reliable electrical solutions for your property.</p>
 
-  <!-- STARS -->
-  <div class="stars-bg">
-    <div class="star small"></div><div class="star medium"></div><div class="star big"></div><div class="star small"></div><div class="star medium"></div>
-    <div class="star small"></div><div class="star big"></div><div class="star medium"></div><div class="star small"></div><div class="star medium"></div>
-    <div class="star small"></div><div class="star big"></div><div class="star medium"></div><div class="star small"></div><div class="star medium"></div>
-    <div class="star small"></div><div class="star big"></div><div class="star medium"></div><div class="star small"></div><div class="star medium"></div>
-    <div class="star small"></div><div class="star big"></div><div class="star medium"></div><div class="star small"></div><div class="star medium"></div>
-    <div class="star small"></div><div class="star big"></div><div class="star medium"></div><div class="star small"></div><div class="star medium"></div>
-  </div>
+                <div class="hero-btns fade-up">
+                    <a href="#contact" class="btn-primary">
+                        <i data-lucide="calendar"></i> Book Service
+                    </a>
+                    <a href="#" id="hero-whatsapp" class="btn-whatsapp" target="_blank">
+                        <i data-lucide="message-circle"></i> WhatsApp Us
+                    </a>
+                </div>
+            </div>
+        </section>
 
-  <!-- RGB BORDER -->
-  <div class="rgb-border"></div>
+        <!-- ─── Services Section ─── -->
+        <section class="section" id="services">
+            <div class="container">
+                <div class="section-header fade-up">
+                    <span class="section-label">Our Expertise</span>
+                    <h2 class="section-title">Specialized Services</h2>
+                </div>
 
-  <!-- RGB CORNERS -->
-  <div class="rgb-corner top-left"></div>
-  <div class="rgb-corner top-right"></div>
-  <div class="rgb-corner bottom-left"></div>
-  <div class="rgb-corner bottom-right"></div>
+                <div class="section-grid" id="services-grid">
+                    <!-- Statis services will be rendered here for quick load, or via JS -->
+                </div>
+            </div>
+        </section>
 
-  <!-- SHOOTING STARS -->
-  <div class="shooting-stars">
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-  </div>
+        <!-- ─── Products Section ─── -->
+        <section class="section" id="products">
+            <div class="container">
+                <div class="section-header fade-up">
+                    <span class="section-label">Quality Supplies</span>
+                    <h2 class="section-title">Electrical Products</h2>
+                </div>
 
-  <!-- SWITCH -->
-  <div class="switch-box" title="Toggle light effects">
-    <label>
-      <input type="checkbox" onclick="toggleLight()">
-      <div class="switch"></div>
-    </label>
-  </div>
+                <div class="controls fade-up">
+                    <div class="pills" id="category-pills">
+                        <div class="pill active" data-category="All">All</div>
+                        <!-- Categories will be dynamic -->
+                    </div>
+                    <div class="search-box">
+                        <input type="text" id="search-input" class="search-input" placeholder="Search products...">
+                    </div>
+                </div>
 
-  <!-- ========== HERO SERVICE SHOWCASE ========== -->
-  <section class="hero-slider">
-    <div class="slider-wrap">
-      <p class="slider-label">Professional Multi Services</p>
-      <h1>Our Featured Services</h1>
+                <div class="section-grid" id="products-grid">
+                    <!-- Skeletons while loading -->
+                    <div class="card skeleton" style="height: 350px;"></div>
+                    <div class="card skeleton" style="height: 350px;"></div>
+                    <div class="card skeleton" style="height: 350px;"></div>
+                </div>
+            </div>
+        </section>
 
-      <div class="hero-slider-row">
-        <button class="hero-arrow hero-arrow-left" id="heroLeft" aria-label="Previous service">
-          <i class="fas fa-chevron-left"></i>
-        </button>
+        <!-- ─── Projects Section ─── -->
+        <section class="section" id="projects">
+            <div class="container">
+                <div class="section-header fade-up">
+                    <span class="section-label">Our Work</span>
+                    <h2 class="section-title">Recent Projects</h2>
+                </div>
 
-        <div class="service-showcase" id="serviceShowcase" style="cursor:pointer" title="Click to enquire on WhatsApp">
-          <div class="service-count" id="serviceCount">01 / 05</div>
+                <div class="section-grid" id="projects-grid">
+                    <!-- Projects dynamic -->
+                </div>
+            </div>
+        </section>
 
-          <div class="service-icon-box">
-            <i id="serviceIcon" class="fas fa-plug"></i>
-          </div>
+        <!-- ─── Testimonials Section ─── -->
+        <section class="section" id="testimonials">
+            <div class="container">
+                <div class="section-header fade-up">
+                    <span class="section-label">Testimonials</span>
+                    <h2 class="section-title">What Our Clients Say</h2>
+                </div>
 
-          <h2 id="serviceTitle">House Wiring</h2>
-          <p id="serviceDesc">Safe and reliable electrical wiring for homes with clean finishing and proper support.</p>
-          <p class="hero-enquire"><i class="fab fa-whatsapp"></i> Tap to enquire on WhatsApp</p>
+                <div class="testimonials-grid" id="testimonials-grid">
+                    <!-- Testimonials dynamic -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── About Section ─── -->
+        <section class="section" id="about">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="fade-up">
+                        <span class="section-label">About Us</span>
+                        <h2 class="section-title">Reliable Electricians for 10+ Years</h2>
+                        <p style="color: var(--text-muted); margin-bottom: 24px;">SK Electrical Services has been
+                            provider of choice for residential and commercial electrical needs. Our team of certified
+                            professionals is dedicated to safety, excellence, and customer satisfaction.</p>
+                        <ul style="display: grid; gap: 12px;">
+                            <li><i data-lucide="check-circle"
+                                    style="color: var(--primary); vertical-align: middle;"></i> 24/7 Emergency Support
+                            </li>
+                            <li><i data-lucide="check-circle"
+                                    style="color: var(--primary); vertical-align: middle;"></i> Certified & Insured
+                                Teams</li>
+                            <li><i data-lucide="check-circle"
+                                    style="color: var(--primary); vertical-align: middle;"></i> Transparent Pricing</li>
+                        </ul>
+                    </div>
+                    <div class="card fade-up">
+                        <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80"
+                            alt="Team at work" style="height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── Contact Section ─── -->
+        <section class="section" id="contact">
+            <div class="container">
+                <div class="section-header fade-up">
+                    <span class="section-label">Get In Touch</span>
+                    <h2 class="section-title">Contact Us Now</h2>
+                </div>
+
+                <div class="contact-grid">
+                    <div class="contact-info fade-up">
+                        <div class="contact-item">
+                            <div class="contact-icon"><i data-lucide="map-pin"></i></div>
+                            <div>
+                                <h4>Our Location</h4>
+                                <p id="footer-address">Loading address...</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i data-lucide="phone"></i></div>
+                            <div>
+                                <h4>Call Us</h4>
+                                <p id="footer-phone">Loading phone...</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i data-lucide="mail"></i></div>
+                            <div>
+                                <h4>Email Us</h4>
+                                <p id="footer-email">Loading email...</p>
+                            </div>
+                        </div>
+
+                        <div class="hero-btns" style="justify-content: flex-start; margin-top: 20px;">
+                            <a href="#" id="contact-whatsapp" class="btn-whatsapp" target="_blank">
+                                <i data-lucide="message-circle"></i> Chat Now
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="map-card fade-up">
+                        <iframe id="google-map" width="100%" height="100%" style="border:0;" allowfullscreen=""
+                            loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer style="padding: 40px 0; border-top: 1px solid var(--border); text-align: center;">
+        <div class="container">
+            <p>&copy; <span id="year"></span> <span id="footer-name">SK Electrical Services</span>. All rights reserved.
+            </p>
         </div>
+    </footer>
 
-        <button class="hero-arrow hero-arrow-right" id="heroRight" aria-label="Next service">
-          <i class="fas fa-chevron-right"></i>
-        </button>
-      </div>
-
-      <div class="service-dots" id="serviceDots"></div>
-
-      <p class="hero-note">Electrical, welding, decor, digital and travel services in one place.</p>
-    </div>
-  </section>
-
-  <!-- HEADLINE BELOW TOP SECTION -->
-  <section class="headline-section">
-    <div class="headline-box">
-      <p class="headline-tag">Khan Electrician</p>
-      <h2>Trusted Professional Work for Home and Business Needs</h2>
-      <p>Reliable service, clean workmanship and affordable support for wiring, repair, welding, home decor and web design work.</p>
-    </div>
-  </section>
-
-
-  <!-- ========== CONTACT ========== -->
-  <section class="section contact" id="contact">
-    <h2 class="section-title">Contact &amp; Address</h2>
-    <div class="contact-grid">
-
-      <!-- Phone → Dial pad -->
-      <a class="contact-item" href="tel:+917822886909" title="Call Khan Electrician">
-        <i class="fas fa-phone"></i>
-        <h3>Phone</h3>
-        <p>+91 7822886909</p>
-      </a>
-
-      <!-- Email → Gmail / mail app -->
-      <a class="contact-item" href="mailto:spathan1862@gmail.com" title="Email Khan Electrician">
-        <i class="fas fa-envelope"></i>
-        <h3>Email</h3>
-        <p>spathan1862@gmail.com</p>
-      </a>
-
-      <!-- Address → Google Maps -->
-      <a class="contact-item"
-         href="https://www.google.com/maps/search/?api=1&query=Manjargaon%2C%20Badnapur%2C%20Jalna%2C%20Maharashtra%2C%20India"
-         target="_blank" rel="noopener noreferrer"
-         title="Open location in Google Maps">
-        <i class="fas fa-location-dot"></i>
-        <h3>Address</h3>
-        <p>At Manjargaon, Tq Badnapur Dt Jalna,<br>Maharashtra, India</p>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- ========== FOOTER ========== -->
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <a href="#" class="footer-logo" aria-label="Khan Electrician">
-        <img src="logo.png" alt="Khan Electrician" width="34" height="34" loading="lazy">
-        <span>Khan Electrician</span>
-      </a>
-      <p class="footer-copy">&copy; 2026 Khan Electrician &mdash; Jalna, Maharashtra. All rights reserved. | <a href="privacy-policy.html">Privacy Policy</a></p>
-    </div>
-  </footer>
-
-  <!-- WHATSAPP WIDGET -->
-  <div class="wa-widget-container">
-    <div class="wa-popup" id="waPopup">
-      <div class="wa-popup-header">
-        <div class="wa-header-info">
-          <i class="fab fa-whatsapp wa-header-icon"></i>
-          <div>
-            <h4>Khan Electrician</h4>
-            <p>Typically replies instantly</p>
-          </div>
-        </div>
-        <button class="wa-close" id="waClose" aria-label="Close Chat"><i class="fas fa-times"></i></button>
-      </div>
-      <div class="wa-popup-body">
-        <div class="wa-message-bubble">
-          <p>Hi there! 👋<br>How can we help you today? Please choose a service to inquire about.</p>
-        </div>
-        <div class="wa-select-container">
-          <select id="waServiceSelect" class="wa-select">
-            <option value="" disabled selected>Select a Service...</option>
-            <option value="General Inquiry">General Inquiry</option>
-            <option value="House Wiring">1. House Wiring</option>
-            <option value="Welding Work">2. Welding Work</option>
-            <option value="Home Decor">3. Home Decor</option>
-            <option value="Web Developer & Designer">4. Web Developer & Designer</option>
-            <option value="Tours & Travels">5. Tours & Travels</option>
-          </select>
-        </div>
-        <button class="wa-send-btn" id="waSendBtn">
-          <i class="fab fa-whatsapp"></i> Start Chat
-        </button>
-      </div>
-    </div>
-    <button class="wa-button" id="waButton" aria-label="Chat on WhatsApp">
-      <i class="fab fa-whatsapp"></i>
-    </button>
-  </div>
-
-  <noscript>
-    <p style="text-align:center;padding:40px;color:#ffd700;">Please enable JavaScript for the best experience on this site.</p>
-  </noscript>
-
-  <!-- Script (deferred for performance) -->
-  <script src="script.js" defer></script>
-
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        // Init Lucide Icons
+        lucide.createIcons();
+    </script>
 </body>
+
 </html>
