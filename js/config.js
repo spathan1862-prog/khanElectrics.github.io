@@ -19,7 +19,7 @@ const CONFIG = {
     },
 
     // Maps Embed URL (Google Maps -> Share -> Embed map -> src URL)
-    mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1158.0!2d73.8!3d18.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDMwJzAwLjAiTiA3M8KwNDgnMDAuMCJF!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin",
+    mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3752.4!2d75.7279683!3d19.866006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bda5345e4b26565%3A0xc5d6e7e33a2fecde!2sAi%20Mobile%20%26%20computer%20Accessories%20shop!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin",
 
     // Features
     enableFadeAnimations: true,
