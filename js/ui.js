@@ -48,23 +48,34 @@ const UIManager = (() => {
      * Render a product card
      */
     function createProductCard(product) {
+        // Stringify the product object to pass it to inline onclick handlers safely
+        const productJson = JSON.stringify(product).replace(/"/g, '&quot;');
+        
+        // Ensure price formatting
+        const formattedPrice = product.price ? product.price : 'N/A';
+        
         return `
             <div class="card fade-up">
                 <div class="card-img">
                     <img src="${product.image}" alt="${product.name}" loading="lazy">
-                    <div style="position: absolute; top: 12px; right: 12px; padding: 4px 12px; background: ${product.status.toLowerCase() === 'available' ? 'var(--primary)' : '#64748b'}; color: #000; border-radius: 50px; font-size: 0.7rem; font-weight: 700;">
-                        ${product.status}
+                    <div style="position: absolute; top: 12px; right: 12px; padding: 4px 12px; background: ${product.status?.toLowerCase() === 'available' ? 'var(--primary)' : '#64748b'}; color: #000; border-radius: 50px; font-size: 0.7rem; font-weight: 700;">
+                        ${product.status || 'Available'}
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="card-category">${product.category}</div>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div class="card-category">${product.category}</div>
+                        <button onclick="if(window.WishlistManager) { const isAdded = window.WishlistManager.toggleWishlist(${productJson}); this.querySelector('i').style.fill = isAdded ? 'currentColor' : 'none'; }" style="background: none; border: none; cursor: pointer; color: var(--primary);" aria-label="Toggle Wishlist">
+                            <i data-lucide="heart" style="fill: none; transition: fill 0.2s;"></i>
+                        </button>
+                    </div>
                     <h3 class="card-name">${product.name}</h3>
-                    <p class="card-text">${product.description}</p>
+                    <p class="card-text">${product.description || product.details || ''}</p>
                     <div class="card-footer">
-                        <div class="card-price">₹${product.price}</div>
-                        <a href="https://wa.me/${CONFIG.whatsappNumber}?text=Hi, I'm interested in the ${product.name}." target="_blank" class="btn-outline" style="padding: 8px 16px;">
-                            <i data-lucide="shopping-cart"></i>
-                        </a>
+                        <div class="card-price">₹${formattedPrice}</div>
+                        <button onclick="if(window.CartManager) { window.CartManager.addToCart(${productJson}); }" class="btn-outline" style="padding: 8px 16px; cursor: pointer;">
+                            <i data-lucide="shopping-cart"></i> Add
+                        </button>
                     </div>
                 </div>
             </div>
@@ -122,8 +133,8 @@ const UIManager = (() => {
 
         if (search) {
             filtered = filtered.filter(p =>
-                p.name.toLowerCase().includes(search.toLowerCase()) ||
-                p.description.toLowerCase().includes(search.toLowerCase())
+                (p.name || '').toLowerCase().includes(search.toLowerCase()) ||
+                (p.description || p.details || '').toLowerCase().includes(search.toLowerCase())
             );
         }
 

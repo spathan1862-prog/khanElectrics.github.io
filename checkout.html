@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Khan Services</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <meta name="description" content="Complete your purchase securely at Khan Services.">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+    <!-- ─── Header ─── -->
+    <header class="header" id="header">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i data-lucide="zap"></i></div>
+                <span> Khan Services</span>
+            </a>
+
+            <nav class="nav-links" id="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#services">Services</a>
+                <a href="index.html#products">Products</a>
+                <a href="index.html#projects">Projects</a>
+                <a href="index.html#about">About Us</a>
+                <a href="index.html#contact">Contact</a>
+                <a href="orders.html">My Orders</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="wishlist.html" class="nav-icon-btn" aria-label="Wishlist">
+                    <i data-lucide="heart"></i>
+                    <span class="nav-badge" id="nav-wishlist-count" style="display: none;">0</span>
+                </a>
+                <a href="cart.html" class="nav-icon-btn" aria-label="Cart">
+                    <i data-lucide="shopping-cart"></i>
+                    <span class="nav-badge" id="nav-cart-count" style="display: none;">0</span>
+                </a>
+                <!-- Auth button injected by auth.js -->
+                <button class="theme-toggle" id="theme-toggle" title="Toggle Theme">
+                    <i data-lucide="moon" id="theme-icon"></i>
+                </button>
+                <div class="hamburger" id="hamburger">
+                    <i data-lucide="menu"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Nav Overlay -->
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <main>
+        <!-- ─── Page Header ─── -->
+        <section class="page-header" id="checkout-header">
+            <div class="container">
+                <h1 class="page-title fade-up">Checkout</h1>
+                <p class="page-subtitle fade-up">Please enter your details to complete your order.</p>
+            </div>
+        </section>
+
+        <!-- ─── Checkout Content ─── -->
+        <section class="section" style="padding-top: 0;">
+            <div class="container">
+
+                <!-- ── Success State ── -->
+                <div class="order-success" id="order-success">
+                    <div class="success-icon">
+                        <i data-lucide="check-circle"></i>
+                    </div>
+                    <h2>Order Placed Successfully!</h2>
+                    <p style="color: var(--text-muted); margin-top: 10px;">Thank you for shopping with Khan Services.</p>
+                    <div class="order-id-box">
+                        Order ID: <span id="generated-order-id">#ORD-00000</span>
+                    </div>
+                    <p style="margin-bottom: 30px;">We have received your order and will contact you shortly on the provided phone number.</p>
+                    <a href="index.html" class="btn-primary">Return to Home</a>
+                </div>
+
+                <!-- ── Checkout Flow ── -->
+                <div id="checkout-flow" class="cart-container fade-up">
+
+                    <!-- Left Column: Form -->
+                    <div>
+                        <form id="checkout-form" class="checkout-form" novalidate>
+
+                            <h3 class="form-section-title">Customer Details</h3>
+                            <div class="form-grid">
+                                <div class="form-group full-width">
+                                    <label class="form-label" for="fullName">Full Name</label>
+                                    <input type="text" id="fullName" name="fullName" class="form-input" required placeholder="John Doe" autocomplete="name">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="email">Email Address</label>
+                                    <input type="email" id="email" name="email" class="form-input" required placeholder="john@example.com" autocomplete="email">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="phone">Phone Number</label>
+                                    <input type="tel" id="phone" name="phone" class="form-input" required placeholder="+91 98765 43210" autocomplete="tel">
+                                </div>
+                            </div>
+
+                            <h3 class="form-section-title">Shipping Address</h3>
+                            <div class="form-grid">
+                                <div class="form-group full-width">
+                                    <label class="form-label" for="address1">Address Line 1</label>
+                                    <input type="text" id="address1" name="address1" class="form-input" required placeholder="House/Flat No., Building Name" autocomplete="address-line1">
+                                </div>
+                                <div class="form-group full-width">
+                                    <label class="form-label" for="address2">Address Line 2 (Optional)</label>
+                                    <input type="text" id="address2" name="address2" class="form-input" placeholder="Street, Landmark" autocomplete="address-line2">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="city">City</label>
+                                    <input type="text" id="city" name="city" class="form-input" required placeholder="Jalna" autocomplete="address-level2">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="state">State</label>
+                                    <input type="text" id="state" name="state" class="form-input" required placeholder="Maharashtra" autocomplete="address-level1">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="pincode">Pincode</label>
+                                    <input type="text" id="pincode" name="pincode" class="form-input" required placeholder="431203" autocomplete="postal-code">
+                                </div>
+                            </div>
+
+                            <h3 class="form-section-title">Payment Method</h3>
+                            <div class="payment-methods" id="payment-options">
+
+                                <div class="payment-method active" data-method="upi">
+                                    <div class="payment-method-header">
+                                        <i data-lucide="smartphone" style="color: var(--primary);"></i>
+                                        <span>UPI Payment (GPay, PhonePe, Paytm)</span>
+                                    </div>
+                                    <div class="payment-method-body">
+                                        <div class="upi-details">
+                                            <p>Scan the QR code below or use the UPI ID to complete your payment.</p>
+                                            <div class="upi-qr-placeholder">
+                                                [ QR Code Image Here ]
+                                            </div>
+                                            <p>UPI ID: <strong id="upi-id-text">spathan1862@upi</strong></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="payment-method" data-method="bank">
+                                    <div class="payment-method-header">
+                                        <i data-lucide="building" style="color: var(--primary);"></i>
+                                        <span>Bank Transfer</span>
+                                    </div>
+                                    <div class="payment-method-body">
+                                        <div class="bank-details">
+                                            <p>Account Name: <strong>Khan Electrical Services</strong></p>
+                                            <p>Account Number: <strong>123456789012</strong></p>
+                                            <p>IFSC Code: <strong>SBIN0001234</strong></p>
+                                            <p>Bank: <strong>State Bank of India</strong></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="payment-method" data-method="cod">
+                                    <div class="payment-method-header">
+                                        <i data-lucide="banknote" style="color: var(--primary);"></i>
+                                        <span>Cash on Delivery (COD)</span>
+                                    </div>
+                                    <div class="payment-method-body">
+                                        <p>Pay with cash upon delivery of your order.</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <button type="submit" class="btn-primary btn-full" id="place-order-btn" style="font-size:1.1rem;padding:16px;margin-top:24px;">
+                                Place Order <i data-lucide="check"></i>
+                            </button>
+                            <div id="checkout-error" style="color:#ef4444;margin-top:12px;text-align:center;display:none;padding:12px;background:rgba(239,68,68,0.1);border-radius:8px;"></div>
+                        </form>
+                    </div>
+
+                    <!-- Right Column: Order Summary -->
+                    <div>
+                        <div class="cart-summary" id="checkout-summary">
+                            <div style="text-align:center;padding:40px;color:var(--text-muted);">
+                                <p>Loading order summary...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer style="padding: 40px 0; border-top: 1px solid var(--border); text-align: center;">
+        <div class="container">
+            <p>&copy; <span id="year"></span> Khan Electrical Services. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ─── Scripts ─── -->
+    <script src="js/config.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+
+    <!-- Firebase ES Modules (checkout.js + auth.js are modules) -->
+    <script type="module" src="js/firebase-config.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/checkout.js"></script>
+
+    <script>
+        // ── Init ──────────────────────────────────────────────────────────────
+        lucide.createIcons();
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // ── Theme ─────────────────────────────────────────────────────────────
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        document.getElementById('theme-icon').setAttribute('data-lucide', currentTheme === 'dark' ? 'sun' : 'moon');
+        lucide.createIcons();
+
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            document.getElementById('theme-icon').setAttribute('data-lucide', theme === 'dark' ? 'sun' : 'moon');
+            lucide.createIcons();
+        });
+
+        // ── Mobile Menu ───────────────────────────────────────────────────────
+        const hamburger = document.getElementById('hamburger');
+        const navLinksEl = document.getElementById('nav-links');
+        const navOverlayEl = document.getElementById('nav-overlay');
+        function openNavMenu()  { navLinksEl && navLinksEl.classList.add('active');    navOverlayEl && navOverlayEl.classList.add('active'); }
+        function closeNavMenu() { navLinksEl && navLinksEl.classList.remove('active'); navOverlayEl && navOverlayEl.classList.remove('active'); }
+        if (hamburger)    hamburger.addEventListener('click',   () => navLinksEl.classList.contains('active') ? closeNavMenu() : openNavMenu());
+        if (navOverlayEl) navOverlayEl.addEventListener('click', closeNavMenu);
+        document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', closeNavMenu));
+
+        // ── Navbar Scroll ─────────────────────────────────────────────────────
+        window.addEventListener('scroll', () => {
+            document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // ── Badge Listeners ───────────────────────────────────────────────────
+        window.addEventListener('cart-updated', (e) => {
+            const badge = document.getElementById('nav-cart-count');
+            if (badge) {
+                badge.textContent = e.detail.count;
+                badge.style.display = e.detail.count > 0 ? 'flex' : 'none';
+            }
+        });
+
+        window.addEventListener('wishlist-updated', (e) => {
+            const badge = document.getElementById('nav-wishlist-count');
+            if (badge) {
+                badge.textContent = e.detail.count;
+                badge.style.display = e.detail.count > 0 ? 'flex' : 'none';
+            }
+        });
+
+        // ── Payment Method Selection ──────────────────────────────────────────
+        let selectedPaymentMethod = 'upi';
+
+        document.querySelectorAll('.payment-method').forEach(method => {
+            method.addEventListener('click', () => {
+                document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active'));
+                method.classList.add('active');
+                selectedPaymentMethod = method.getAttribute('data-method');
+            });
+        });
+
+        // ── Check Cart & Render Summary ───────────────────────────────────────
+        function initCheckout() {
+            if (!window.CartManager) {
+                setTimeout(initCheckout, 100);
+                return;
+            }
+
+            if (window.CartManager.getCartCount() === 0) {
+                // Cart is empty — redirect to cart page
+                window.location.href = 'cart.html';
+                return;
+            }
+
+            renderSummary();
+        }
+
+        function renderSummary() {
+            const summaryArea = document.getElementById('checkout-summary');
+            const cartItems = window.CartManager.getCart();
+            const subtotal = window.CartManager.getCartTotal();
+            const tax = Math.round(subtotal * 0.18 * 100) / 100;
+            const shipping = subtotal > 500 ? 0 : 50;
+            const total = subtotal + tax + shipping;
+
+            let html = '<h3 style="margin-bottom:24px;font-size:1.25rem;">Order Summary</h3>';
+            html += '<div style="margin-bottom:24px;display:flex;flex-direction:column;gap:12px;">';
+
+            cartItems.forEach(item => {
+                html += `
+                    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:12px;">
+                        <div style="display:flex;gap:12px;align-items:center;">
+                            <img src="${item.image || ''}" alt="${item.name}" style="width:50px;height:50px;object-fit:cover;border-radius:8px;" onerror="this.style.display='none'">
+                            <div>
+                                <div style="font-size:0.9rem;font-weight:500;">${item.name}</div>
+                                <div style="font-size:0.8rem;color:var(--text-muted);">Qty: ${item.quantity}</div>
+                            </div>
+                        </div>
+                        <div style="font-weight:600;">₹${(item.price * item.quantity).toFixed(2)}</div>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+            html += `
+                <div class="summary-row"><span>Subtotal</span><span>₹${subtotal.toFixed(2)}</span></div>
+                <div class="summary-row"><span>Tax (18% GST)</span><span>₹${tax.toFixed(2)}</span></div>
+                <div class="summary-row"><span>Shipping${subtotal > 500 ? ' 🎉 Free!' : ''}</span><span>₹${shipping.toFixed(2)}</span></div>
+                <div class="summary-row total"><span>Total</span><span>₹${total.toFixed(2)}</span></div>
+            `;
+
+            summaryArea.innerHTML = html;
+        }
+
+        // ── Pre-fill logged-in user's email ──────────────────────────────────
+        window.addEventListener('auth-state-changed', (e) => {
+            if (e.detail.user) {
+                const emailField = document.getElementById('email');
+                if (emailField && !emailField.value) {
+                    emailField.value = e.detail.user.email || '';
+                }
+            }
+        });
+
+        // ── Form Submission ───────────────────────────────────────────────────
+        function setupFormSubmission() {
+            const form = document.getElementById('checkout-form');
+            const btn = document.getElementById('place-order-btn');
+            const errorDiv = document.getElementById('checkout-error');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                btn.disabled = true;
+                btn.innerHTML = 'Processing... <i data-lucide="loader" class="spin"></i>';
+                lucide.createIcons();
+                errorDiv.style.display = 'none';
+
+                try {
+                    // Wait for CheckoutManager module to load
+                    await waitForCheckoutManager();
+
+                    const orderId = await window.CheckoutManager.processCheckout(form, selectedPaymentMethod);
+                    showSuccess(orderId);
+                } catch (error) {
+                    btn.disabled = false;
+                    btn.innerHTML = 'Place Order <i data-lucide="check"></i>';
+                    lucide.createIcons();
+                    errorDiv.textContent = error.message || 'An error occurred. Please try again.';
+                    errorDiv.style.display = 'block';
+                }
+            });
+        }
+
+        function waitForCheckoutManager(timeout = 5000) {
+            return new Promise((resolve, reject) => {
+                if (window.CheckoutManager) { resolve(); return; }
+                const interval = 100;
+                let elapsed = 0;
+                const timer = setInterval(() => {
+                    elapsed += interval;
+                    if (window.CheckoutManager) {
+                        clearInterval(timer);
+                        resolve();
+                    } else if (elapsed >= timeout) {
+                        clearInterval(timer);
+                        reject(new Error('Checkout system failed to load. Please refresh the page.'));
+                    }
+                }, interval);
+            });
+        }
+
+        function showSuccess(orderId) {
+            document.getElementById('checkout-flow').style.display = 'none';
+            document.getElementById('checkout-header').style.display = 'none';
+
+            const successDiv = document.getElementById('order-success');
+            document.getElementById('generated-order-id').textContent = '#' + orderId.substring(0, 8).toUpperCase();
+            successDiv.classList.add('active');
+            lucide.createIcons();
+
+            window.dispatchEvent(new CustomEvent('cart-updated', { detail: { count: 0 } }));
+        }
+
+        // ── Run ───────────────────────────────────────────────────────────────
+        initCheckout();
+        setupFormSubmission();
+    </script>
+</body>
+
+</html>
