@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Khan Services</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+    <!-- ─── Header ─── -->
+    <header class="header scrolled" id="header" style="position: relative;">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i data-lucide="zap"></i></div>
+                <span> Khan Admin</span>
+            </a>
+            <div style="display:flex;align-items:center;gap:16px;">
+                <span id="admin-email" style="font-size:0.85rem;color:var(--text-muted);"></span>
+                <button id="admin-logout-btn" class="btn-outline" style="padding:8px 16px;font-size:0.85rem;">
+                    <i data-lucide="log-out"></i> Logout
+                </button>
+                <button class="theme-toggle" id="theme-toggle" title="Toggle Theme">
+                    <i data-lucide="moon" id="theme-icon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ─── Access Denied (hidden by default) ─── -->
+    <div id="access-denied" style="display:none; text-align:center; padding: 120px 24px;">
+        <i data-lucide="shield-off" style="width:80px;height:80px;color:#ef4444;margin-bottom:24px;"></i>
+        <h2 style="color:#ef4444;margin-bottom:12px;">Access Denied</h2>
+        <p style="color:var(--text-muted);margin-bottom:32px;">You are not authorized to access this page.</p>
+        <a href="index.html" class="btn-primary">Return to Home</a>
+    </div>
+
+    <!-- ─── Loading ─── -->
+    <div id="admin-loading" style="text-align:center; padding: 120px 24px; color:var(--text-muted);">
+        <i data-lucide="loader" class="spin" style="width:48px;height:48px;margin-bottom:16px;"></i>
+        <p>Verifying admin access...</p>
+    </div>
+
+    <!-- ─── Admin Layout (hidden until auth verified) ─── -->
+    <div id="admin-app" style="display:none;">
+        <div class="admin-layout">
+
+            <!-- Sidebar Navigation -->
+            <nav class="admin-sidebar">
+                <div style="margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+                    <p style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;padding:0 14px;">Dashboard</p>
+                </div>
+                <button class="admin-nav-item active" onclick="showPanel('overview')" id="nav-overview">
+                    <i data-lucide="layout-dashboard"></i> Overview
+                </button>
+                <button class="admin-nav-item" onclick="showPanel('products')" id="nav-products">
+                    <i data-lucide="package"></i> Products
+                </button>
+                <button class="admin-nav-item" onclick="showPanel('orders')" id="nav-orders">
+                    <i data-lucide="shopping-bag"></i> Orders
+                </button>
+                <button class="admin-nav-item" onclick="showPanel('customers')" id="nav-customers">
+                    <i data-lucide="users"></i> Customers
+                </button>
+                <button class="admin-nav-item" onclick="showPanel('users')" id="nav-users">
+                    <i data-lucide="user-circle"></i> Users
+                </button>
+                <hr style="border:none;border-top:1px solid var(--border);margin:16px 0;">
+                <a href="index.html" class="admin-nav-item" style="text-decoration:none;">
+                    <i data-lucide="arrow-left"></i> Back to Site
+                </a>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="admin-main">
+
+                <!-- ── Overview Panel ── -->
+                <div class="admin-panel active" id="panel-overview">
+                    <h2 style="margin-bottom:8px;">Dashboard Overview</h2>
+                    <p style="color:var(--text-muted);margin-bottom:28px;">Summary of your store.</p>
+                    <div class="admin-stat-grid" id="stats-grid">
+                        <div class="admin-stat-card"><div class="admin-stat-label">Total Orders</div><div class="admin-stat-value" id="stat-orders">—</div></div>
+                        <div class="admin-stat-card"><div class="admin-stat-label">Total Products</div><div class="admin-stat-value" id="stat-products">—</div></div>
+                        <div class="admin-stat-card"><div class="admin-stat-label">Total Customers</div><div class="admin-stat-value" id="stat-customers">—</div></div>
+                        <div class="admin-stat-card"><div class="admin-stat-label">Registered Users</div><div class="admin-stat-value" id="stat-users">—</div></div>
+                        <div class="admin-stat-card"><div class="admin-stat-label">Revenue (Estimate)</div><div class="admin-stat-value" id="stat-revenue">—</div></div>
+                        <div class="admin-stat-card"><div class="admin-stat-label">Pending Orders</div><div class="admin-stat-value" id="stat-pending">—</div></div>
+                    </div>
+                    <p style="color:var(--text-muted);font-size:0.85rem;">Click a section in the sidebar to manage data.</p>
+                </div>
+
+                <!-- ── Products Panel ── -->
+                <div class="admin-panel" id="panel-products">
+                    <div class="admin-section-header">
+                        <div>
+                            <h2>Products</h2>
+                            <p style="color:var(--text-muted);font-size:0.9rem;margin-top:4px;">Manage your product catalogue.</p>
+                        </div>
+                        <button class="btn-primary" onclick="openProductForm(null)" style="padding:10px 20px;">
+                            <i data-lucide="plus"></i> Add Product
+                        </button>
+                    </div>
+                    <div class="admin-table-wrap">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Price (₹)</th>
+                                    <th>Stock</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="products-table-body">
+                                <tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text-muted);">Loading products...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ── Orders Panel ── -->
+                <div class="admin-panel" id="panel-orders">
+                    <div class="admin-section-header">
+                        <div>
+                            <h2>Orders</h2>
+                            <p style="color:var(--text-muted);font-size:0.9rem;margin-top:4px;">View and update all customer orders.</p>
+                        </div>
+                    </div>
+                    <div class="admin-table-wrap">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Phone</th>
+                                    <th>Items</th>
+                                    <th>Total (₹)</th>
+                                    <th>Payment</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="orders-table-body">
+                                <tr><td colspan="9" style="text-align:center;padding:40px;color:var(--text-muted);">Loading orders...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ── Customers Panel ── -->
+                <div class="admin-panel" id="panel-customers">
+                    <div class="admin-section-header">
+                        <h2>Customers</h2>
+                    </div>
+                    <div class="admin-table-wrap">
+                        <table class="admin-table">
+                            <thead>
+                                <tr><th>Name</th><th>Email</th><th>Phone</th><th>City</th><th>Joined</th></tr>
+                            </thead>
+                            <tbody id="customers-table-body">
+                                <tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text-muted);">Loading customers...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ── Users Panel ── -->
+                <div class="admin-panel" id="panel-users">
+                    <div class="admin-section-header">
+                        <h2>Registered Users</h2>
+                    </div>
+                    <div class="admin-table-wrap">
+                        <table class="admin-table">
+                            <thead>
+                                <tr><th>Name</th><th>Email</th><th>UID</th><th>Joined</th></tr>
+                            </thead>
+                            <tbody id="users-table-body">
+                                <tr><td colspan="4" style="text-align:center;padding:40px;color:var(--text-muted);">Loading users...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- ─── Product Add/Edit Modal ─── -->
+    <div class="product-form-modal" id="product-form-modal">
+        <div class="product-form-box">
+            <div class="modal-header">
+                <h3 id="product-form-title">Add Product</h3>
+                <button class="close-btn" onclick="closeProductForm()"><i data-lucide="x"></i></button>
+            </div>
+            <form id="product-form">
+                <input type="hidden" id="product-id">
+                <div class="form-group">
+                    <label class="form-label">Product Name *</label>
+                    <input type="text" id="p-name" class="form-input" required placeholder="e.g. LED Bulb 9W">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Category *</label>
+                    <input type="text" id="p-category" class="form-input" required placeholder="e.g. Lighting, Wiring, Tools">
+                </div>
+                <div class="form-grid" style="margin-bottom:0;">
+                    <div class="form-group">
+                        <label class="form-label">Price (₹) *</label>
+                        <input type="number" id="p-price" class="form-input" required placeholder="299" min="0" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Stock Quantity</label>
+                        <input type="number" id="p-stock" class="form-input" placeholder="100" min="0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Product Image URL *</label>
+                    <input type="url" id="p-image" class="form-input" required placeholder="https://example.com/image.jpg">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Details / Description</label>
+                    <textarea id="p-details" class="form-input" rows="3" placeholder="Brief product description..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Status</label>
+                    <select id="p-status" class="select-input">
+                        <option value="Available">Available</option>
+                        <option value="Out of Stock">Out of Stock</option>
+                        <option value="Coming Soon">Coming Soon</option>
+                    </select>
+                </div>
+                <div id="product-form-error" style="color:#ef4444;font-size:0.85rem;margin-bottom:12px;display:none;"></div>
+                <button type="submit" class="btn-primary" style="width:100%;justify-content:center;" id="product-save-btn">
+                    Save Product
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ─── Scripts ─── -->
+    <script type="module" src="js/firebase-config.js"></script>
+    <script type="module" src="js/auth.js"></script>
+
+    <script>
+        // ── Theme ─────────────────────────────────────────────────────────────
+        lucide.createIcons();
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        document.getElementById('theme-icon').setAttribute('data-lucide', currentTheme === 'dark' ? 'sun' : 'moon');
+        lucide.createIcons();
+
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            document.getElementById('theme-icon').setAttribute('data-lucide', theme === 'dark' ? 'sun' : 'moon');
+            lucide.createIcons();
+        });
+
+        // ── Admin Config ──────────────────────────────────────────────────────
+        const ADMIN_EMAIL = 'spathan1862@gmail.com'; // Change to your admin email
+
+        // ── Panel Navigation ──────────────────────────────────────────────────
+        function showPanel(panelName) {
+            document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.admin-nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById('panel-' + panelName).classList.add('active');
+            document.getElementById('nav-' + panelName)?.classList.add('active');
+
+            // Load data for panel
+            if (panelName === 'products') loadProducts();
+            if (panelName === 'orders')   loadOrders();
+            if (panelName === 'customers') loadCustomers();
+            if (panelName === 'users')    loadUsers();
+            if (panelName === 'overview') loadStats();
+        }
+
+        // ── Auth Check ────────────────────────────────────────────────────────
+        window.addEventListener('auth-state-changed', (e) => {
+            const user = e.detail.user;
+            document.getElementById('admin-loading').style.display = 'none';
+
+            if (!user || user.email !== ADMIN_EMAIL) {
+                document.getElementById('access-denied').style.display = 'block';
+                lucide.createIcons();
+                return;
+            }
+
+            document.getElementById('admin-email').textContent = user.email;
+            document.getElementById('admin-app').style.display = 'block';
+            lucide.createIcons();
+            loadStats();
+        });
+
+        // Fallback: if auth-state-changed doesn't fire
+        setTimeout(() => {
+            if (document.getElementById('admin-loading').style.display !== 'none') {
+                const user = window._currentUser;
+                if (!user || user.email !== ADMIN_EMAIL) {
+                    document.getElementById('admin-loading').style.display = 'none';
+                    document.getElementById('access-denied').style.display = 'block';
+                    lucide.createIcons();
+                }
+            }
+        }, 5000);
+
+        // ── Logout ────────────────────────────────────────────────────────────
+        document.getElementById('admin-logout-btn').addEventListener('click', async () => {
+            const { getAuth, signOut } = await import("https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js");
+            await signOut(getAuth());
+            window.location.href = 'index.html';
+        });
+
+        // ── Firebase Helpers ──────────────────────────────────────────────────
+        async function getFirestoreFns() {
+            const fs = await import("https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js");
+            return fs;
+        }
+
+        function waitForDb(cb, retries = 20) {
+            if (window._firebaseDb) { cb(window._firebaseDb); return; }
+            if (retries <= 0) { console.error('Firestore DB not available'); return; }
+            setTimeout(() => waitForDb(cb, retries - 1), 300);
+        }
+
+        function formatDate(ts) {
+            if (!ts) return '—';
+            const d = ts.toDate ? ts.toDate() : new Date(ts);
+            return d.toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' });
+        }
+
+        // ── Load Overview Stats ───────────────────────────────────────────────
+        async function loadStats() {
+            const fs = await getFirestoreFns();
+            waitForDb(async (db) => {
+                const [orders, products, customers, users] = await Promise.all([
+                    fs.getDocs(fs.collection(db, 'orders')),
+                    fs.getDocs(fs.collection(db, 'products')),
+                    fs.getDocs(fs.collection(db, 'customers')),
+                    fs.getDocs(fs.collection(db, 'users'))
+                ]);
+
+                let revenue = 0, pending = 0;
+                orders.forEach(d => {
+                    const data = d.data();
+                    revenue += Number(data.totalAmount || data.total || 0);
+                    if ((data.status || '').toLowerCase() === 'pending') pending++;
+                });
+
+                document.getElementById('stat-orders').textContent   = orders.size;
+                document.getElementById('stat-products').textContent  = products.size;
+                document.getElementById('stat-customers').textContent = customers.size;
+                document.getElementById('stat-users').textContent     = users.size;
+                document.getElementById('stat-revenue').textContent   = '₹' + revenue.toFixed(0);
+                document.getElementById('stat-pending').textContent   = pending;
+            });
+        }
+
+        // ── Load Products ─────────────────────────────────────────────────────
+        let allProducts = [];
+        async function loadProducts() {
+            const fs = await getFirestoreFns();
+            waitForDb(async (db) => {
+                const snapshot = await fs.getDocs(fs.collection(db, 'products'));
+                allProducts = [];
+                snapshot.forEach(d => allProducts.push({ id: d.id, ...d.data() }));
+
+                const tbody = document.getElementById('products-table-body');
+                if (allProducts.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text-muted);">No products yet. Click "Add Product" to start.</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = allProducts.map(p => `
+                    <tr>
+                        <td><img src="${p.image || ''}" alt="${p.name}" class="admin-product-img" onerror="this.style.display='none'"></td>
+                        <td><strong>${p.name}</strong></td>
+                        <td>${p.category || '—'}</td>
+                        <td>₹${Number(p.price || 0).toFixed(2)}</td>
+                        <td>${p.stock ?? '—'}</td>
+                        <td><span class="order-status-badge ${(p.status||'').toLowerCase() === 'available' ? 'status-delivered' : 'status-pending'}">${p.status || 'Available'}</span></td>
+                        <td>
+                            <button class="admin-action-btn" onclick="openProductForm('${p.id}')">
+                                <i data-lucide="edit-2" style="width:14px;height:14px;"></i> Edit
+                            </button>
+                            <button class="admin-action-btn danger" onclick="deleteProduct('${p.id}', '${p.name.replace(/'/g, "\\'")}')">
+                                <i data-lucide="trash-2" style="width:14px;height:14px;"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+                lucide.createIcons();
+            });
+        }
+
+        // ── Add / Edit Product Modal ───────────────────────────────────────────
+        function openProductForm(productId) {
+            document.getElementById('product-form').reset();
+            document.getElementById('product-form-error').style.display = 'none';
+
+            if (productId) {
+                const p = allProducts.find(x => x.id === productId);
+                if (!p) return;
+                document.getElementById('product-form-title').textContent = 'Edit Product';
+                document.getElementById('product-id').value = p.id;
+                document.getElementById('p-name').value     = p.name || '';
+                document.getElementById('p-category').value = p.category || '';
+                document.getElementById('p-price').value    = p.price || '';
+                document.getElementById('p-stock').value    = p.stock ?? '';
+                document.getElementById('p-image').value    = p.image || '';
+                document.getElementById('p-details').value  = p.details || p.description || '';
+                document.getElementById('p-status').value   = p.status || 'Available';
+            } else {
+                document.getElementById('product-form-title').textContent = 'Add Product';
+                document.getElementById('product-id').value = '';
+            }
+
+            document.getElementById('product-form-modal').classList.add('active');
+            lucide.createIcons();
+        }
+
+        function closeProductForm() {
+            document.getElementById('product-form-modal').classList.remove('active');
+        }
+
+        document.getElementById('product-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('product-save-btn');
+            const errDiv = document.getElementById('product-form-error');
+            btn.disabled = true;
+            btn.textContent = 'Saving...';
+            errDiv.style.display = 'none';
+
+            try {
+                const fs = await getFirestoreFns();
+                const db = window._firebaseDb;
+                const productId = document.getElementById('product-id').value;
+
+                const productData = {
+                    name:     document.getElementById('p-name').value.trim(),
+                    category: document.getElementById('p-category').value.trim(),
+                    price:    parseFloat(document.getElementById('p-price').value) || 0,
+                    stock:    parseInt(document.getElementById('p-stock').value) || 0,
+                    image:    document.getElementById('p-image').value.trim(),
+                    details:  document.getElementById('p-details').value.trim(),
+                    status:   document.getElementById('p-status').value,
+                    updatedAt: fs.serverTimestamp()
+                };
+
+                if (productId) {
+                    await fs.setDoc(fs.doc(db, 'products', productId), productData, { merge: true });
+                } else {
+                    productData.createdAt = fs.serverTimestamp();
+                    await fs.addDoc(fs.collection(db, 'products'), productData);
+                }
+
+                closeProductForm();
+                loadProducts();
+                loadStats();
+            } catch (err) {
+                errDiv.textContent = 'Error: ' + err.message;
+                errDiv.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Save Product';
+            }
+        });
+
+        async function deleteProduct(productId, productName) {
+            if (!confirm(`Delete "${productName}"? This cannot be undone.`)) return;
+            try {
+                const fs = await getFirestoreFns();
+                const db = window._firebaseDb;
+                await fs.deleteDoc(fs.doc(db, 'products', productId));
+                loadProducts();
+                loadStats();
+            } catch (err) {
+                alert('Error deleting product: ' + err.message);
+            }
+        }
+
+        // ── Load Orders ───────────────────────────────────────────────────────
+        async function loadOrders() {
+            const fs = await getFirestoreFns();
+            waitForDb(async (db) => {
+                const q = fs.query(fs.collection(db, 'orders'), fs.orderBy('createdAt', 'desc'));
+                const snapshot = await fs.getDocs(q);
+                const tbody = document.getElementById('orders-table-body');
+
+                if (snapshot.empty) {
+                    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--text-muted);">No orders yet.</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = '';
+                snapshot.forEach(docSnap => {
+                    const o = docSnap.data();
+                    const items = (o.products || o.items || []);
+                    const itemSummary = items.length > 0
+                        ? items.map(i => `${i.name} ×${i.quantity}`).join(', ').substring(0, 60) + (items.length > 2 ? '...' : '')
+                        : '—';
+
+                    const status = o.status || 'Pending';
+                    const statusClass = `status-${status.toLowerCase()}`;
+
+                    tbody.innerHTML += `
+                        <tr>
+                            <td style="font-family:monospace;font-size:0.8rem;">${docSnap.id.substring(0,10)}...</td>
+                            <td><strong>${o.customerName || '—'}</strong><br><span style="font-size:0.8rem;color:var(--text-muted);">${o.email || ''}</span></td>
+                            <td>${o.phone || '—'}</td>
+                            <td style="max-width:200px;font-size:0.85rem;">${itemSummary}</td>
+                            <td style="font-weight:700;">₹${Number(o.totalAmount || o.total || 0).toFixed(2)}</td>
+                            <td>${(o.paymentMethod || 'COD').toUpperCase()}</td>
+                            <td><span class="order-status-badge ${statusClass}">${status}</span></td>
+                            <td style="font-size:0.85rem;">${formatDate(o.createdAt)}</td>
+                            <td>
+                                <select onchange="updateOrderStatus('${docSnap.id}', this.value)" class="select-input" style="padding:6px 10px;font-size:0.8rem;width:auto;">
+                                    <option ${status==='Pending'?'selected':''}>Pending</option>
+                                    <option ${status==='Confirmed'?'selected':''}>Confirmed</option>
+                                    <option ${status==='Delivered'?'selected':''}>Delivered</option>
+                                    <option ${status==='Cancelled'?'selected':''}>Cancelled</option>
+                                </select>
+                            </td>
+                        </tr>
+                    `;
+                });
+            });
+        }
+
+        async function updateOrderStatus(orderId, newStatus) {
+            try {
+                const fs = await getFirestoreFns();
+                const db = window._firebaseDb;
+                await fs.setDoc(fs.doc(db, 'orders', orderId), { status: newStatus }, { merge: true });
+                console.log(`Order ${orderId} status updated to ${newStatus}`);
+            } catch (err) {
+                alert('Error updating status: ' + err.message);
+            }
+        }
+
+        // ── Load Customers ────────────────────────────────────────────────────
+        async function loadCustomers() {
+            const fs = await getFirestoreFns();
+            waitForDb(async (db) => {
+                const snapshot = await fs.getDocs(fs.collection(db, 'customers'));
+                const tbody = document.getElementById('customers-table-body');
+
+                if (snapshot.empty) {
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text-muted);">No customers yet.</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = '';
+                snapshot.forEach(d => {
+                    const c = d.data();
+                    tbody.innerHTML += `
+                        <tr>
+                            <td><strong>${c.name || '—'}</strong></td>
+                            <td>${c.email || '—'}</td>
+                            <td>${c.phone || '—'}</td>
+                            <td>${c.city || '—'}</td>
+                            <td>${formatDate(c.createdAt)}</td>
+                        </tr>
+                    `;
+                });
+            });
+        }
+
+        // ── Load Users ────────────────────────────────────────────────────────
+        async function loadUsers() {
+            const fs = await getFirestoreFns();
+            waitForDb(async (db) => {
+                const snapshot = await fs.getDocs(fs.collection(db, 'users'));
+                const tbody = document.getElementById('users-table-body');
+
+                if (snapshot.empty) {
+                    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:40px;color:var(--text-muted);">No registered users yet.</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = '';
+                snapshot.forEach(d => {
+                    const u = d.data();
+                    tbody.innerHTML += `
+                        <tr>
+                            <td><strong>${u.name || '—'}</strong></td>
+                            <td>${u.email || '—'}</td>
+                            <td style="font-family:monospace;font-size:0.8rem;">${u.uid ? u.uid.substring(0, 16) + '...' : '—'}</td>
+                            <td>${formatDate(u.createdAt)}</td>
+                        </tr>
+                    `;
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>
