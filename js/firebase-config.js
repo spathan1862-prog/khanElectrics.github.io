@@ -7,6 +7,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+import { getStorage } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBF3p6zopEyv9bop1HbnNohM7RVKqM3jnU",
@@ -27,8 +28,12 @@ export const db = getFirestore(app);
 // Initialize Firebase Authentication
 export const auth = getAuth(app);
 
-// Make db and auth globally accessible for non-module scripts
-window._firebaseDb = db;
-window._firebaseAuth = auth;
+// Initialize Firebase Storage
+export const storage = getStorage(app);
 
-console.log("✅ Firebase initialized successfully.");
+// Make instances globally accessible for non-module scripts
+window._firebaseDb      = db;
+window._firebaseAuth    = auth;
+window._firebaseStorage = storage;
+
+console.log("✅ Firebase initialized (Firestore + Auth + Storage).");
