@@ -103,13 +103,34 @@ const CheckoutManager = (() => {
 
         const formData = new FormData(formElement);
 
+        // ── Validate required fields ──────────────────────────────────────────
+        const fullName = (formData.get('fullName') || '').trim();
+        const email    = (formData.get('email')    || '').trim();
+        const phone    = (formData.get('phone')    || '').trim();
+        const address1 = (formData.get('address1') || '').trim();
+        const city     = (formData.get('city')     || '').trim();
+        const state    = (formData.get('state')    || '').trim();
+        const pincode  = (formData.get('pincode')  || '').trim();
+
+        if (!fullName)  throw new Error('Please enter your full name.');
+        if (!email)     throw new Error('Please enter a valid email address.');
+        if (!phone)     throw new Error('Please enter your phone number.');
+        if (!address1)  throw new Error('Please enter your address.');
+        if (!city)      throw new Error('Please enter your city.');
+        if (!state)     throw new Error('Please enter your state.');
+        if (!pincode)   throw new Error('Please enter your pincode.');
+
+        // Validate phone (must be at least 10 digits)
+        const phoneDigits = phone.replace(/\D/g, '');
+        if (phoneDigits.length < 10) throw new Error('Please enter a valid 10-digit phone number.');
+
         // Build address object
         const address = {
-            line1: formData.get('address1') || '',
-            line2: formData.get('address2') || '',
-            city: formData.get('city') || '',
-            state: formData.get('state') || '',
-            pincode: formData.get('pincode') || ''
+            line1: address1,
+            line2: (formData.get('address2') || '').trim(),
+            city:  city,
+            state: state,
+            pincode: pincode
         };
 
         // Calculate totals
@@ -123,9 +144,9 @@ const CheckoutManager = (() => {
 
         const orderData = {
             userId: user ? user.uid : null,
-            customerName: formData.get('fullName') || '',
-            phone: formData.get('phone') || '',
-            email: formData.get('email') || (user ? user.email : ''),
+            customerName: fullName,
+            phone: phone,
+            email: email || (user ? user.email : ''),
             address: address,
             items: cartItems.map(item => ({
                 name: item.name,

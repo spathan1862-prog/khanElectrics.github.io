@@ -1117,7 +1117,7 @@ img {
     border: 1px solid var(--border);
 }
 
-.cart-item-img {
+.sidebar-cart-item-img {
     width: 60px;
     height: 60px;
     border-radius: 8px;
@@ -1747,6 +1747,76 @@ img {
         font-size: 1rem;
         padding: 12px 16px;
         word-break: break-all;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ADDITIONAL MOBILE FIXES — cart, wishlist, checkout touch targets
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Fix: cart summary sticky not working on short mobile screens */
+@media (max-width: 768px) {
+    .cart-summary {
+        position: static;
+        top: auto;
+    }
+}
+
+/* Fix: ensure wishlist cards are readable on very small screens */
+@media (max-width: 360px) {
+    .card-body {
+        padding: 16px;
+    }
+    .card-name {
+        font-size: 1rem;
+    }
+    .card-price {
+        font-size: 0.95rem;
+    }
+    .btn-outline {
+        font-size: 0.8rem;
+        padding: 8px 12px;
+    }
+}
+
+/* Fix: prevent nav badge overlap on small nav areas */
+@media (max-width: 360px) {
+    .nav-actions {
+        gap: 6px;
+    }
+    .nav-icon-btn {
+        padding: 2px;
+    }
+}
+
+/* Fix: checkout form section titles */
+@media (max-width: 480px) {
+    .form-section-title {
+        font-size: 1rem;
+    }
+    .checkout-form {
+        padding: 16px;
+    }
+}
+
+/* Fix: payment method body text on mobile */
+@media (max-width: 480px) {
+    .payment-method-body {
+        font-size: 0.85rem;
+    }
+    .bank-details p {
+        font-size: 0.85rem;
+        word-break: break-all;
+    }
+}
+
+/* Fix: order card on very small screens */
+@media (max-width: 380px) {
+    .order-card {
+        padding: 12px;
+    }
+    .order-card-id {
+        font-size: 0.8rem;
     }
 }
 

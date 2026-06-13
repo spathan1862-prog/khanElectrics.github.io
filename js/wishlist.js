@@ -239,11 +239,21 @@ const WishlistManager = (() => {
      */
     function moveToCart(productName) {
         const item = wishlist.find(i => i.name === productName);
-        if (item) {
-            if (typeof window.CartManager !== 'undefined') {
+        if (!item) return;
+
+        if (typeof window.CartManager !== 'undefined') {
+            // Only remove from wishlist AFTER confirming cart add (auth check inside addToCart)
+            // addToCart will show auth modal if user not logged in — if that happens,
+            // we should NOT remove from wishlist. Check auth first.
+            if (window.AuthManager && !window.AuthManager.isLoggedIn()) {
+                // Not logged in — let CartManager handle the auth modal, don't remove from wishlist
                 window.CartManager.addToCart(item);
+                return;
             }
+            window.CartManager.addToCart(item);
             removeFromWishlist(productName);
+        } else {
+            console.warn('CartManager not available, cannot move item to cart.');
         }
     }
 

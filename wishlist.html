@@ -112,10 +112,12 @@
         // ── Mobile Menu ───────────────────────────────────────────────────────
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('nav-links');
-        if (hamburger && navLinks) {
-            hamburger.addEventListener('click', () => navLinks.classList.toggle('active'));
-            document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('active')));
-        }
+        const navOverlay = document.getElementById('nav-overlay');
+        function openNav()  { navLinks && navLinks.classList.add('active');    navOverlay && navOverlay.classList.add('active'); }
+        function closeNav() { navLinks && navLinks.classList.remove('active'); navOverlay && navOverlay.classList.remove('active'); }
+        if (hamburger) hamburger.addEventListener('click', () => navLinks.classList.contains('active') ? closeNav() : openNav());
+        if (navOverlay) navOverlay.addEventListener('click', closeNav);
+        document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', closeNav));
 
         // ── Navbar Scroll ─────────────────────────────────────────────────────
         window.addEventListener('scroll', () => {
@@ -139,6 +141,21 @@
             }
             renderWishlist(); // Re-render when wishlist changes
         });
+
+        // ── Auth State: resolve loading spinner regardless of login state ────
+        window.addEventListener('auth-state-changed', () => {
+            // Always call renderWishlist after auth resolves (logged in or not).
+            // This clears the "Loading your wishlist..." spinner.
+            setTimeout(renderWishlist, 200);
+        });
+
+        // Fallback: if auth never fires within 5s, render anyway
+        setTimeout(() => {
+            const area = document.getElementById('wishlist-content-area');
+            if (area && area.querySelector('p') && area.querySelector('p').textContent.includes('Loading')) {
+                renderWishlist();
+            }
+        }, 5000);
 
         // ── Render Wishlist ───────────────────────────────────────────────────
         function renderWishlist() {

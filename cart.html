@@ -247,6 +247,13 @@
 
         // Initial render
         renderCart();
+
+        // Re-render cart when auth resolves and Firestore data is loaded
+        window.addEventListener('auth-state-changed', () => {
+            // After auth change, Firestore cart sync may update local cart.
+            // Give it a brief moment to sync then re-render.
+            setTimeout(renderCart, 800);
+        });
     </script>
 </body>
 </html>
