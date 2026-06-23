@@ -1,0 +1,404 @@
+/**
+ * Khan Services — Apps Page Styles
+ * ──────────────────────────────────
+ * These styles are ONLY loaded on apps.html.
+ * They extend css/styles.css without overriding it.
+ * All selectors are scoped under .apps-* or .app-card* namespaces.
+ */
+
+/* ─── Page Hero ──────────────────────────────────────────────────────────────*/
+.apps-hero {
+    padding: 140px 0 80px;
+    text-align: center;
+    background: radial-gradient(circle at 50% 0%,
+        rgba(245, 158, 11, 0.07) 0%, transparent 65%);
+    position: relative;
+    overflow: hidden;
+}
+
+.apps-hero__blob {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    filter: blur(140px);
+    opacity: 0.08;
+    animation: move 22s infinite alternate;
+    pointer-events: none;
+}
+
+.apps-hero__blob--1 {
+    background: var(--primary);
+    top: -150px;
+    left: -150px;
+}
+
+.apps-hero__blob--2 {
+    background: var(--secondary);
+    bottom: -150px;
+    right: -150px;
+    opacity: 0.05;
+}
+
+.apps-hero__label {
+    color: var(--primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.75rem;
+    display: block;
+    margin-bottom: 16px;
+}
+
+.apps-hero__title {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 20px;
+}
+
+.apps-hero__subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 540px;
+    margin: 0 auto;
+}
+
+/* ─── Apps Grid ──────────────────────────────────────────────────────────────*/
+.apps-section {
+    padding: 72px 0 100px;
+}
+
+.apps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 28px;
+}
+
+/* ─── App Card ───────────────────────────────────────────────────────────────*/
+.app-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                border-color 0.3s ease,
+                box-shadow 0.4s ease;
+}
+
+.app-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary-glow);
+    box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(245, 158, 11, 0.15);
+}
+
+/* Icon area */
+.app-card__icon-wrap {
+    --accent: var(--primary);
+    background: linear-gradient(135deg,
+        rgba(var(--accent-rgb, 245,158,11), 0.08) 0%,
+        rgba(var(--accent-rgb, 245,158,11), 0.03) 100%);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle animated shimmer on the icon area */
+.app-card__icon-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+        transparent 0%, rgba(255,255,255,0.04) 50%, transparent 100%);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.app-card:hover .app-card__icon-wrap::after {
+    transform: translateX(100%);
+}
+
+/* Fallback icon (Lucide) */
+.app-card__icon-placeholder {
+    width: 68px;
+    height: 68px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.app-card__icon-placeholder svg {
+    width: 34px;
+    height: 34px;
+    stroke-width: 1.5;
+}
+
+/* Real image icon */
+.app-card__icon-img {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    border-radius: 16px;
+}
+
+/* Body */
+.app-card__body {
+    padding: 24px 24px 16px;
+    flex: 1;
+}
+
+.app-card__platform {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+}
+
+.app-card__platform svg {
+    width: 12px;
+    height: 12px;
+    stroke-width: 2.5;
+}
+
+.app-card__name {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+.app-card__desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Meta grid (Version / Size / Updated) */
+.app-card__meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    list-style: none;
+}
+
+[data-theme='light'] .app-card__meta {
+    background: rgba(0, 0, 0, 0.025);
+}
+
+.app-card__meta li {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.app-card__meta-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.app-card__meta-value {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-main);
+    font-family: 'Outfit', sans-serif;
+}
+
+/* Footer (Download / Coming Soon) */
+.app-card__footer {
+    padding: 16px 24px 24px;
+}
+
+/* Download button */
+.app-card__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 13px 24px;
+    background: var(--primary);
+    color: #000;
+    font-weight: 700;
+    font-size: 0.92rem;
+    border-radius: 50px;
+    box-shadow: 0 4px 18px var(--primary-glow);
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                box-shadow 0.35s ease,
+                background 0.3s ease;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+}
+
+.app-card__btn svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 2.5;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.app-card__btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px var(--primary-glow);
+}
+
+.app-card__btn:hover svg {
+    transform: translateY(2px);
+}
+
+.app-card__btn:active {
+    transform: translateY(-1px);
+}
+
+/* Coming Soon badge */
+.app-card__coming-soon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 13px 24px;
+    border: 2px dashed var(--border);
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    cursor: default;
+    font-family: 'Outfit', sans-serif;
+}
+
+.app-card__coming-soon svg {
+    width: 15px;
+    height: 15px;
+    stroke-width: 2;
+    flex-shrink: 0;
+}
+
+/* ─── Empty State ────────────────────────────────────────────────────────────*/
+.apps-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 80px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+}
+
+.apps-empty svg {
+    width: 56px;
+    height: 56px;
+    color: var(--text-muted);
+    opacity: 0.4;
+    margin: 0 auto 20px;
+    display: block;
+}
+
+.apps-empty h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+.apps-empty p {
+    color: var(--text-muted);
+}
+
+/* ─── Apps count badge ───────────────────────────────────────────────────────*/
+.apps-count {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 48px;
+}
+
+.apps-count strong {
+    color: var(--primary);
+}
+
+/* ─── Footer Apps button (used on index.html) ────────────────────────────────*/
+.footer-apps-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 26px;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background 0.3s ease,
+                color 0.3s ease,
+                transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                box-shadow 0.3s ease;
+    margin-top: 16px;
+}
+
+.footer-apps-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 2;
+    flex-shrink: 0;
+}
+
+.footer-apps-btn:hover {
+    background: var(--primary);
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px var(--primary-glow);
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────────*/
+@media (max-width: 768px) {
+    .apps-hero {
+        padding: 120px 0 60px;
+    }
+
+    .apps-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .app-card__meta {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .app-card__meta li:last-child {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-card__icon-wrap {
+        height: 100px;
+    }
+}

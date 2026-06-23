@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apps | Khan Services</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Download Khan Services applications — professional software for medical management, billing, and more. Available for Windows and Android.">
+    <meta name="keywords"
+        content="Khan Services apps, medical management software, billing software, Windows apps download, Android apk download, Khan Electrician software">
+    <meta name="author" content="Khan Services">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Apps | Khan Services">
+    <meta property="og:description"
+        content="Download professional applications built by Khan Services — medical management, billing, and more.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://spathan1862-prog.github.io/khanElectrics.github.io/apps.html">
+    <meta property="og:image" content="https://spathan1862-prog.github.io/khanElectrics.github.io/logo.png">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://spathan1862-prog.github.io/khanElectrics.github.io/apps.html">
+
+    <!-- Fonts (same as main site) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Stylesheets: main site styles first, then apps-only overrides -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/apps.css">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Khan Services Apps",
+        "operatingSystem": "Windows, Android",
+        "applicationCategory": "BusinessApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "INR"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "Khan Services"
+        }
+    }
+    </script>
+</head>
+
+<body>
+
+    <!-- ─── Header (identical to index.html) ─── -->
+    <header class="header" id="header">
+        <div class="container nav-content">
+            <a href="index.html" class="logo" aria-label="Khan Services Home">
+                <div class="logo-icon"><i data-lucide="zap"></i></div>
+                <span> Khan Services</span>
+            </a>
+
+            <nav class="nav-links" id="nav-links" aria-label="Primary navigation">
+                <a href="index.html">Home</a>
+                <a href="index.html#services">Services</a>
+                <a href="index.html#products">Products</a>
+                <a href="index.html#projects">Projects</a>
+                <a href="index.html#about">About Us</a>
+                <a href="index.html#contact">Contact</a>
+                <a href="orders.html">My Orders</a>
+                <a href="apps.html" class="active" aria-current="page">Apps</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="wishlist.html" class="nav-icon-btn" aria-label="Wishlist">
+                    <i data-lucide="heart"></i>
+                </a>
+                <a href="cart.html" class="nav-icon-btn" aria-label="Cart">
+                    <i data-lucide="shopping-cart"></i>
+                </a>
+                <button class="theme-toggle" id="theme-toggle" title="Toggle Theme" aria-label="Toggle theme">
+                    <i data-lucide="moon" id="theme-icon"></i>
+                </button>
+                <div class="hamburger" id="hamburger" role="button" aria-label="Open menu" aria-expanded="false">
+                    <i data-lucide="menu"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Nav Overlay -->
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <main>
+
+        <!-- ─── Hero ─── -->
+        <section class="apps-hero" aria-labelledby="apps-hero-title">
+            <div class="apps-hero__blob apps-hero__blob--1" aria-hidden="true"></div>
+            <div class="apps-hero__blob apps-hero__blob--2" aria-hidden="true"></div>
+
+            <div class="container">
+                <span class="apps-hero__label fade-up">⚡ Khan Services Software</span>
+                <h1 class="apps-hero__title fade-up" id="apps-hero-title">
+                    Our <span class="gradient-text">Applications</span>
+                </h1>
+                <p class="apps-hero__subtitle fade-up">
+                    Download professional software built by Khan Services.
+                    Available for Windows &amp; Android — free to use.
+                </p>
+            </div>
+        </section>
+
+        <!-- ─── Apps Grid ─── -->
+        <section class="apps-section" aria-labelledby="apps-grid-heading">
+            <div class="container">
+                <h2 id="apps-grid-heading" class="sr-only">All Applications</h2>
+
+                <!-- App count is written dynamically by apps.js -->
+                <p class="apps-count fade-up" id="apps-count" aria-live="polite"></p>
+
+                <div class="apps-grid" id="apps-grid" role="list">
+                    <!-- Cards are rendered by js/apps.js -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ─── Footer (identical to index.html) ─── -->
+    <footer style="padding: 40px 0; border-top: 1px solid var(--border); text-align: center;">
+        <div class="container">
+            <p>
+                &copy; <span id="year"></span> Khan Electrical Services. All rights reserved.
+                &nbsp;|&nbsp;
+                <a href="admin.html" style="color: var(--text-muted); font-size: 0.8rem;">Admin</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- ─── Accessibility: screen-reader only helper ─── -->
+    <style>
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+    </style>
+
+    <!-- ─── Scripts ─── -->
+    <!-- 1. Site config (needed for theme default) -->
+    <script src="js/config.js"></script>
+
+    <!-- 2. Apps data + rendering -->
+    <script src="js/apps.js"></script>
+
+    <!-- 3. Initialise Lucide icons (must run after all HTML + scripts) -->
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>
