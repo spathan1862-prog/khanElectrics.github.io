@@ -25,6 +25,12 @@ const UIManager = (() => {
      * Render a service card
      */
     function createServiceCard(service) {
+        const isTour = service.name === "Tour & Travels";
+        const linkHref = isTour ? "tour.html" : `https://wa.me/${CONFIG.whatsappNumber}?text=Hi, I want to book a ${service.name} service.`;
+        const linkTarget = isTour ? "" : 'target="_blank"';
+        const buttonText = isTour ? "View Places" : "Contact";
+        const buttonIcon = isTour ? "map" : "message-circle";
+        
         return `
             <div class="card fade-up">
                 <div class="card-img">
@@ -35,8 +41,8 @@ const UIManager = (() => {
                     <h3 class="card-name">${service.name}</h3>
                     <p class="card-text">${service.description}</p>
                     <div class="card-footer">
-                        <a href="https://wa.me/${CONFIG.whatsappNumber}?text=Hi, I want to book a ${service.name} service." target="_blank" class="btn-outline">
-                            <i data-lucide="message-circle"></i> Contact
+                        <a href="${linkHref}" ${linkTarget} class="btn-outline">
+                            <i data-lucide="${buttonIcon}"></i> ${buttonText}
                         </a>
                     </div>
                 </div>
@@ -53,19 +59,28 @@ const UIManager = (() => {
         
         // Ensure price formatting
         const formattedPrice = product.price ? product.price : 'N/A';
+        const isOutOfStock = typeof product.stock !== 'undefined' && product.stock <= 0;
+        const statusText = isOutOfStock ? 'Out of Stock' : (product.status || 'Available');
+        const statusColor = isOutOfStock ? '#ef4444' : (statusText.toLowerCase() === 'available' ? 'var(--primary)' : '#64748b');
+        const textColor = isOutOfStock ? '#fff' : '#000';
         
+        const addBtnText = isOutOfStock ? 'Out of Stock' : '<i data-lucide="shopping-cart"></i> Add';
+        const addBtnAttr = isOutOfStock 
+            ? 'disabled style="padding: 8px 16px; cursor: not-allowed; opacity: 0.6;"' 
+            : `onclick="event.stopPropagation(); if(window.CartManager) { window.CartManager.addToCart(${productJson}); }" style="padding: 8px 16px; cursor: pointer;"`;
+
         return `
-            <div class="card fade-up">
+            <div class="card fade-up" onclick="UIManager.showProductDetails(${productJson})" style="cursor: pointer;">
                 <div class="card-img">
                     <img src="${product.image}" alt="${product.name}" loading="lazy">
-                    <div style="position: absolute; top: 12px; right: 12px; padding: 4px 12px; background: ${product.status?.toLowerCase() === 'available' ? 'var(--primary)' : '#64748b'}; color: #000; border-radius: 50px; font-size: 0.7rem; font-weight: 700;">
-                        ${product.status || 'Available'}
+                    <div style="position: absolute; top: 12px; right: 12px; padding: 4px 12px; background: ${statusColor}; color: ${textColor}; border-radius: 50px; font-size: 0.7rem; font-weight: 700;">
+                        ${statusText}
                     </div>
                 </div>
                 <div class="card-body">
                     <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                         <div class="card-category">${product.category}</div>
-                        <button onclick="if(window.WishlistManager) { const isAdded = window.WishlistManager.toggleWishlist(${productJson}); this.querySelector('i').style.fill = isAdded ? 'currentColor' : 'none'; }" style="background: none; border: none; cursor: pointer; color: var(--primary);" aria-label="Toggle Wishlist">
+                        <button onclick="event.stopPropagation(); if(window.WishlistManager) { const isAdded = window.WishlistManager.toggleWishlist(${productJson}); this.querySelector('i').style.fill = isAdded ? 'currentColor' : 'none'; }" style="background: none; border: none; cursor: pointer; color: var(--primary);" aria-label="Toggle Wishlist">
                             <i data-lucide="heart" style="fill: none; transition: fill 0.2s;"></i>
                         </button>
                     </div>
@@ -73,8 +88,8 @@ const UIManager = (() => {
                     <p class="card-text">${product.description || product.details || ''}</p>
                     <div class="card-footer">
                         <div class="card-price">₹${formattedPrice}</div>
-                        <button onclick="if(window.CartManager) { window.CartManager.addToCart(${productJson}); }" class="btn-outline" style="padding: 8px 16px; cursor: pointer;">
-                            <i data-lucide="shopping-cart"></i> Add
+                        <button class="btn-outline" ${addBtnAttr}>
+                            ${addBtnText}
                         </button>
                     </div>
                 </div>
@@ -175,6 +190,68 @@ const UIManager = (() => {
             }
             elements.testimonialsGrid.innerHTML = testimonials.map(t => createTestimonialCard(t)).join('');
             lucide.createIcons();
+        },
+        showProductDetails: (product) => {
+            // Remove existing modal if any
+            const existingModal = document.getElementById('product-details-modal');
+            if (existingModal) existingModal.remove();
+
+            const isOutOfStock = typeof product.stock !== 'undefined' && product.stock <= 0;
+            const price = parseFloat(product.price) || 0;
+            const deliveryCharge = 49;
+            const tax = 18;
+            const totalAmount = price + deliveryCharge + tax;
+
+            const modalHtml = `
+            <div id="product-details-modal" class="modal active" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); backdrop-filter:blur(10px); display:flex; align-items:center; justify-content:center; z-index:9999; animation:fadeIn 0.3s ease;">
+                <div class="modal-content" style="max-width:550px; width:90%; background:var(--bg-card); border:1px solid var(--border); border-radius:24px; padding:30px; position:relative; box-shadow:var(--shadow); animation:slideInUp 0.3s ease;">
+                    <button onclick="document.getElementById('product-details-modal').remove()" style="position:absolute; top:20px; right:20px; background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:1.5rem;" aria-label="Close">
+                        <i data-lucide="x"></i>
+                    </button>
+                    <div style="display:flex; flex-direction:column; gap:20px; align-items:center;">
+                        <img src="${product.image}" alt="${product.name}" style="width:100%; max-height:260px; object-fit:cover; border-radius:16px;">
+                        <div style="width:100%;">
+                            <span style="background:var(--primary-glow); color:var(--primary); padding:4px 12px; border-radius:50px; font-size:0.75rem; font-weight:700; text-transform:uppercase;">${product.category}</span>
+                            <h2 style="font-size:1.6rem; margin-top:10px; color:var(--text-main);">${product.name}</h2>
+                            <p style="color:var(--text-muted); margin-top:10px; font-size:0.95rem; line-height:1.6;">${product.description || product.details || 'No description available.'}</p>
+                            
+                            <div style="margin-top:20px; border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:16px 0;">
+                                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                                    <span>Product Price</span>
+                                    <span style="font-weight:600;">₹${price.toFixed(2)}</span>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                                    <span>Delivery Charge</span>
+                                    <span style="font-weight:600;">₹${deliveryCharge.toFixed(2)}</span>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                                    <span>Tax</span>
+                                    <span style="font-weight:600;">₹${tax.toFixed(2)}</span>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; font-size:1.2rem; font-weight:700; color:var(--primary); margin-top:12px; border-top:1px dashed var(--border); padding-top:12px;">
+                                    <span>Total Amount</span>
+                                    <span>₹${totalAmount.toFixed(2)}</span>
+                                </div>
+                            </div>
+
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:20px;">
+                                <button onclick="document.getElementById('product-details-modal').remove(); if(window.CartManager) { window.CartManager.addToCart(${JSON.stringify(product).replace(/"/g, '&quot;')}); }" class="btn-primary" style="justify-content:center; padding:12px;" ${isOutOfStock ? 'disabled' : ''}>
+                                    <i data-lucide="shopping-cart"></i> Add to Cart
+                                </button>
+                                <button onclick="document.getElementById('product-details-modal').remove(); if(window.WishlistManager) { window.WishlistManager.toggleWishlist(${JSON.stringify(product).replace(/"/g, '&quot;')}); }" class="btn-outline" style="justify-content:center; padding:12px;">
+                                    <i data-lucide="heart"></i> Wishlist
+                                </button>
+                            </div>
+                            <button onclick="document.getElementById('product-details-modal').remove(); if(!isOutOfStock) { window.location.href='https://razorpay.me/@Luminosoft'; }" class="btn-primary btn-full" style="justify-content:center; margin-top:12px; padding:14px; background:#22c55e; color:#fff; border-color:#22c55e;" ${isOutOfStock ? 'disabled style="opacity:0.6; cursor:not-allowed;"' : ''}>
+                                <i data-lucide="check-circle"></i> Order Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+            if (window.lucide) window.lucide.createIcons();
         },
         updateProducts,
         elements

@@ -295,12 +295,12 @@
                         </div>
                         <div class="order-items-list">${itemsHtml}</div>
                         <div class="order-total-row">
-                            <span>Total Paid</span>
+                            <span>Order Total</span>
                             <span style="color:var(--primary);">₹${Number(order.totalAmount || order.total || 0).toFixed(2)}</span>
                         </div>
                         <div class="order-address">
                             📦 <strong>Delivery:</strong> ${addrText}<br>
-                            💳 <strong>Payment:</strong> ${(order.paymentMethod || 'COD').toUpperCase()}
+                            💳 <strong>Payment:</strong> ${(order.paymentMethod || 'COD').toUpperCase()} &middot; <strong style="color:${(order.paymentStatus||'Pending')==='Paid'?'var(--primary)':'#ef4444'}">${order.paymentStatus || 'Pending'}</strong>
                         </div>
                     </div>`;
             }).join('');

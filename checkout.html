@@ -2,6 +2,9 @@
 <html lang="en" data-theme="dark">
 
 <head>
+    <script>
+        window.location.href = "https://razorpay.me/@Luminosoft";
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout | Khan Services</title>
@@ -128,54 +131,8 @@
                                 </div>
                             </div>
 
-                            <h3 class="form-section-title">Payment Method</h3>
-                            <div class="payment-methods" id="payment-options">
-
-                                <div class="payment-method active" data-method="upi">
-                                    <div class="payment-method-header">
-                                        <i data-lucide="smartphone" style="color: var(--primary);"></i>
-                                        <span>UPI Payment (GPay, PhonePe, Paytm)</span>
-                                    </div>
-                                    <div class="payment-method-body">
-                                        <div class="upi-details">
-                                            <p>Scan the QR code below or use the UPI ID to complete your payment.</p>
-                                            <div class="upi-qr-placeholder">
-                                                [ QR Code Image Here ]
-                                            </div>
-                                            <p>UPI ID: <strong id="upi-id-text">spathan1862@upi</strong></p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="payment-method" data-method="bank">
-                                    <div class="payment-method-header">
-                                        <i data-lucide="building" style="color: var(--primary);"></i>
-                                        <span>Bank Transfer</span>
-                                    </div>
-                                    <div class="payment-method-body">
-                                        <div class="bank-details">
-                                            <p>Account Name: <strong>Khan Electrical Services</strong></p>
-                                            <p>Account Number: <strong>123456789012</strong></p>
-                                            <p>IFSC Code: <strong>SBIN0001234</strong></p>
-                                            <p>Bank: <strong>State Bank of India</strong></p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="payment-method" data-method="cod">
-                                    <div class="payment-method-header">
-                                        <i data-lucide="banknote" style="color: var(--primary);"></i>
-                                        <span>Cash on Delivery (COD)</span>
-                                    </div>
-                                    <div class="payment-method-body">
-                                        <p>Pay with cash upon delivery of your order.</p>
-                                    </div>
-                                </div>
-
-                            </div>
-
                             <button type="submit" class="btn-primary btn-full" id="place-order-btn" style="font-size:1.1rem;padding:16px;margin-top:24px;">
-                                Place Order <i data-lucide="check"></i>
+                                Continue to Payment <i data-lucide="arrow-right"></i>
                             </button>
                             <div id="checkout-error" style="color:#ef4444;margin-top:12px;text-align:center;display:none;padding:12px;background:rgba(239,68,68,0.1);border-radius:8px;"></div>
                         </form>
@@ -205,6 +162,7 @@
     <script src="js/config.js"></script>
     <script src="js/cart.js"></script>
     <script src="js/wishlist.js"></script>
+
 
     <!-- Firebase ES Modules (checkout.js + auth.js are modules) -->
     <script type="module" src="js/firebase-config.js"></script>
@@ -262,16 +220,6 @@
             }
         });
 
-        // ── Payment Method Selection ──────────────────────────────────────────
-        let selectedPaymentMethod = 'upi';
-
-        document.querySelectorAll('.payment-method').forEach(method => {
-            method.addEventListener('click', () => {
-                document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active'));
-                method.classList.add('active');
-                selectedPaymentMethod = method.getAttribute('data-method');
-            });
-        });
 
         // ── Check Cart & Render Summary ───────────────────────────────────────
         function initCheckout() {
@@ -293,8 +241,8 @@
             const summaryArea = document.getElementById('checkout-summary');
             const cartItems = window.CartManager.getCart();
             const subtotal = window.CartManager.getCartTotal();
-            const tax = Math.round(subtotal * 0.18 * 100) / 100;
-            const shipping = subtotal > 500 ? 0 : 50;
+            const tax = 18;
+            const shipping = 49;
             const total = subtotal + tax + shipping;
 
             let html = '<h3 style="margin-bottom:24px;font-size:1.25rem;">Order Summary</h3>';
@@ -318,8 +266,8 @@
             html += '</div>';
             html += `
                 <div class="summary-row"><span>Subtotal</span><span>₹${subtotal.toFixed(2)}</span></div>
-                <div class="summary-row"><span>Tax (18% GST)</span><span>₹${tax.toFixed(2)}</span></div>
-                <div class="summary-row"><span>Shipping${subtotal > 500 ? ' 🎉 Free!' : ''}</span><span>₹${shipping.toFixed(2)}</span></div>
+                <div class="summary-row"><span>Tax</span><span>₹${tax.toFixed(2)}</span></div>
+                <div class="summary-row"><span>Delivery Charge</span><span>₹${shipping.toFixed(2)}</span></div>
                 <div class="summary-row total"><span>Total</span><span>₹${total.toFixed(2)}</span></div>
             `;
 
@@ -354,11 +302,10 @@
                     // Wait for CheckoutManager module to load
                     await waitForCheckoutManager();
 
-                    const orderId = await window.CheckoutManager.processCheckout(form, selectedPaymentMethod);
-                    showSuccess(orderId);
+                    window.CheckoutManager.processCheckout(form);
                 } catch (error) {
                     btn.disabled = false;
-                    btn.innerHTML = 'Place Order <i data-lucide="check"></i>';
+                    btn.innerHTML = 'Continue to Payment <i data-lucide="arrow-right"></i>';
                     lucide.createIcons();
                     errorDiv.textContent = error.message || 'An error occurred. Please try again.';
                     errorDiv.style.display = 'block';

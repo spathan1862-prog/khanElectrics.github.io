@@ -171,8 +171,8 @@
             }
 
             const subtotal = window.CartManager.getCartTotal();
-            const tax      = Math.round(subtotal * 0.18 * 100) / 100;
-            const shipping = subtotal > 500 ? 0 : 50;
+            const tax      = 18;
+            const shipping = 49;
             const total    = subtotal + tax + shipping;
 
             // FIX BUG-02: Build items using data-index attribute — no inline name escaping
@@ -211,10 +211,10 @@
                         <div class="cart-summary">
                             <h3 style="margin-bottom:24px;font-size:1.25rem;">Order Summary</h3>
                             <div class="summary-row"><span>Subtotal</span><span>₹${subtotal.toFixed(2)}</span></div>
-                            <div class="summary-row"><span>Tax (18% GST)</span><span>₹${tax.toFixed(2)}</span></div>
-                            <div class="summary-row"><span>Shipping${subtotal > 500 ? ' 🎉 Free!' : ''}</span><span>₹${shipping.toFixed(2)}</span></div>
+                            <div class="summary-row"><span>Tax</span><span>₹${tax.toFixed(2)}</span></div>
+                            <div class="summary-row"><span>Delivery Charge</span><span>₹${shipping.toFixed(2)}</span></div>
                             <div class="summary-row total"><span>Total</span><span>₹${total.toFixed(2)}</span></div>
-                            <a href="checkout.html" class="btn-primary btn-full">
+                            <a href="https://razorpay.me/@Luminosoft" class="btn-primary btn-full">
                                 Proceed to Checkout <i data-lucide="arrow-right"></i>
                             </a>
                             <div style="text-align:center;margin-top:16px;">

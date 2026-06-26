@@ -537,7 +537,7 @@
                             <option value="">All Status</option>
                             <option value="Pending">Pending</option>
                             <option value="Confirmed">Confirmed</option>
-                            <option value="Processing">Processing</option>
+                            <option value="Packed">Packed</option>
                             <option value="Shipped">Shipped</option>
                             <option value="Delivered">Delivered</option>
                             <option value="Cancelled">Cancelled</option>
@@ -864,7 +864,7 @@
                 };
             },
             statusClass(s) {
-                const m = { available:'status-delivered', 'out of stock':'status-cancelled', cancelled:'status-cancelled', delivered:'status-delivered', confirmed:'status-confirmed', processing:'status-confirmed', shipped:'status-confirmed' };
+                const m = { available:'status-delivered', 'out of stock':'status-cancelled', cancelled:'status-cancelled', delivered:'status-delivered', confirmed:'status-confirmed', packed:'status-confirmed', shipped:'status-confirmed' };
                 return m[(s||'').toLowerCase()] || 'status-pending';
             }
         },
@@ -1611,7 +1611,7 @@
                         <p style="font-weight:600;">No orders found</p></td></tr>`;
                     lucide.createIcons(); document.getElementById('orders-pagination').innerHTML=''; return;
                 }
-                const statuses = ['Pending','Confirmed','Processing','Shipped','Delivered','Cancelled'];
+                const statuses = ['Pending','Confirmed','Packed','Shipped','Delivered','Cancelled'];
                 tbody.innerHTML = slice.map(o => {
                     const items = o.products || o.items || [];
                     const summary = items.length ? items.slice(0,2).map(i=>`${i.name} ×${i.quantity||1}`).join(', ') + (items.length>2?` +${items.length-2} more`:'') : '—';
@@ -1622,7 +1622,7 @@
                         <td>${o.phone||'—'}</td>
                         <td style="max-width:170px;font-size:.8rem;">${summary}</td>
                         <td style="font-weight:700;color:var(--primary);">₹${Number(o.totalAmount||o.total||0).toLocaleString('en-IN')}</td>
-                        <td>${(o.paymentMethod||'COD').toUpperCase()}</td>
+                        <td>${(o.paymentMethod||'COD').toUpperCase()}<br><span style="font-size:.75rem; color:${(o.paymentStatus||'Pending')==='Paid'?'var(--primary)':'#ef4444'}">${o.paymentStatus||'Pending'}</span></td>
                         <td style="font-size:.8rem;">${AP.util.fmtDate(o.createdAt)}</td>
                         <td><span class="order-status-badge ${AP.util.statusClass(status)}">${status}</span></td>
                         <td>

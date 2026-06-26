@@ -136,6 +136,11 @@ const CartManager = (() => {
                 cart = merged;
                 saveLocal();
                 console.log(`✅ Cart loaded from Firestore: ${cart.length} items`);
+            } else {
+                // Firestore is empty - clear local cart if it existed (since Firestore is the source of truth)
+                cart = [];
+                saveLocal();
+                console.log(`✅ Cart loaded from Firestore: 0 items (cleared local)`);
             }
         } catch (err) {
             console.error('Load cart from Firestore error:', err);

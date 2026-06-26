@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour & Travels | Khan Services</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <meta name="description" content="Explore beautiful destinations in Maharashtra. Book your trip from Jalna, Maharashtra.">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .tour-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .tour-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .tour-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow);
+        }
+        .tour-img {
+            height: 220px;
+            width: 100%;
+            object-fit: cover;
+        }
+        .tour-body {
+            padding: 24px;
+        }
+        .tour-title {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+        .tour-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            height: 70px;
+            overflow: hidden;
+        }
+        /* Popup Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 2000;
+        }
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: var(--shadow);
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+        .modal.active .modal-box {
+            transform: translateY(0);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+        .close-btn:hover {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ─── Header ─── -->
+    <header class="header scrolled" id="header">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i data-lucide="zap"></i></div>
+                <span>Khan Services</span>
+            </a>
+
+            <nav class="nav-links" id="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#services">Services</a>
+                <a href="index.html#products">Products</a>
+                <a href="index.html#projects">Projects</a>
+                <a href="index.html#about">About Us</a>
+                <a href="index.html#contact">Contact</a>
+                <a href="orders.html">My Orders</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" title="Toggle Theme">
+                    <i data-lucide="moon" id="theme-icon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main style="padding-top: 100px;">
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title"><span class="gradient-text">Tour & Travels</span></h1>
+                <p class="page-subtitle">Based in Jalna, Maharashtra. We organize premium tours to Maharashtra's most famous tourist spots.</p>
+                <div style="margin-top:20px;">
+                    <button class="btn-primary" onclick="openBookingModal('General Enquiry')">
+                        <i data-lucide="calendar"></i> Book Your Trip
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="padding-top: 0;">
+            <div class="container">
+                <h2 style="font-size: 1.8rem; margin-bottom: 10px;">Famous Destinations</h2>
+                <p style="color: var(--text-muted); margin-bottom: 30px;">Choose a place you would love to explore and click to book now.</p>
+                
+                <div class="tour-grid">
+                    <!-- Mumbai -->
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=600&q=80" alt="Mumbai" class="tour-img">
+                        <div class="tour-body">
+                            <h3 class="tour-title">Mumbai</h3>
+                            <p class="tour-desc">Gateway of India, Marine Drive, Siddhivinayak Temple, and vibrant beaches.</p>
+                            <button class="btn-outline btn-full" onclick="openBookingModal('Mumbai')">Book Trip to Mumbai</button>
+                        </div>
+                    </div>
+
+                    <!-- Pune -->
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1601999109332-542b18dbec57?auto=format&fit=crop&w=600&q=80" alt="Pune" class="tour-img">
+                        <div class="tour-body">
+                            <h3 class="tour-title">Pune</h3>
+                            <p class="tour-desc">Shaniwar Wada, Sinhagad Fort, Aga Khan Palace, and rich cultural heritage.</p>
+                            <button class="btn-outline btn-full" onclick="openBookingModal('Pune')">Book Trip to Pune</button>
+                        </div>
+                    </div>
+
+                    <!-- Nashik -->
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1626294436814-722a488a032f?auto=format&fit=crop&w=600&q=80" alt="Nashik" class="tour-img">
+                        <div class="tour-body">
+                            <h3 class="tour-title">Nashik</h3>
+                            <p class="tour-desc">Trimbakeshwar Shiva Temple, Panchavati, beautiful vineyards, and holy shrines.</p>
+                            <button class="btn-outline btn-full" onclick="openBookingModal('Nashik')">Book Trip to Nashik</button>
+                        </div>
+                    </div>
+
+                    <!-- Aurangabad -->
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1600100397608-f010e4aa2944?auto=format&fit=crop&w=600&q=80" alt="Aurangabad" class="tour-img">
+                        <div class="tour-body">
+                            <h3 class="tour-title">Aurangabad</h3>
+                            <p class="tour-desc">Ajanta & Ellora Caves (UNESCO World Heritage Sites), Bibi Ka Maqbara, and Daulatabad Fort.</p>
+                            <button class="btn-outline btn-full" onclick="openBookingModal('Aurangabad')">Book Trip to Aurangabad</button>
+                        </div>
+                    </div>
+
+                    <!-- Nanded -->
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1618083707368-b3823daa2726?auto=format&fit=crop&w=600&q=80" alt="Nanded" class="tour-img">
+                        <div class="tour-body">
+                            <h3 class="tour-title">Nanded</h3>
+                            <p class="tour-desc">Hazur Sahib Gurudwara, Kaleshwar Temple, and scenic banks of Godavari River.</p>
+                            <button class="btn-outline btn-full" onclick="openBookingModal('Nanded')">Book Trip to Nanded</button>
+                        </div>
+                    </div>
+
+                    <!-- Ahmednagar -->
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=600&q=80" alt="Ahmednagar" class="tour-img">
+                        <div class="tour-body">
+                            <h3 class="tour-title">Ahmednagar</h3>
+                            <p class="tour-desc">Ahmednagar Fort, Harishchandragad Fort, Shirdi Sai Baba Temple (nearby), and historic monuments.</p>
+                            <button class="btn-outline btn-full" onclick="openBookingModal('Ahmednagar')">Book Trip to Ahmednagar</button>
+                        </div>
+                    </div>
+
+                    <!-- Jalna -->
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1612456488349-160fa143dfca?auto=format&fit=crop&w=600&q=80" alt="Jalna" class="tour-img">
+                        <div class="tour-body">
+                            <h3 class="tour-title">Jalna</h3>
+                            <p class="tour-desc">Local temples, fort landmarks, steel mills, and local sightseeing tours.</p>
+                            <button class="btn-outline btn-full" onclick="openBookingModal('Jalna')">Book Trip to Jalna</button>
+                        </div>
+                    </div>
+
+                    <!-- Other -->
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="Other Places" class="tour-img">
+                        <div class="tour-body">
+                            <h3 class="tour-title">Other Places</h3>
+                            <p class="tour-desc">Mahabaleshwar, Lonavala, Khandala, Alibaug, Shirdi, and tailored tour packages.</p>
+                            <button class="btn-outline btn-full" onclick="openBookingModal('Other Places')">Inquire for Other Places</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="booking-modal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 style="font-size:1.3rem;">Book Your Trip</h3>
+                <button class="close-btn" onclick="closeBookingModal()"><i data-lucide="x"></i></button>
+            </div>
+            <form id="booking-form" onsubmit="sendWhatsAppBooking(event)">
+                <div class="form-group" style="margin-bottom:16px;">
+                    <label class="form-label" for="client-name">Your Name</label>
+                    <input type="text" id="client-name" class="form-input" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group" style="margin-bottom:16px;">
+                    <label class="form-label" for="client-phone">Phone Number</label>
+                    <input type="tel" id="client-phone" class="form-input" required placeholder="Enter your WhatsApp number">
+                </div>
+                <div class="form-group" style="margin-bottom:16px;">
+                    <label class="form-label" for="trip-dest">Destination</label>
+                    <select id="trip-dest" class="form-input" style="background:var(--bg-main); color:var(--text-main); border:1px solid var(--border);">
+                        <option value="Mumbai">Mumbai</option>
+                        <option value="Pune">Pune</option>
+                        <option value="Nashik">Nashik</option>
+                        <option value="Aurangabad">Aurangabad</option>
+                        <option value="Nanded">Nanded</option>
+                        <option value="Ahmednagar">Ahmednagar</option>
+                        <option value="Jalna">Jalna</option>
+                        <option value="Other Places">Other Places</option>
+                    </select>
+                </div>
+                <div class="form-group" id="custom-dest-group" style="margin-bottom:16px; display:none;">
+                    <label class="form-label" for="custom-dest">Enter Destination</label>
+                    <input type="text" id="custom-dest" class="form-input" placeholder="Where do you want to go?">
+                </div>
+                <div class="form-group" style="margin-bottom:16px;">
+                    <label class="form-label" for="trip-date">Date of Travel (Optional)</label>
+                    <input type="date" id="trip-date" class="form-input">
+                </div>
+                <div class="form-group" style="margin-bottom:16px;">
+                    <label class="form-label" for="trip-guests">Number of Guests (Optional)</label>
+                    <input type="number" id="trip-guests" class="form-input" min="1">
+                </div>
+                <button type="submit" class="btn-primary btn-full" style="justify-content:center; padding:14px; margin-top:20px;">
+                    <i data-lucide="message-circle"></i> Send to WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <footer style="padding: 40px 0; border-top: 1px solid var(--border); text-align: center;">
+        <div class="container">
+            <p>&copy; <span id="year"></span> Khan Tour & Travels. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/config.js"></script>
+    <script>
+        lucide.createIcons();
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Theme management
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        document.getElementById('theme-icon').setAttribute('data-lucide', currentTheme === 'dark' ? 'sun' : 'moon');
+        lucide.createIcons();
+
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            document.getElementById('theme-icon').setAttribute('data-lucide', theme === 'dark' ? 'sun' : 'moon');
+            lucide.createIcons();
+        });
+
+        // Toggle custom destination field based on selection
+        const tripDestSelect = document.getElementById('trip-dest');
+        const customDestGroup = document.getElementById('custom-dest-group');
+        const customDestInput = document.getElementById('custom-dest');
+
+        tripDestSelect.addEventListener('change', () => {
+            if (tripDestSelect.value === 'Other Places') {
+                customDestGroup.style.display = 'block';
+                customDestInput.required = true;
+                tripDestSelect.style.display = 'none'; // hide the select box
+            } else {
+                customDestGroup.style.display = 'none';
+                customDestInput.required = false;
+            }
+        });
+
+        // Booking Modal functions
+        const modal = document.getElementById('booking-modal');
+        function openBookingModal(destination) {
+            modal.classList.add('active');
+            
+            // Reset visibility
+            tripDestSelect.style.display = 'block';
+            customDestGroup.style.display = 'none';
+            customDestInput.required = false;
+
+            if (destination && destination !== 'General Enquiry') {
+                tripDestSelect.value = destination;
+                if (destination === 'Other Places') {
+                    customDestGroup.style.display = 'block';
+                    customDestInput.required = true;
+                    tripDestSelect.style.display = 'none';
+                }
+            }
+        }
+        function closeBookingModal() {
+            modal.classList.remove('active');
+            document.getElementById('booking-form').reset();
+            tripDestSelect.style.display = 'block';
+            customDestGroup.style.display = 'none';
+            customDestInput.required = false;
+        }
+
+        // WhatsApp redirect
+        function sendWhatsAppBooking(e) {
+            e.preventDefault();
+            const name = document.getElementById('client-name').value.trim();
+            const phone = document.getElementById('client-phone').value.trim();
+            
+            let dest = tripDestSelect.value;
+            if (dest === 'Other Places') {
+                dest = customDestInput.value.trim();
+            }
+
+            const date = document.getElementById('trip-date').value || 'Not specified';
+            const guests = document.getElementById('trip-guests').value || 'Not specified';
+
+            const text = `*New Trip Booking Enquiry*\n` +
+                         `---------------------------\n` +
+                         `*Name:* ${name}\n` +
+                         `*Phone:* ${phone}\n` +
+                         `*Destination:* ${dest}\n` +
+                         `*Travel Date:* ${date}\n` +
+                         `*Guests:* ${guests}\n` +
+                         `*From:* Jalna, Maharashtra\n` +
+                         `---------------------------`;
+            
+            const whatsappNumber = (typeof CONFIG !== 'undefined' && CONFIG.whatsappNumber) ? CONFIG.whatsappNumber : "917822886909";
+            const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+            closeBookingModal();
+        }
+    </script>
+</body>
+</html>

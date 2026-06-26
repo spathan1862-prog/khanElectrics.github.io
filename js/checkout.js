@@ -10,7 +10,8 @@ import {
     addDoc,
     setDoc,
     doc,
-    serverTimestamp
+    serverTimestamp,
+    runTransaction
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
 const CheckoutManager = (() => {
@@ -33,6 +34,8 @@ const CheckoutManager = (() => {
                 totalAmount: orderData.total || 0,
                 status: 'Pending',
                 paymentMethod: orderData.paymentMethod || 'cod',
+                paymentStatus: orderData.paymentStatus || 'Pending',
+                razorpayPaymentId: orderData.razorpayPaymentId || null,
                 subtotal: orderData.subtotal || 0,
                 tax: orderData.tax || 0,
                 shipping: orderData.shipping || 0,
@@ -43,6 +46,23 @@ const CheckoutManager = (() => {
             // Write to 'orders' collection
             const docRef = await addDoc(collection(db, 'orders'), finalOrder);
             console.log('✅ Order saved with ID:', docRef.id);
+
+            // Deduct Stock
+            for (const item of finalOrder.products) {
+                if (item.id) {
+                    const productRef = doc(db, 'products', item.id);
+                    try {
+                        await runTransaction(db, async (transaction) => {
+                            const sfDoc = await transaction.get(productRef);
+                            if (!sfDoc.exists()) return;
+                            const newStock = Math.max(0, (sfDoc.data().stock || 0) - item.quantity);
+                            transaction.update(productRef, { stock: newStock });
+                        });
+                    } catch(e) {
+                        console.error('Failed to update stock for', item.name, e);
+                    }
+                }
+            }
 
             // Write/update to 'customers' collection
             await saveCustomer(orderData);
@@ -86,12 +106,11 @@ const CheckoutManager = (() => {
     }
 
     /**
-     * Process checkout form and submit order.
+     * Process checkout form and save pending order.
      * @param {HTMLFormElement} formElement
-     * @param {string} paymentMethod - 'upi', 'bank', or 'cod'
-     * @returns {Promise<string>} Order ID
+     * @returns {Promise} Pending promise for redirect
      */
-    async function processCheckout(formElement, paymentMethod) {
+    async function processCheckout(formElement) {
         if (typeof window.CartManager === 'undefined') {
             throw new Error('Cart system is not loaded. Please refresh the page.');
         }
@@ -135,8 +154,8 @@ const CheckoutManager = (() => {
 
         // Calculate totals
         const subtotal = window.CartManager.getCartTotal();
-        const tax = Math.round(subtotal * 0.18 * 100) / 100; // 18% GST
-        const shipping = subtotal > 500 ? 0 : 50; // Free shipping above ₹500
+        const tax = 18; // flat 18 rupees
+        const shipping = 49; // flat 49 rupees
         const total = subtotal + tax + shipping;
 
         // Get current logged-in user (if any)
@@ -149,6 +168,7 @@ const CheckoutManager = (() => {
             email: email || (user ? user.email : ''),
             address: address,
             items: cartItems.map(item => ({
+                id: item.id || '',
                 name: item.name,
                 price: item.price,
                 quantity: item.quantity,
@@ -159,10 +179,17 @@ const CheckoutManager = (() => {
             tax: tax,
             shipping: shipping,
             total: total,
-            paymentMethod: paymentMethod
+            // We don't have paymentMethod yet, it's selected on the next page
+            paymentMethod: null
         };
 
-        return await submitOrder(orderData);
+        // Save pending order
+        sessionStorage.setItem('khan_pending_order', JSON.stringify(orderData));
+        
+        // Redirect to payment page
+        window.location.href = 'payment.html';
+        
+        return new Promise(() => {}); // Keep button in loading state during redirect
     }
 
     return {
