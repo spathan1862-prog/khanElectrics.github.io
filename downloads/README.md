@@ -16,7 +16,7 @@ The value must match the filename you drop here exactly (case-sensitive).
 
 | File                          | App                          |
 |-------------------------------|------------------------------|
-| MedicalManagementSetup.exe    | Medical Management Software  |
+| MedicoManager Setup 2.0.0.exe  | MedicoManager                |
 
 ## Steps to add a new installer
 1. Copy your `.exe` / `.apk` file into this folder.

@@ -24,14 +24,26 @@
 const apps = [
     {
         id: "medical-management",
-        name: "Medical Shop Manager",
+        name: "MedicoManager",
         description: "Complete medical store management solution with inventory tracking, billing, and patient records.",
         version: "2.0.0",
         platform: "Windows",
         size: "77.5 MB",
         updated: "June 2026",
         icon: "",
-        download: "downloads/Medical Shop Manager Setup 2.0.0.exe",
+        download: "downloads/MedicoManager Setup 2.0.0.exe",
+        available: true
+    },
+    {
+        id: "medical-management-android",
+        name: "MedicoManager",
+        description: "Complete medical store management solution with inventory tracking, billing, and patient records optimized for Android devices.",
+        version: "1.0.0",
+        platform: "Android",
+        size: "15.4 MB",
+        updated: "June 2026",
+        icon: "",
+        download: "downloads/MedicoManager.apk",
         available: true
     }
     // ── Add more apps below this line ────────────────────────────────────────
