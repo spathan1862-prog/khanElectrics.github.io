@@ -45,6 +45,18 @@ const apps = [
         icon: "",
         download: "downloads/MedicoManager.apk",
         available: true
+    },
+    {
+        id: "shayari-world-android",
+        name: "Shayari World",
+        description: "Feel Poetry, Feel Emotion. Read beautiful shayaris, generate poetry using AI, and browse premium ebooks.",
+        version: "1.0.0",
+        platform: "Android",
+        size: "1.0 MB",
+        updated: "June 2026",
+        icon: "images/apps/shayari.png",
+        download: "downloads/ShayariWorld.apk",
+        available: true
     }
     // ── Add more apps below this line ────────────────────────────────────────
     // Example:
