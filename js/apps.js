@@ -164,12 +164,27 @@ function buildAppCard(app) {
     </article>`;
 }
 
+// ─── Merge default apps with admin-added custom apps ─────────────────────────
+function getAllApps() {
+    let custom = [];
+    try {
+        custom = JSON.parse(localStorage.getItem('khan_custom_apps') || '[]');
+    } catch(e) { custom = []; }
+
+    // Merge: custom apps appear after defaults; skip duplicates by name+platform
+    const seen = new Set(apps.map(a => (a.name + '|' + a.platform).toLowerCase()));
+    const extras = custom.filter(a => !seen.has((a.name + '|' + a.platform).toLowerCase()));
+    return [...apps, ...extras];
+}
+
 // ─── Render all app cards ─────────────────────────────────────────────────────
 function renderApps() {
     const grid = document.getElementById('apps-grid');
     if (!grid) return;
 
-    if (apps.length === 0) {
+    const allApps = getAllApps();
+
+    if (allApps.length === 0) {
         grid.innerHTML = `
         <div class="apps-empty" role="status">
             <i data-lucide="package" aria-hidden="true"></i>
@@ -177,14 +192,14 @@ function renderApps() {
             <p>Check back soon — we're working on something great!</p>
         </div>`;
     } else {
-        grid.innerHTML = apps.map(buildAppCard).join('');
+        grid.innerHTML = allApps.map(buildAppCard).join('');
     }
 
     // Update count label
     const countEl = document.getElementById('apps-count');
     if (countEl) {
-        const available = apps.filter(a => a.available).length;
-        const total     = apps.length;
+        const available = allApps.filter(a => a.available).length;
+        const total     = allApps.length;
         countEl.innerHTML = total === 0
             ? ''
             : `<strong>${total}</strong> application${total !== 1 ? 's' : ''} &mdash; <strong>${available}</strong> available for download`;

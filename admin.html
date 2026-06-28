@@ -260,6 +260,11 @@
                     <i data-lucide="upload-cloud"></i> Bulk Import
                 </button>
 
+                <div class="nav-section">Content</div>
+                <button class="admin-nav-item" onclick="AP.panels.show('apps')" id="nav-apps">
+                    <i data-lucide="layout-grid"></i> Apps
+                </button>
+
                 <div class="nav-section">Commerce</div>
                 <button class="admin-nav-item" onclick="AP.panels.show('orders')" id="nav-orders">
                     <i data-lucide="shopping-bag"></i> Orders
@@ -599,6 +604,36 @@
                     </div>
                 </div>
 
+                <!-- ─── Apps Manager Panel ─── -->
+                <div class="admin-panel" id="panel-apps">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;flex-wrap:wrap;gap:12px;">
+                        <div>
+                            <h2 style="margin-bottom:4px;">Apps Manager</h2>
+                            <p style="color:var(--text-muted);font-size:.9rem;">Add, edit, or remove apps shown on the Apps page.</p>
+                        </div>
+                        <button class="btn-primary" onclick="AP.apps.openForm()" style="padding:10px 20px;font-size:.88rem;">
+                            <i data-lucide="plus" style="width:15px;height:15px;"></i> Add App
+                        </button>
+                    </div>
+
+                    <!-- Apps List -->
+                    <div id="apps-admin-list" style="display:grid;gap:16px;"></div>
+
+                    <!-- Empty state -->
+                    <div id="apps-admin-empty" style="display:none;text-align:center;padding:60px 20px;color:var(--text-muted);">
+                        <i data-lucide="layout-grid" style="width:48px;height:48px;margin-bottom:16px;opacity:.3;"></i>
+                        <h3 style="margin-bottom:8px;">No Apps Yet</h3>
+                        <p style="font-size:.9rem;">Click "Add App" to add your first application.</p>
+                    </div>
+
+                    <!-- Info box -->
+                    <div style="margin-top:28px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:16px;padding:18px 20px;font-size:.84rem;color:var(--text-muted);">
+                        <strong style="color:var(--primary);">ℹ️ How it works:</strong> Apps you add here are saved in your browser (localStorage) and automatically appear on the
+                        <a href="apps.html" target="_blank" style="color:var(--primary);">Apps page</a>.
+                        The default apps from <code>apps.js</code> are merged with your custom ones.
+                    </div>
+                </div>
+
             </main>
         </div>
     </div>
@@ -885,9 +920,179 @@
                     categories: () => AP.categories.load(),
                     orders    : () => AP.orders.load(),
                     customers : () => AP.loadCustomers(),
-                    users     : () => AP.loadUsers()
+                    users     : () => AP.loadUsers(),
+                    apps      : () => AP.apps.render()
                 };
                 if (map[name]) map[name]();
+            }
+        },
+
+        /* ── Apps Manager ────────────────────────────────────────────────── */
+        apps: {
+            LS_KEY: 'khan_custom_apps',
+
+            /* Load from localStorage */
+            _load() {
+                try { return JSON.parse(localStorage.getItem(this.LS_KEY) || '[]'); }
+                catch(e) { return []; }
+            },
+
+            /* Save to localStorage */
+            _save(arr) {
+                localStorage.setItem(this.LS_KEY, JSON.stringify(arr));
+            },
+
+            /* Render all app cards in admin panel */
+            render() {
+                const list  = document.getElementById('apps-admin-list');
+                const empty = document.getElementById('apps-admin-empty');
+                const data  = this._load();
+
+                if (!data.length) {
+                    list.innerHTML = '';
+                    empty.style.display = 'block';
+                    lucide.createIcons();
+                    return;
+                }
+                empty.style.display = 'none';
+
+                const platColors = { Windows:'#3b82f6', Android:'#22c55e', iOS:'#a855f7', Web:'#f59e0b' };
+                const platIcons  = { Windows:'monitor', Android:'smartphone', iOS:'smartphone', Web:'globe' };
+
+                list.innerHTML = data.map((app, idx) => {
+                    const color = platColors[app.platform] || '#f59e0b';
+                    const icon  = platIcons[app.platform]  || 'package';
+                    return `
+                    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:18px;padding:18px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+                        <div style="width:46px;height:46px;border-radius:12px;background:rgba(${color === '#3b82f6' ? '59,130,246' : color === '#22c55e' ? '34,197,94' : color === '#a855f7' ? '168,85,247' : '245,158,11'},.12);display:flex;align-items:center;justify-content:center;color:${color};flex-shrink:0;">
+                            ${app.icon ? `<img src="${app.icon}" style="width:30px;height:30px;object-fit:contain;border-radius:6px;">` : `<i data-lucide="${icon}" style="width:22px;height:22px;"></i>`}
+                        </div>
+                        <div style="flex:1;min-width:180px;">
+                            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                                <strong style="font-size:.95rem;">${app.name}</strong>
+                                <span style="font-size:.72rem;padding:2px 8px;border-radius:50px;background:rgba(${color === '#3b82f6' ? '59,130,246' : color === '#22c55e' ? '34,197,94' : color === '#a855f7' ? '168,85,247' : '245,158,11'},.1);color:${color};">${app.platform}</span>
+                                ${app.available === false ? '<span style="font-size:.72rem;padding:2px 8px;border-radius:50px;background:rgba(245,158,11,.1);color:#f59e0b;">Coming Soon</span>' : '<span style="font-size:.72rem;padding:2px 8px;border-radius:50px;background:rgba(34,197,94,.1);color:#22c55e;">Available</span>'}
+                            </div>
+                            <p style="font-size:.82rem;color:var(--text-muted);margin:0;">${app.description.substring(0,80)}${app.description.length > 80 ? '...' : ''}</p>
+                            <p style="font-size:.75rem;color:var(--text-muted);margin-top:2px;">v${app.version || '1.0.0'} &bull; ${app.size || 'N/A'} &bull; ${app.updated || 'N/A'}</p>
+                        </div>
+                        <div style="display:flex;gap:8px;flex-shrink:0;">
+                            <button onclick="AP.apps.openForm(${idx})" style="padding:8px 14px;border-radius:10px;border:1px solid var(--border);background:var(--bg-card);color:var(--text-main);cursor:pointer;font-family:inherit;font-size:.82rem;display:flex;align-items:center;gap:6px;transition:.2s;" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">
+                                <i data-lucide="pencil" style="width:13px;height:13px;"></i> Edit
+                            </button>
+                            <button onclick="AP.apps.delete(${idx})" style="padding:8px 14px;border-radius:10px;border:1px solid rgba(239,68,68,.3);background:rgba(239,68,68,.08);color:#ef4444;cursor:pointer;font-family:inherit;font-size:.82rem;display:flex;align-items:center;gap:6px;transition:.2s;" onmouseover="this.style.background='rgba(239,68,68,.15)'" onmouseout="this.style.background='rgba(239,68,68,.08)'">
+                                <i data-lucide="trash-2" style="width:13px;height:13px;"></i> Delete
+                            </button>
+                        </div>
+                    </div>`;
+                }).join('');
+
+                lucide.createIcons();
+            },
+
+            /* Open form (idx = undefined → add new; idx = number → edit existing) */
+            openForm(idx) {
+                const modal = document.getElementById('app-form-modal');
+                const title = document.getElementById('app-form-title');
+                const err   = document.getElementById('app-form-err');
+                document.getElementById('app-form').reset();
+                err.style.display = 'none';
+
+                if (idx !== undefined) {
+                    const data = this._load();
+                    const app  = data[idx];
+                    if (!app) return;
+                    title.textContent = 'Edit App';
+                    document.getElementById('app-edit-id').value    = idx;
+                    document.getElementById('app-name').value        = app.name || '';
+                    document.getElementById('app-desc').value        = app.description || '';
+                    document.getElementById('app-platform').value    = app.platform || 'Windows';
+                    document.getElementById('app-version').value     = app.version || '1.0.0';
+                    document.getElementById('app-size').value        = app.size || '';
+                    document.getElementById('app-updated').value     = app.updated || '';
+                    document.getElementById('app-download').value    = app.download || '';
+                    document.getElementById('app-icon').value        = app.icon || '';
+                } else {
+                    title.textContent = 'Add App';
+                    document.getElementById('app-edit-id').value = '';
+                    // default updated to current month
+                    const now = new Date();
+                    document.getElementById('app-updated').value = now.toLocaleString('default', { month:'long' }) + ' ' + now.getFullYear();
+                }
+
+                modal.classList.add('active');
+                lucide.createIcons();
+                document.getElementById('app-name').focus();
+            },
+
+            closeForm() {
+                document.getElementById('app-form-modal').classList.remove('active');
+            },
+
+            /* Save (add or edit) */
+            save(e) {
+                e.preventDefault();
+                const err = document.getElementById('app-form-err');
+                err.style.display = 'none';
+
+                const name     = document.getElementById('app-name').value.trim();
+                const desc     = document.getElementById('app-desc').value.trim();
+                const platform = document.getElementById('app-platform').value;
+                const version  = document.getElementById('app-version').value.trim() || '1.0.0';
+                const size     = document.getElementById('app-size').value.trim();
+                const updated  = document.getElementById('app-updated').value.trim();
+                const download = document.getElementById('app-download').value.trim();
+                const icon     = document.getElementById('app-icon').value.trim();
+
+                if (!name || !desc) {
+                    err.textContent = 'App name and description are required.';
+                    err.style.display = 'block';
+                    return;
+                }
+
+                const app = {
+                    id:          name.toLowerCase().replace(/\s+/g, '-') + '-' + Date.now(),
+                    name, description: desc, platform, version,
+                    size:     size     || 'N/A',
+                    updated:  updated  || new Date().toLocaleString('default', {month:'long'}) + ' ' + new Date().getFullYear(),
+                    download: download || '',
+                    icon:     icon     || '',
+                    available: !!download
+                };
+
+                const data = this._load();
+                const editIdx = document.getElementById('app-edit-id').value;
+
+                if (editIdx !== '') {
+                    // Keep the original id to avoid breaking things
+                    app.id = data[parseInt(editIdx)].id || app.id;
+                    data[parseInt(editIdx)] = app;
+                    AP.toast.success('App updated successfully!');
+                } else {
+                    data.push(app);
+                    AP.toast.success('App added successfully!');
+                }
+
+                this._save(data);
+                this.closeForm();
+                this.render();
+            },
+
+            /* Delete an app by index */
+            delete(idx) {
+                const data = this._load();
+                const app  = data[idx];
+                if (!app) return;
+                AP.confirm.show(
+                    'Delete App',
+                    `Are you sure you want to delete "${app.name}" (${app.platform})? This cannot be undone.`,
+                    () => {
+                        data.splice(idx, 1);
+                        this._save(data);
+                        this.render();
+                        AP.toast.success('App deleted.');
+                    }
+                );
             }
         },
 
