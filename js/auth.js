@@ -489,6 +489,22 @@ const AuthManager = (() => {
         }
     }
 
+    // ─── Change Password ───────────────────────────────────────────────────
+
+    async function handleChangePassword() {
+        if (!currentUser || !currentUser.email) {
+            showGlobalToast('❌ No user logged in.', 'error');
+            return;
+        }
+        try {
+            await sendPasswordResetEmail(auth, currentUser.email);
+            showGlobalToast(`✅ Password reset email sent to ${currentUser.email}. Check your inbox!`, 'success');
+        } catch (error) {
+            console.error('Change password error:', error);
+            showGlobalToast('❌ Failed to send reset email. Try again.', 'error');
+        }
+    }
+
     // ─── User Menu Dropdown (shown when clicking nav btn while logged in) ──
 
     function showUserMenu(anchor) {
@@ -520,6 +536,10 @@ const AuthManager = (() => {
                onmouseover="this.style.background='rgba(245,158,11,0.08)'" onmouseout="this.style.background='none'">
                 <i data-lucide="heart" style="width:16px;height:16px;"></i> Wishlist
             </a>
+            <button id="change-pw-menu-btn" style="display:flex;align-items:center;gap:10px;padding:10px 16px;border-radius:10px;color:var(--text-main);background:none;border:none;cursor:pointer;font-family:inherit;font-size:0.9rem;width:100%;" 
+               onmouseover="this.style.background='rgba(245,158,11,0.08)'" onmouseout="this.style.background='none'">
+                <i data-lucide="key" style="width:16px;height:16px;"></i> Change Password
+            </button>
             <button onclick="window.AuthManager && window.AuthManager.logout()" style="display:flex;align-items:center;gap:10px;padding:10px 16px;border-radius:10px;color:#ef4444;background:none;border:none;cursor:pointer;font-family:inherit;font-size:0.9rem;width:100%;margin-top:4px;border-top:1px solid var(--border);">
                 <i data-lucide="log-out" style="width:16px;height:16px;"></i> Logout
             </button>
@@ -530,6 +550,15 @@ const AuthManager = (() => {
         anchor.appendChild(menu);
 
         if (window.lucide) window.lucide.createIcons();
+
+        // Wire up Change Password button
+        const changePwBtn = document.getElementById('change-pw-menu-btn');
+        if (changePwBtn) {
+            changePwBtn.addEventListener('click', () => {
+                menu.remove();
+                handleChangePassword();
+            });
+        }
 
         // Close on outside click
         setTimeout(() => {
@@ -713,7 +742,8 @@ const AuthManager = (() => {
         openModal,
         closeModal,
         requireAuth,
-        logout:        handleLogout,
+        logout:          handleLogout,
+        changePassword:  handleChangePassword,
         setPendingAction,
         saveCustomerToFirestore
     };
