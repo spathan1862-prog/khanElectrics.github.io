@@ -124,12 +124,12 @@ const CartManager = (() => {
                     });
                 });
 
-                // Merge: Firestore takes priority
+                // Merge: Firestore takes priority, but preserve local-only items
                 const merged = [...firestoreCart];
                 cart.forEach(localItem => {
                     if (!merged.find(fi => fi.name === localItem.name)) {
                         merged.push(localItem);
-                        syncToFirestore(localItem, localItem.quantity);
+                        syncToFirestore(localItem, localItem.quantity); // Sync pre-login items to Firestore
                     }
                 });
 
@@ -137,10 +137,17 @@ const CartManager = (() => {
                 saveLocal();
                 console.log(`✅ Cart loaded from Firestore: ${cart.length} items`);
             } else {
-                // Firestore is empty - clear local cart if it existed (since Firestore is the source of truth)
-                cart = [];
-                saveLocal();
-                console.log(`✅ Cart loaded from Firestore: 0 items (cleared local)`);
+                // FIX: Firestore is empty, but keep any local pre-login cart items
+                // and sync them up to Firestore so they're saved for the user
+                if (cart.length > 0) {
+                    console.log(`✅ Syncing ${cart.length} pre-login cart items to Firestore...`);
+                    for (const item of cart) {
+                        await syncToFirestore(item, item.quantity);
+                    }
+                    saveLocal();
+                } else {
+                    console.log(`✅ Cart loaded from Firestore: 0 items`);
+                }
             }
         } catch (err) {
             console.error('Load cart from Firestore error:', err);
@@ -179,8 +186,10 @@ const CartManager = (() => {
      * FIX BUG-05: Price always normalized to Number on add.
      */
     function addToCart(product, quantity = 1) {
-        if (window.AuthManager && !window.AuthManager.isLoggedIn()) {
-            window.AuthManager.requireAuth({
+        // Check auth: wait until AuthManager is available (ES module may load slightly late)
+        const authReady = window.AuthManager;
+        if (authReady && !authReady.isLoggedIn()) {
+            authReady.requireAuth({
                 noticeText: 'Please login to add items to your cart.',
                 pendingAction: { type: 'cart', product }
             });

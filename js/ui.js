@@ -5,6 +5,10 @@
 
 const UIManager = (() => {
 
+    // Product map: used to safely pass product objects without inline JSON in HTML
+    const _productMap = {};
+    let _cardSeq = 0;
+
     const elements = {
         servicesGrid: document.getElementById('services-grid'),
         productsGrid: document.getElementById('products-grid'),
@@ -54,23 +58,25 @@ const UIManager = (() => {
      * Render a product card
      */
     function createProductCard(product) {
-        // Stringify the product object to pass it to inline onclick handlers safely
-        const productJson = JSON.stringify(product).replace(/"/g, '&quot;');
-        
+        // Assign a unique card id and store the product object safely (no JSON-in-HTML)
+        const cardId = 'pcard-' + (++_cardSeq);
+        _productMap[cardId] = product;
+
         // Ensure price formatting
         const formattedPrice = product.price ? product.price : 'N/A';
-        const isOutOfStock = typeof product.stock !== 'undefined' && product.stock <= 0;
-        const statusText = isOutOfStock ? 'Out of Stock' : (product.status || 'Available');
-        const statusColor = isOutOfStock ? '#ef4444' : (statusText.toLowerCase() === 'available' ? 'var(--primary)' : '#64748b');
+
+        // Determine out-of-stock from the STATUS STRING (admin saves status, not a numeric stock field)
+        const statusRaw = (product.status || 'Available').trim();
+        const isOutOfStock = statusRaw.toLowerCase() === 'out of stock';
+        const statusText = statusRaw;
+        const statusColor = isOutOfStock ? '#ef4444' : 'var(--primary)';
         const textColor = isOutOfStock ? '#fff' : '#000';
-        
+
         const addBtnText = isOutOfStock ? 'Out of Stock' : '<i data-lucide="shopping-cart"></i> Add';
-        const addBtnAttr = isOutOfStock 
-            ? 'disabled style="padding: 8px 16px; cursor: not-allowed; opacity: 0.6;"' 
-            : `onclick="event.stopPropagation(); if(window.CartManager) { window.CartManager.addToCart(${productJson}); }" style="padding: 8px 16px; cursor: pointer;"`;
+        const addBtnDisabled = isOutOfStock ? 'disabled' : '';
 
         return `
-            <div class="card fade-up" onclick="UIManager.showProductDetails(${productJson})" style="cursor: pointer;">
+            <div class="card fade-up" id="${cardId}" style="cursor: pointer;">
                 <div class="card-img">
                     <img src="${product.image}" alt="${product.name}" loading="lazy">
                     <div style="position: absolute; top: 12px; right: 12px; padding: 4px 12px; background: ${statusColor}; color: ${textColor}; border-radius: 50px; font-size: 0.7rem; font-weight: 700;">
@@ -80,7 +86,7 @@ const UIManager = (() => {
                 <div class="card-body">
                     <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                         <div class="card-category">${product.category}</div>
-                        <button onclick="event.stopPropagation(); if(window.WishlistManager) { const isAdded = window.WishlistManager.toggleWishlist(${productJson}); this.querySelector('i').style.fill = isAdded ? 'currentColor' : 'none'; }" style="background: none; border: none; cursor: pointer; color: var(--primary);" aria-label="Toggle Wishlist">
+                        <button class="card-wishlist-btn" data-card="${cardId}" style="background: none; border: none; cursor: pointer; color: var(--primary);" aria-label="Toggle Wishlist">
                             <i data-lucide="heart" style="fill: none; transition: fill 0.2s;"></i>
                         </button>
                     </div>
@@ -88,13 +94,49 @@ const UIManager = (() => {
                     <p class="card-text">${product.description || product.details || ''}</p>
                     <div class="card-footer">
                         <div class="card-price">₹${formattedPrice}</div>
-                        <button class="btn-outline" ${addBtnAttr}>
+                        <button class="btn-outline card-add-btn" data-card="${cardId}" style="padding: 8px 16px; cursor: pointer;" ${addBtnDisabled}>
                             ${addBtnText}
                         </button>
                     </div>
                 </div>
             </div>
         `;
+    }
+
+    /**
+     * Attach event listeners to all rendered product cards.
+     * Called after innerHTML is set so elements exist in DOM.
+     */
+    function attachCardListeners(container) {
+        // Card click → open product details modal
+        container.querySelectorAll('.card.fade-up[id^="pcard-"]').forEach(card => {
+            card.addEventListener('click', () => {
+                const product = _productMap[card.id];
+                if (product) UIManager.showProductDetails(product);
+            });
+        });
+
+        // Add-to-cart buttons
+        container.querySelectorAll('.card-add-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const product = _productMap[btn.dataset.card];
+                if (product && window.CartManager) window.CartManager.addToCart(product);
+            });
+        });
+
+        // Wishlist buttons
+        container.querySelectorAll('.card-wishlist-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const product = _productMap[btn.dataset.card];
+                if (product && window.WishlistManager) {
+                    const isAdded = window.WishlistManager.toggleWishlist(product);
+                    const icon = btn.querySelector('i');
+                    if (icon) icon.style.fill = isAdded ? 'currentColor' : 'none';
+                }
+            });
+        });
     }
 
     /**
@@ -158,6 +200,7 @@ const UIManager = (() => {
             : `<div style="grid-column: 1/-1; text-align: center; padding: 40px;">No products found for "${search}" in ${category}.</div>`;
 
         lucide.createIcons();
+        attachCardListeners(elements.productsGrid); // wire up safe event listeners
         ScrollObserver.observe(); // Re-observe new elements
     }
 
@@ -196,7 +239,8 @@ const UIManager = (() => {
             const existingModal = document.getElementById('product-details-modal');
             if (existingModal) existingModal.remove();
 
-            const isOutOfStock = typeof product.stock !== 'undefined' && product.stock <= 0;
+            // Use the status string field — same field admin saves
+            const isOutOfStock = (product.status || '').trim().toLowerCase() === 'out of stock';
             const price = parseFloat(product.price) || 0;
             const deliveryCharge = 49;
             const tax = 18;
@@ -235,14 +279,14 @@ const UIManager = (() => {
                             </div>
 
                             <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:20px;">
-                                <button onclick="document.getElementById('product-details-modal').remove(); if(window.CartManager) { window.CartManager.addToCart(${JSON.stringify(product).replace(/"/g, '&quot;')}); }" class="btn-primary" style="justify-content:center; padding:12px;" ${isOutOfStock ? 'disabled' : ''}>
+                                <button id="modal-add-to-cart-btn" class="btn-primary" style="justify-content:center; padding:12px;" ${isOutOfStock ? 'disabled' : ''}>
                                     <i data-lucide="shopping-cart"></i> Add to Cart
                                 </button>
-                                <button onclick="document.getElementById('product-details-modal').remove(); if(window.WishlistManager) { window.WishlistManager.toggleWishlist(${JSON.stringify(product).replace(/"/g, '&quot;')}); }" class="btn-outline" style="justify-content:center; padding:12px;">
+                                <button id="modal-wishlist-btn" class="btn-outline" style="justify-content:center; padding:12px;">
                                     <i data-lucide="heart"></i> Wishlist
                                 </button>
                             </div>
-                            <button onclick="document.getElementById('product-details-modal').remove(); if(!isOutOfStock) { window.location.href='https://razorpay.me/@Luminosoft'; }" class="btn-primary btn-full" style="justify-content:center; margin-top:12px; padding:14px; background:#22c55e; color:#fff; border-color:#22c55e;" ${isOutOfStock ? 'disabled style="opacity:0.6; cursor:not-allowed;"' : ''}>
+                            <button id="modal-order-now-btn" class="btn-primary btn-full" style="justify-content:center; margin-top:12px; padding:14px; background:#22c55e; color:#fff; border-color:#22c55e;" ${isOutOfStock ? 'disabled style="opacity:0.6; cursor:not-allowed;"' : ''}>
                                 <i data-lucide="check-circle"></i> Order Now
                             </button>
                         </div>
@@ -252,6 +296,47 @@ const UIManager = (() => {
 
             document.body.insertAdjacentHTML('beforeend', modalHtml);
             if (window.lucide) window.lucide.createIcons();
+
+            // Wire up modal buttons safely (avoids inline-onclick HTML-escaping issues)
+            const addToCartBtn  = document.getElementById('modal-add-to-cart-btn');
+            const wishlistBtn   = document.getElementById('modal-wishlist-btn');
+            const orderNowBtn   = document.getElementById('modal-order-now-btn');
+
+            if (addToCartBtn && !isOutOfStock) {
+                addToCartBtn.addEventListener('click', () => {
+                    document.getElementById('product-details-modal').remove();
+                    if (window.CartManager) window.CartManager.addToCart(product);
+                });
+            }
+
+            if (wishlistBtn) {
+                wishlistBtn.addEventListener('click', () => {
+                    document.getElementById('product-details-modal').remove();
+                    if (window.WishlistManager) window.WishlistManager.toggleWishlist(product);
+                });
+            }
+
+            if (orderNowBtn && !isOutOfStock) {
+                orderNowBtn.addEventListener('click', () => {
+                    UIManager.orderNow(product);
+                });
+            }
+        },
+        /**
+         * "Order Now" — add a single product as a cart and go to checkout.
+         */
+        orderNow: (product) => {
+            // Close the modal if open
+            const modal = document.getElementById('product-details-modal');
+            if (modal) modal.remove();
+
+            // Add the product to cart (quantity 1) then go straight to checkout
+            if (window.CartManager) {
+                window.CartManager.addToCart(product);
+            }
+
+            // Redirect to checkout
+            window.location.href = 'checkout.html';
         },
         updateProducts,
         elements

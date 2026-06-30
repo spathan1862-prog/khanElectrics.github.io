@@ -753,6 +753,82 @@
         </div>
     </div>
 
+    <!-- ═══ APP FORM MODAL ══════════════════════════════════════════════════ -->
+    <div class="product-form-modal" id="app-form-modal">
+        <div class="product-form-box" style="max-width:520px;">
+            <div class="modal-header">
+                <h3 id="app-form-title">Add App</h3>
+                <button class="close-btn" onclick="AP.apps.closeForm()"><i data-lucide="x"></i></button>
+            </div>
+            <form id="app-form" onsubmit="AP.apps.save(event)">
+                <input type="hidden" id="app-edit-id">
+
+                <!-- App Name -->
+                <div class="form-group">
+                    <label class="form-label">App Name *</label>
+                    <input type="text" id="app-name" class="form-input" required placeholder="e.g. Khan Electrician App">
+                </div>
+
+                <!-- Description -->
+                <div class="form-group">
+                    <label class="form-label">Description *</label>
+                    <textarea id="app-desc" class="form-input" rows="3" required placeholder="Brief description of the app..."></textarea>
+                </div>
+
+                <!-- Platform + Version row -->
+                <div class="form-grid" style="margin-bottom:0;">
+                    <div class="form-group">
+                        <label class="form-label">Platform</label>
+                        <select id="app-platform" class="select-input">
+                            <option value="Windows">Windows</option>
+                            <option value="Android">Android</option>
+                            <option value="iOS">iOS</option>
+                            <option value="Web">Web</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Version</label>
+                        <input type="text" id="app-version" class="form-input" placeholder="e.g. 1.0.0">
+                    </div>
+                </div>
+
+                <!-- Size + Updated row -->
+                <div class="form-grid" style="margin-bottom:0;">
+                    <div class="form-group">
+                        <label class="form-label">File Size</label>
+                        <input type="text" id="app-size" class="form-input" placeholder="e.g. 45 MB">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Updated</label>
+                        <input type="text" id="app-updated" class="form-input" placeholder="e.g. June 2025">
+                    </div>
+                </div>
+
+                <!-- Download URL -->
+                <div class="form-group">
+                    <label class="form-label">Download URL</label>
+                    <input type="text" id="app-download" class="form-input" placeholder="https://example.com/app.apk  or  downloads/app.apk">
+                    <p style="font-size:.78rem;color:var(--text-muted);margin-top:6px;">Leave blank to mark app as "Coming Soon". Supports relative paths (e.g. downloads/app.apk).</p>
+                </div>
+
+                <!-- Icon URL -->
+                <div class="form-group">
+                    <label class="form-label">Icon URL <span style="color:var(--text-muted);font-weight:400;">(optional)</span></label>
+                    <input type="text" id="app-icon" class="form-input" placeholder="https://example.com/icon.png  or  images/apps/icon.png">
+                </div>
+
+                <div id="app-form-err" style="color:#ef4444;font-size:.83rem;margin-bottom:12px;display:none;padding:10px 14px;background:rgba(239,68,68,.08);border-radius:10px;border:1px solid rgba(239,68,68,.2);"></div>
+
+                <div style="display:flex;gap:10px;">
+                    <button type="button" class="btn-secondary" onclick="AP.apps.closeForm()">Cancel</button>
+                    <button type="submit" class="btn-primary" style="flex:1;justify-content:center;">
+                        <i data-lucide="save" style="width:15px;height:15px;"></i> Save App
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- ═══ SCRIPTS ══════════════════════════════════════════════════════════ -->
     <script type="module" src="js/firebase-config.js"></script>
     <script type="module" src="js/auth.js"></script>
@@ -1954,11 +2030,12 @@
     /* ── Backdrop close ───────────────────────────────────────────────────── */
     document.getElementById('product-form-modal').addEventListener('click',  function(e) { if (e.target===this) AP.products.closeForm(); });
     document.getElementById('category-form-modal').addEventListener('click', function(e) { if (e.target===this) AP.categories.closeForm(); });
+    document.getElementById('app-form-modal').addEventListener('click',      function(e) { if (e.target===this) AP.apps.closeForm(); });
     document.getElementById('confirm-overlay').addEventListener('click',     function(e) { if (e.target===this) AP.confirm.cancel(); });
 
     /* ── Escape key ───────────────────────────────────────────────────────── */
     document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') { AP.products.closeForm(); AP.categories.closeForm(); AP.confirm.cancel(); }
+        if (e.key === 'Escape') { AP.products.closeForm(); AP.categories.closeForm(); AP.apps.closeForm(); AP.confirm.cancel(); }
     });
 
     </script>
