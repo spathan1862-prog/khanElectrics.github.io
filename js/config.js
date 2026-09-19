@@ -8,7 +8,7 @@ const CONFIG = {
     businessName: "Khan Electrical Services",
     whatsappNumber: "917822886909", // Replace with your WhatsApp number (include country code without +)
     phoneNumber: "+91 7822886909",
-    email: "spathan1862@gmail.com ",
+    email: "spathan1862@gmail.com",
     address: "At Manjargaon , Badnapur , Jalna",
 
     // Google Sheet CSV URLs (Publish to web -> CSV)

@@ -38,7 +38,7 @@ const UIManager = (() => {
         return `
             <div class="card fade-up">
                 <div class="card-img">
-                    <img src="${service.image}" alt="${service.name}" loading="lazy">
+                    <img src="${service.image}" alt="${service.name}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\' viewBox=\'0 0 100 100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%23222\'/%3E%3Ctext x=\'50\' y=\'55\' font-size=\'12\' text-anchor=\'middle\' fill=\'%23888\'%3ENo Image%3C/text%3E%3C/svg%3E';this.onerror=null;">
                 </div>
                 <div class="card-body">
                     <div class="card-category">Service</div>
@@ -78,7 +78,7 @@ const UIManager = (() => {
         return `
             <div class="card fade-up" id="${cardId}" style="cursor: pointer;">
                 <div class="card-img">
-                    <img src="${product.image}" alt="${product.name}" loading="lazy">
+                    <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\' viewBox=\'0 0 100 100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%23222\'/%3E%3Ctext x=\'50\' y=\'55\' font-size=\'12\' text-anchor=\'middle\' fill=\'%23888\'%3ENo Image%3C/text%3E%3C/svg%3E';this.onerror=null;">
                     <div style="position: absolute; top: 12px; right: 12px; padding: 4px 12px; background: ${statusColor}; color: ${textColor}; border-radius: 50px; font-size: 0.7rem; font-weight: 700;">
                         ${statusText}
                     </div>
@@ -253,7 +253,7 @@ const UIManager = (() => {
                         <i data-lucide="x"></i>
                     </button>
                     <div style="display:flex; flex-direction:column; gap:20px; align-items:center;">
-                        <img src="${product.image}" alt="${product.name}" style="width:100%; max-height:260px; object-fit:cover; border-radius:16px;">
+                        <img src="${product.image}" alt="${product.name}" style="width:100%; max-height:260px; object-fit:cover; border-radius:16px;" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'260\' viewBox=\'0 0 400 260\'%3E%3Crect width=\'400\' height=\'260\' fill=\'%23222\'/%3E%3Ctext x=\'200\' y=\'135\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23888\'%3EImage not available%3C/text%3E%3C/svg%3E';this.onerror=null;">
                         <div style="width:100%;">
                             <span style="background:var(--primary-glow); color:var(--primary); padding:4px 12px; border-radius:50px; font-size:0.75rem; font-weight:700; text-transform:uppercase;">${product.category}</span>
                             <h2 style="font-size:1.6rem; margin-top:10px; color:var(--text-main);">${product.name}</h2>
@@ -286,7 +286,7 @@ const UIManager = (() => {
                                     <i data-lucide="heart"></i> Wishlist
                                 </button>
                             </div>
-                            <button id="modal-order-now-btn" class="btn-primary btn-full" style="justify-content:center; margin-top:12px; padding:14px; background:#22c55e; color:#fff; border-color:#22c55e;" ${isOutOfStock ? 'disabled style="opacity:0.6; cursor:not-allowed;"' : ''}>
+                            <button id="modal-order-now-btn" class="btn-primary btn-full" style="justify-content:center; margin-top:12px; padding:14px; background:#22c55e; color:#fff; border-color:#22c55e;${isOutOfStock ? ' opacity:0.6; cursor:not-allowed;' : ''}" ${isOutOfStock ? 'disabled' : ''}>
                                 <i data-lucide="check-circle"></i> Order Now
                             </button>
                         </div>

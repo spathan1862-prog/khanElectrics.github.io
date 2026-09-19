@@ -1,10 +1,7 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 
 <head>
-    <script>
-        window.location.href = "https://razorpay.me/@Luminosoft";
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout | Khan Services</title>
@@ -16,7 +13,7 @@
 
 <body>
 
-    <!-- ─── Header ─── -->
+    <!-- Header -->
     <header class="header" id="header">
         <div class="container nav-content">
             <a href="index.html" class="logo">
@@ -58,7 +55,7 @@
     <div class="nav-overlay" id="nav-overlay"></div>
 
     <main>
-        <!-- ─── Page Header ─── -->
+        <!-- Page Header -->
         <section class="page-header" id="checkout-header">
             <div class="container">
                 <h1 class="page-title fade-up">Checkout</h1>
@@ -66,11 +63,11 @@
             </div>
         </section>
 
-        <!-- ─── Checkout Content ─── -->
+        <!-- Checkout Content -->
         <section class="section" style="padding-top: 0;">
             <div class="container">
 
-                <!-- ── Success State ── -->
+                <!-- Success State -->
                 <div class="order-success" id="order-success">
                     <div class="success-icon">
                         <i data-lucide="check-circle"></i>
@@ -84,7 +81,7 @@
                     <a href="index.html" class="btn-primary">Return to Home</a>
                 </div>
 
-                <!-- ── Checkout Flow ── -->
+                <!-- Checkout Flow -->
                 <div id="checkout-flow" class="cart-container fade-up">
 
                     <!-- Left Column: Form -->
@@ -158,23 +155,22 @@
         </div>
     </footer>
 
-    <!-- ─── Scripts ─── -->
+    <!-- Scripts -->
     <script src="js/config.js"></script>
     <script src="js/cart.js"></script>
     <script src="js/wishlist.js"></script>
 
-
-    <!-- Firebase ES Modules (checkout.js + auth.js are modules) -->
+    <!-- Firebase ES Modules -->
     <script type="module" src="js/firebase-config.js"></script>
     <script type="module" src="js/auth.js"></script>
     <script type="module" src="js/checkout.js"></script>
 
     <script>
-        // ── Init ──────────────────────────────────────────────────────────────
+        // Init
         lucide.createIcons();
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // ── Theme ─────────────────────────────────────────────────────────────
+        // Theme
         const currentTheme = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', currentTheme);
         document.getElementById('theme-icon').setAttribute('data-lucide', currentTheme === 'dark' ? 'sun' : 'moon');
@@ -188,7 +184,7 @@
             lucide.createIcons();
         });
 
-        // ── Mobile Menu ───────────────────────────────────────────────────────
+        // Mobile Menu
         const hamburger = document.getElementById('hamburger');
         const navLinksEl = document.getElementById('nav-links');
         const navOverlayEl = document.getElementById('nav-overlay');
@@ -198,12 +194,12 @@
         if (navOverlayEl) navOverlayEl.addEventListener('click', closeNavMenu);
         document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', closeNavMenu));
 
-        // ── Navbar Scroll ─────────────────────────────────────────────────────
+        // Navbar Scroll
         window.addEventListener('scroll', () => {
             document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        // ── Badge Listeners ───────────────────────────────────────────────────
+        // Badge Listeners
         window.addEventListener('cart-updated', (e) => {
             const badge = document.getElementById('nav-cart-count');
             if (badge) {
@@ -220,20 +216,16 @@
             }
         });
 
-
-        // ── Check Cart & Render Summary ───────────────────────────────────────
+        // Check Cart & Render Summary
         function initCheckout() {
             if (!window.CartManager) {
                 setTimeout(initCheckout, 100);
                 return;
             }
-
             if (window.CartManager.getCartCount() === 0) {
-                // Cart is empty — redirect to cart page
                 window.location.href = 'cart.html';
                 return;
             }
-
             renderSummary();
         }
 
@@ -258,23 +250,23 @@
                                 <div style="font-size:0.8rem;color:var(--text-muted);">Qty: ${item.quantity}</div>
                             </div>
                         </div>
-                        <div style="font-weight:600;">₹${(item.price * item.quantity).toFixed(2)}</div>
+                        <div style="font-weight:600;">&#8377;${(item.price * item.quantity).toFixed(2)}</div>
                     </div>
                 `;
             });
 
             html += '</div>';
             html += `
-                <div class="summary-row"><span>Subtotal</span><span>₹${subtotal.toFixed(2)}</span></div>
-                <div class="summary-row"><span>Tax</span><span>₹${tax.toFixed(2)}</span></div>
-                <div class="summary-row"><span>Delivery Charge</span><span>₹${shipping.toFixed(2)}</span></div>
-                <div class="summary-row total"><span>Total</span><span>₹${total.toFixed(2)}</span></div>
+                <div class="summary-row"><span>Subtotal</span><span>&#8377;${subtotal.toFixed(2)}</span></div>
+                <div class="summary-row"><span>Tax</span><span>&#8377;${tax.toFixed(2)}</span></div>
+                <div class="summary-row"><span>Delivery Charge</span><span>&#8377;${shipping.toFixed(2)}</span></div>
+                <div class="summary-row total"><span>Total</span><span>&#8377;${total.toFixed(2)}</span></div>
             `;
 
             summaryArea.innerHTML = html;
         }
 
-        // ── Pre-fill logged-in user's email ──────────────────────────────────
+        // Pre-fill logged-in user's email
         window.addEventListener('auth-state-changed', (e) => {
             if (e.detail.user) {
                 const emailField = document.getElementById('email');
@@ -284,7 +276,7 @@
             }
         });
 
-        // ── Form Submission ───────────────────────────────────────────────────
+        // Form Submission with proper await + error handling
         function setupFormSubmission() {
             const form = document.getElementById('checkout-form');
             const btn = document.getElementById('place-order-btn');
@@ -299,10 +291,9 @@
                 errorDiv.style.display = 'none';
 
                 try {
-                    // Wait for CheckoutManager module to load
                     await waitForCheckoutManager();
-
-                    window.CheckoutManager.processCheckout(form);
+                    // FIX: Added await so errors thrown inside are properly caught
+                    await window.CheckoutManager.processCheckout(form);
                 } catch (error) {
                     btn.disabled = false;
                     btn.innerHTML = 'Continue to Payment <i data-lucide="arrow-right"></i>';
@@ -317,7 +308,6 @@
             return new Promise((resolve, reject) => {
                 if (window.CheckoutManager) { resolve(); return; }
 
-                // Fast path: listen for the ready event
                 const handler = () => { clearInterval(timer); resolve(); };
                 window.addEventListener('checkout-manager-ready', handler, { once: true });
 
@@ -341,39 +331,35 @@
         function showSuccess(orderId) {
             document.getElementById('checkout-flow').style.display = 'none';
             document.getElementById('checkout-header').style.display = 'none';
-
             const successDiv = document.getElementById('order-success');
             document.getElementById('generated-order-id').textContent = '#' + orderId.substring(0, 8).toUpperCase();
             successDiv.classList.add('active');
             lucide.createIcons();
-
             window.dispatchEvent(new CustomEvent('cart-updated', { detail: { count: 0 } }));
         }
 
-        // ── Run ───────────────────────────────────────────────────────────────
+        // Run
         initCheckout();
         setupFormSubmission();
 
-        // Re-render summary when auth state changes (e.g. user logs in on checkout page)
+        // Re-render summary on auth state change
         window.addEventListener('auth-state-changed', (e) => {
             if (e.detail.user) {
-                // Pre-fill email if not already filled
                 const emailField = document.getElementById('email');
                 if (emailField && !emailField.value) {
                     emailField.value = e.detail.user.email || '';
                 }
-                // Re-render summary in case cart was loaded from Firestore
                 if (window.CartManager && window.CartManager.getCartCount() > 0) {
                     renderSummary();
                 }
             }
         });
     </script>
-<!-- Three.js Background Animation -->
+
+    <!-- Three.js Background Animation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="js/three-bg.js"></script>
 
 </body>
 
 </html>
-

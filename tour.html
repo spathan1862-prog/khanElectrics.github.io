@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
@@ -352,9 +352,27 @@
             const name = document.getElementById('client-name').value.trim();
             const phone = document.getElementById('client-phone').value.trim();
             
+            // Validate name
+            if (!name) {
+                alert('Please enter your full name.');
+                return;
+            }
+
+            // Validate phone (at least 10 digits)
+            const phoneDigits = phone.replace(/\D/g, '');
+            if (phoneDigits.length < 10) {
+                alert('Please enter a valid phone number (at least 10 digits).');
+                return;
+            }
+            
             let dest = tripDestSelect.value;
             if (dest === 'Other Places') {
                 dest = customDestInput.value.trim();
+                if (!dest) {
+                    alert('Please enter your desired destination.');
+                    customDestInput.focus();
+                    return;
+                }
             }
 
             const date = document.getElementById('trip-date').value || 'Not specified';

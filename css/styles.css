@@ -47,6 +47,7 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px;
+    overflow-x: hidden;
 }
 
 body {
@@ -1818,5 +1819,49 @@ img {
     .order-card-id {
         font-size: 0.8rem;
     }
+}
+
+/* ─── Missing Animations ─── */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* ─── Product Detail Modal Responsive ─── */
+@media (max-width: 600px) {
+    /* Make modals scrollable on small screens */
+    #product-details-modal .modal-content,
+    .modal-content {
+        max-height: 95vh;
+        overflow-y: auto;
+        border-radius: 16px;
+        padding: 20px;
+    }
+    /* Product image in modal — shorter on mobile */
+    #product-details-modal img[style*="max-height:260px"] {
+        max-height: 180px !important;
+    }
+    /* Modal price breakdown buttons — full width on mobile */
+    #product-details-modal div[style*="grid-template-columns:1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* ─── Footer Apps Button ─── */
+.footer-apps-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    transition: 0.2s;
+}
+.footer-apps-btn:hover {
+    color: var(--primary);
+    border-color: var(--primary);
 }
 
