@@ -278,12 +278,9 @@ const UIManager = (() => {
                                 </div>
                             </div>
 
-                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:20px;">
-                                <button id="modal-add-to-cart-btn" class="btn-primary" style="justify-content:center; padding:12px;" ${isOutOfStock ? 'disabled' : ''}>
+                            <div style="margin-top:20px;">
+                                <button id="modal-add-to-cart-btn" class="btn-primary btn-full" style="justify-content:center; padding:12px;" ${isOutOfStock ? 'disabled' : ''}>
                                     <i data-lucide="shopping-cart"></i> Add to Cart
-                                </button>
-                                <button id="modal-wishlist-btn" class="btn-outline" style="justify-content:center; padding:12px;">
-                                    <i data-lucide="heart"></i> Wishlist
                                 </button>
                             </div>
                             <button id="modal-order-now-btn" class="btn-primary btn-full" style="justify-content:center; margin-top:12px; padding:14px; background:#22c55e; color:#fff; border-color:#22c55e;${isOutOfStock ? ' opacity:0.6; cursor:not-allowed;' : ''}" ${isOutOfStock ? 'disabled' : ''}>
@@ -298,9 +295,8 @@ const UIManager = (() => {
             if (window.lucide) window.lucide.createIcons();
 
             // Wire up modal buttons safely (avoids inline-onclick HTML-escaping issues)
-            const addToCartBtn  = document.getElementById('modal-add-to-cart-btn');
-            const wishlistBtn   = document.getElementById('modal-wishlist-btn');
-            const orderNowBtn   = document.getElementById('modal-order-now-btn');
+            const addToCartBtn = document.getElementById('modal-add-to-cart-btn');
+            const orderNowBtn  = document.getElementById('modal-order-now-btn');
 
             if (addToCartBtn && !isOutOfStock) {
                 addToCartBtn.addEventListener('click', () => {
@@ -309,12 +305,6 @@ const UIManager = (() => {
                 });
             }
 
-            if (wishlistBtn) {
-                wishlistBtn.addEventListener('click', () => {
-                    document.getElementById('product-details-modal').remove();
-                    if (window.WishlistManager) window.WishlistManager.toggleWishlist(product);
-                });
-            }
 
             if (orderNowBtn && !isOutOfStock) {
                 orderNowBtn.addEventListener('click', () => {
