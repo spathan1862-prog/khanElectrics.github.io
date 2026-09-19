@@ -711,11 +711,15 @@ const AuthManager = (() => {
     // ─── Protected Pages Guard ─────────────────────────────────────────────
 
     function checkProtectedPages() {
-        const protectedPages = ['cart.html', 'checkout.html', 'orders.html', 'wishlist.html'];
+        const protectedPages = ['cart.html', 'checkout.html', 'order.html', 'orders.html', 'wishlist.html'];
         const path = window.location.pathname;
         const pageName = path.split('/').pop() || 'index.html';
 
         if (protectedPages.includes(pageName)) {
+            if (pageName === 'order.html' || pageName === 'orders.html' || pageName === 'checkout.html') {
+                window.location.href = 'index.html';
+                return;
+            }
             // Block access by showing forced modal
             openModal({
                 noticeText: 'Authentication required to access this page.',

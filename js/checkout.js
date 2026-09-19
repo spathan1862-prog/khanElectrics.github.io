@@ -1,7 +1,6 @@
 /**
  * KhanElectricsStore — Checkout Manager
  * Handles order submission to Firestore 'orders' and 'customers' collections.
- * Order Schema: { userId, customerName, phone, address, products, totalAmount, status, createdAt }
  */
 
 import { db } from './firebase-config.js';
@@ -19,8 +18,6 @@ const CheckoutManager = (() => {
     /**
      * Submit an order to Firestore.
      * Also writes/updates customer in 'customers' collection.
-     * @param {Object} orderData
-     * @returns {Promise<string>} Generated order ID
      */
     async function submitOrder(orderData) {
         try {
@@ -29,18 +26,22 @@ const CheckoutManager = (() => {
                 userId: orderData.userId || null,
                 customerName: orderData.customerName || '',
                 phone: orderData.phone || '',
-                address: orderData.address || '',
+                address: orderData.address || {},
                 products: orderData.items || [],
                 totalAmount: orderData.total || 0,
-                status: 'Pending',
-                paymentMethod: orderData.paymentMethod || 'cod',
+                status: 'Confirmed', // Set to confirmed immediately upon submission (COD or successful online)
+                orderStatus: 'Confirmed',
+                paymentMethod: orderData.paymentMethod || 'COD',
                 paymentStatus: orderData.paymentStatus || 'Pending',
+                razorpayOrderId: orderData.razorpayOrderId || null,
                 razorpayPaymentId: orderData.razorpayPaymentId || null,
                 subtotal: orderData.subtotal || 0,
-                tax: orderData.tax || 0,
-                shipping: orderData.shipping || 0,
+                codCharge: orderData.codCharge || 0,
+                deliveryCharge: orderData.deliveryCharge || 0,
                 email: orderData.email || '',
-                createdAt: serverTimestamp()
+                packingToken: crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15),
+                createdAt: serverTimestamp(),
+                updatedAt: serverTimestamp()
             };
 
             // Write to 'orders' collection
@@ -67,10 +68,8 @@ const CheckoutManager = (() => {
             // Write/update to 'customers' collection
             await saveCustomer(orderData);
 
-            // Clear cart after successful order
-            if (typeof window.CartManager !== 'undefined') {
-                await window.CartManager.clearCart();
-            }
+            // Clear cart after successful order (if it was cart) or session storage
+            sessionStorage.removeItem('khan_direct_order');
 
             return docRef.id;
         } catch (e) {
@@ -81,7 +80,6 @@ const CheckoutManager = (() => {
 
     /**
      * Save customer info to Firestore 'customers' collection.
-     * Schema: { name, phone, email, city, createdAt }
      */
     async function saveCustomer(orderData) {
         try {
@@ -94,35 +92,34 @@ const CheckoutManager = (() => {
                 email: email,
                 city: (orderData.address && orderData.address.city) ? orderData.address.city : '',
                 address: orderData.address || {},
-                lastOrderId: null, // Will be updated after order is placed
+                lastOrderId: null,
                 createdAt: serverTimestamp()
-            }, { merge: true }); // merge: true = update if exists, create if not
+            }, { merge: true });
 
             console.log('✅ Customer saved to Firestore customers collection.');
         } catch (error) {
             console.error('❌ Error saving customer:', error);
-            // Non-fatal — order still goes through
         }
     }
 
     /**
-     * Process checkout form and save pending order.
-     * @param {HTMLFormElement} formElement
-     * @returns {Promise} Pending promise for redirect
+     * Process checkout form and handle COD or Razorpay directly
      */
     async function processCheckout(formElement) {
-        if (typeof window.CartManager === 'undefined') {
-            throw new Error('Cart system is not loaded. Please refresh the page.');
+        let orderItem = null;
+        try {
+            orderItem = JSON.parse(sessionStorage.getItem('khan_direct_order'));
+        } catch(e) {}
+        
+        if (!orderItem) {
+            throw new Error('Your order is empty. Please select a product to buy.');
         }
-
-        const cartItems = window.CartManager.getCart();
-        if (cartItems.length === 0) {
-            throw new Error('Your cart is empty. Please add products before checkout.');
-        }
+        
+        const cartItems = [orderItem];
 
         const formData = new FormData(formElement);
 
-        // ── Validate required fields ──────────────────────────────────────────
+        // Validate required fields
         const fullName = (formData.get('fullName') || '').trim();
         const email    = (formData.get('email')    || '').trim();
         const phone    = (formData.get('phone')    || '').trim();
@@ -130,6 +127,7 @@ const CheckoutManager = (() => {
         const city     = (formData.get('city')     || '').trim();
         const state    = (formData.get('state')    || '').trim();
         const pincode  = (formData.get('pincode')  || '').trim();
+        const paymentMethod = formData.get('paymentMethod');
 
         if (!fullName)  throw new Error('Please enter your full name.');
         if (!email)     throw new Error('Please enter a valid email address.');
@@ -138,12 +136,11 @@ const CheckoutManager = (() => {
         if (!city)      throw new Error('Please enter your city.');
         if (!state)     throw new Error('Please enter your state.');
         if (!pincode)   throw new Error('Please enter your pincode.');
+        if (!paymentMethod) throw new Error('Please select a payment method.');
 
-        // Validate phone (must be at least 10 digits)
         const phoneDigits = phone.replace(/\D/g, '');
         if (phoneDigits.length < 10) throw new Error('Please enter a valid 10-digit phone number.');
 
-        // Build address object
         const address = {
             line1: address1,
             line2: (formData.get('address2') || '').trim(),
@@ -152,13 +149,11 @@ const CheckoutManager = (() => {
             pincode: pincode
         };
 
-        // Calculate totals
-        const subtotal = window.CartManager.getCartTotal();
-        const tax = 18; // flat 18 rupees
-        const shipping = 49; // flat 49 rupees
-        const total = subtotal + tax + shipping;
+        const subtotal = orderItem.price * (orderItem.quantity || 1);
+        const deliveryCharge = 0;
+        const codCharge = paymentMethod === 'cod' ? 149 : 0;
+        const total = subtotal + deliveryCharge + codCharge;
 
-        // Get current logged-in user (if any)
         const user = window._currentUser || (window.AuthManager && window.AuthManager.getUser());
 
         const orderData = {
@@ -176,20 +171,64 @@ const CheckoutManager = (() => {
                 image: item.image || ''
             })),
             subtotal: subtotal,
-            tax: tax,
-            shipping: shipping,
+            codCharge: codCharge,
+            deliveryCharge: deliveryCharge,
             total: total,
-            // We don't have paymentMethod yet, it's selected on the next page
-            paymentMethod: null
+            paymentMethod: paymentMethod === 'cod' ? 'COD' : 'Online',
+            paymentStatus: 'Pending'
         };
 
-        // Save pending order
-        sessionStorage.setItem('khan_pending_order', JSON.stringify(orderData));
-        
-        // Redirect to payment page
-        window.location.href = 'payment.html';
-        
-        return new Promise(() => {}); // Keep button in loading state during redirect
+        if (paymentMethod === 'cod') {
+            const orderId = await submitOrder(orderData);
+            window.showSuccess(orderId);
+            return;
+        }
+
+        if (paymentMethod === 'online') {
+            if (typeof Razorpay === 'undefined') {
+                throw new Error('Payment system failed to load. Please check your connection.');
+            }
+
+            return new Promise((resolve, reject) => {
+                const options = {
+                    key: 'rzp_test_YOUR_KEY_HERE', // Keep placeholder as requested by user
+                    amount: Math.round(total * 100), // Amount in paise
+                    currency: 'INR',
+                    name: 'Khan Electrics',
+                    description: 'Order Payment',
+                    handler: async function (response) {
+                        try {
+                            orderData.paymentStatus = 'Paid';
+                            orderData.razorpayPaymentId = response.razorpay_payment_id;
+                            orderData.razorpayOrderId = response.razorpay_order_id || null;
+                            const orderId = await submitOrder(orderData);
+                            window.showSuccess(orderId);
+                            resolve();
+                        } catch (err) {
+                            reject(new Error('Payment successful but order creation failed. Please contact support.'));
+                        }
+                    },
+                    prefill: {
+                        name: fullName,
+                        email: email,
+                        contact: phone
+                    },
+                    theme: {
+                        color: '#f59e0b'
+                    },
+                    modal: {
+                        ondismiss: function() {
+                            reject(new Error('Payment cancelled.'));
+                        }
+                    }
+                };
+                const rzp = new Razorpay(options);
+                rzp.on('payment.failed', function (response){
+                    reject(new Error(response.error.description || 'Payment failed.'));
+                });
+                rzp.open();
+            });
+        }
     }
 
     return {
@@ -200,9 +239,6 @@ const CheckoutManager = (() => {
 
 })();
 
-// Export globally for inline script access
 window.CheckoutManager = CheckoutManager;
-
-// Signal that CheckoutManager is ready
 window.dispatchEvent(new CustomEvent('checkout-manager-ready'));
 console.log('✅ CheckoutManager loaded.');

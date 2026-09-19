@@ -7,48 +7,74 @@
     <title>Checkout | Khan Services</title>
     <link rel="icon" type="image/png" href="logo.png">
     <meta name="description" content="Complete your purchase securely at Khan Services.">
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --bg-card: #f9fafb;
+            --text: #111827;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --primary: #000000; /* Minimal black accent instead of theme color */
+            --primary-hover: #333333;
+        }
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text);
+            line-height: 1.5;
+        }
+        * { box-sizing: border-box; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        
+        header { padding: 24px 0; border-bottom: 1px solid var(--border); text-align: center; margin-bottom: 40px; }
+        header a { font-size: 1.5rem; font-weight: 700; color: var(--text); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+        
+        h1, h2, h3, h4 { margin-top: 0; margin-bottom: 0.5rem; color: var(--text); font-weight: 600; }
+        .page-title { font-size: 2rem; margin-bottom: 8px; text-align: center; }
+        .page-subtitle { color: var(--text-muted); text-align: center; margin-bottom: 40px; }
+        .form-section-title { font-size: 1.25rem; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+        
+        .cart-container { display: grid; grid-template-columns: 1fr; gap: 40px; }
+        @media (min-width: 768px) { .cart-container { grid-template-columns: 1.2fr 1fr; } }
+        .form-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 32px; }
+        @media (min-width: 600px) { .form-grid { grid-template-columns: 1fr 1fr; } .full-width { grid-column: 1 / -1; } }
+        
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-label { font-size: 0.9rem; font-weight: 500; color: var(--text); }
+        .form-input { padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; background: #fff; color: var(--text); outline: none; transition: border-color 0.2s; width: 100%; }
+        .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,0,0,0.05); }
+        
+        .btn-primary { background: var(--primary); color: #fff; border: none; padding: 14px 24px; border-radius: 8px; font-size: 1.05rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.2s; width: 100%; text-decoration: none; }
+        .btn-primary:hover { background: var(--primary-hover); }
+        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        .summary-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; position: sticky; top: 20px; }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.95rem; }
+        .summary-row.total { font-weight: 700; font-size: 1.25rem; border-top: 1px solid var(--border); padding-top: 16px; margin-top: 16px; }
+        
+        .order-success { display: none; text-align: center; padding: 60px 20px; background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); margin-bottom: 40px; }
+        .order-success.active { display: block; }
+        .success-icon { width: 80px; height: 80px; background: #22c55e; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+        .success-icon i { width: 40px; height: 40px; }
+        .order-id-box { background: #fff; border: 1px dashed #ccc; padding: 12px 24px; display: inline-block; font-family: monospace; font-size: 1.25rem; font-weight: 700; border-radius: 8px; margin: 24px 0; }
+        
+        .spin { animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .payment-method { transition: all 0.2s; }
+        #auth-modal { display: none !important; }
+    </style>
 </head>
 
 <body>
 
-    <!-- Header -->
-    <header class="header" id="header">
-        <div class="container nav-content">
-            <a href="index.html" class="logo">
-                <div class="logo-icon"><i data-lucide="zap"></i></div>
-                <span> Khan Services</span>
-            </a>
-
-            <nav class="nav-links" id="nav-links">
-                <a href="index.html">Home</a>
-                <a href="index.html#services">Services</a>
-                <a href="index.html#products">Products</a>
-                <a href="index.html#projects">Projects</a>
-                <a href="index.html#about">About Us</a>
-                <a href="index.html#contact">Contact</a>
-                <a href="orders.html">My Orders</a>
-            </nav>
-
-            <div class="nav-actions">
-                <a href="cart.html" class="nav-icon-btn" aria-label="Cart">
-                    <i data-lucide="shopping-cart"></i>
-                    <span class="nav-badge" id="nav-cart-count" style="display: none;">0</span>
-                </a>
-                <!-- Auth button injected by auth.js -->
-                <button class="theme-toggle" id="theme-toggle" title="Toggle Theme">
-                    <i data-lucide="moon" id="theme-icon"></i>
-                </button>
-                <div class="hamburger" id="hamburger">
-                    <i data-lucide="menu"></i>
-                </div>
-            </div>
-        </div>
+    <header style="padding: 20px 0; border-bottom: 1px solid var(--border); text-align: center; margin-bottom: 30px;">
+        <a href="index.html" style="font-size: 1.5rem; font-weight: 700; color: var(--text); text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+            <i data-lucide="zap" style="color: var(--primary);"></i> Khan Services
+        </a>
     </header>
 
-    <!-- Mobile Nav Overlay -->
-    <div class="nav-overlay" id="nav-overlay"></div>
+
 
     <main>
         <!-- Page Header -->
@@ -124,8 +150,32 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn-primary btn-full" id="place-order-btn" style="font-size:1.1rem;padding:16px;margin-top:24px;">
-                                Continue to Payment <i data-lucide="arrow-right"></i>
+                            <h3 class="form-section-title" style="margin-top:32px;">Payment Method</h3>
+                            <div class="payment-methods" id="payment-options" style="display:flex; flex-direction:column; gap:12px; margin-bottom:24px;">
+                                <label class="payment-method active" style="display:flex; align-items:center; gap:12px; padding:16px; border:1px solid var(--primary); border-radius:12px; background:rgba(245,158,11,0.05); cursor:pointer;">
+                                    <input type="radio" name="paymentMethod" value="cod" checked style="width:18px;height:18px;">
+                                    <div>
+                                        <div style="font-weight:600; font-size:1.05rem; display:flex; align-items:center; gap:8px;">
+                                            <i data-lucide="banknote" style="color:var(--primary); width:20px; height:20px;"></i>
+                                            Cash on Delivery (COD)
+                                        </div>
+                                        <div style="color:var(--text-muted); font-size:0.85rem; margin-top:4px;">₹149 extra COD charge applies to Cash on Delivery orders.</div>
+                                    </div>
+                                </label>
+                                <label class="payment-method" style="display:flex; align-items:center; gap:12px; padding:16px; border:1px solid var(--border); border-radius:12px; cursor:pointer;">
+                                    <input type="radio" name="paymentMethod" value="online" style="width:18px;height:18px;">
+                                    <div>
+                                        <div style="font-weight:600; font-size:1.05rem; display:flex; align-items:center; gap:8px;">
+                                            <i data-lucide="credit-card" style="color:var(--primary); width:20px; height:20px;"></i>
+                                            Online Payment
+                                        </div>
+                                        <div style="color:var(--text-muted); font-size:0.85rem; margin-top:4px;">Pay securely via Razorpay (UPI, Cards, NetBanking). No extra charges.</div>
+                                    </div>
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn-primary btn-full" id="place-order-btn" style="font-size:1.1rem;padding:16px;">
+                                Place Order <i data-lucide="check-circle"></i>
                             </button>
                             <div id="checkout-error" style="color:#ef4444;margin-top:12px;text-align:center;display:none;padding:12px;background:rgba(239,68,68,0.1);border-radius:8px;"></div>
                         </form>
@@ -133,7 +183,7 @@
 
                     <!-- Right Column: Order Summary -->
                     <div>
-                        <div class="cart-summary" id="checkout-summary">
+                        <div class="summary-box" id="checkout-summary">
                             <div style="text-align:center;padding:40px;color:var(--text-muted);">
                                 <p>Loading order summary...</p>
                             </div>
@@ -145,16 +195,13 @@
         </section>
     </main>
 
-    <footer style="padding: 40px 0; border-top: 1px solid var(--border); text-align: center;">
-        <div class="container">
-            <p>&copy; <span id="year"></span> Khan Electrical Services. All rights reserved.</p>
-        </div>
-    </footer>
+
 
     <!-- Scripts -->
     <script src="js/config.js"></script>
-    <script src="js/cart.js"></script>
-    <script src="js/wishlist.js"></script>
+
+    <!-- Razorpay -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
     <!-- Firebase ES Modules -->
     <script type="module" src="js/firebase-config.js"></script>
@@ -164,62 +211,12 @@
     <script>
         // Init
         lucide.createIcons();
-        document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Theme
-        const currentTheme = localStorage.getItem('theme') || 'dark';
-        document.documentElement.setAttribute('data-theme', currentTheme);
-        document.getElementById('theme-icon').setAttribute('data-lucide', currentTheme === 'dark' ? 'sun' : 'moon');
-        lucide.createIcons();
-
-        document.getElementById('theme-toggle').addEventListener('click', () => {
-            const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
-            document.getElementById('theme-icon').setAttribute('data-lucide', theme === 'dark' ? 'sun' : 'moon');
-            lucide.createIcons();
-        });
-
-        // Mobile Menu
-        const hamburger = document.getElementById('hamburger');
-        const navLinksEl = document.getElementById('nav-links');
-        const navOverlayEl = document.getElementById('nav-overlay');
-        function openNavMenu()  { navLinksEl && navLinksEl.classList.add('active');    navOverlayEl && navOverlayEl.classList.add('active'); }
-        function closeNavMenu() { navLinksEl && navLinksEl.classList.remove('active'); navOverlayEl && navOverlayEl.classList.remove('active'); }
-        if (hamburger)    hamburger.addEventListener('click',   () => navLinksEl.classList.contains('active') ? closeNavMenu() : openNavMenu());
-        if (navOverlayEl) navOverlayEl.addEventListener('click', closeNavMenu);
-        document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', closeNavMenu));
-
-        // Navbar Scroll
-        window.addEventListener('scroll', () => {
-            document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
-        });
-
-        // Badge Listeners
-        window.addEventListener('cart-updated', (e) => {
-            const badge = document.getElementById('nav-cart-count');
-            if (badge) {
-                badge.textContent = e.detail.count;
-                badge.style.display = e.detail.count > 0 ? 'flex' : 'none';
-            }
-        });
-
-        window.addEventListener('wishlist-updated', (e) => {
-            const badge = document.getElementById('nav-wishlist-count');
-            if (badge) {
-                badge.textContent = e.detail.count;
-                badge.style.display = e.detail.count > 0 ? 'flex' : 'none';
-            }
-        });
-
-        // Check Cart & Render Summary
+        // Check Session Order & Render Summary
         function initCheckout() {
-            if (!window.CartManager) {
-                setTimeout(initCheckout, 100);
-                return;
-            }
-            if (window.CartManager.getCartCount() === 0) {
-                window.location.href = 'cart.html';
+            const sessionOrderStr = sessionStorage.getItem('khan_direct_order');
+            if (!sessionOrderStr) {
+                window.location.href = 'index.html'; // No order, go back home
                 return;
             }
             renderSummary();
@@ -227,40 +224,72 @@
 
         function renderSummary() {
             const summaryArea = document.getElementById('checkout-summary');
-            const cartItems = window.CartManager.getCart();
-            const subtotal = window.CartManager.getCartTotal();
-            const tax = 18;
-            const shipping = 49;
-            const total = subtotal + tax + shipping;
+            let item;
+            try {
+                item = JSON.parse(sessionStorage.getItem('khan_direct_order'));
+            } catch(e) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            const subtotal = item.price * (item.quantity || 1);
+            const deliveryCharge = 0; // Flat delivery charge is 0
+
+            const methodInputs = document.querySelectorAll('input[name="paymentMethod"]');
+            let isCod = true;
+            methodInputs.forEach(input => {
+                if(input.checked && input.value === 'online') {
+                    isCod = false;
+                }
+            });
+
+            const codCharge = isCod ? 149 : 0;
+            const total = subtotal + deliveryCharge + codCharge;
 
             let html = '<h3 style="margin-bottom:24px;font-size:1.25rem;">Order Summary</h3>';
             html += '<div style="margin-bottom:24px;display:flex;flex-direction:column;gap:12px;">';
 
-            cartItems.forEach(item => {
-                html += `
-                    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:12px;">
-                        <div style="display:flex;gap:12px;align-items:center;">
-                            <img src="${item.image || ''}" alt="${item.name}" style="width:50px;height:50px;object-fit:cover;border-radius:8px;" onerror="this.style.display='none'">
-                            <div>
-                                <div style="font-size:0.9rem;font-weight:500;">${item.name}</div>
-                                <div style="font-size:0.8rem;color:var(--text-muted);">Qty: ${item.quantity}</div>
-                            </div>
+            html += `
+                <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:12px;">
+                    <div style="display:flex;gap:12px;align-items:center;">
+                        <img src="${item.image || ''}" alt="${item.name}" style="width:50px;height:50px;object-fit:cover;border-radius:8px;" onerror="this.style.display='none'">
+                        <div>
+                            <div style="font-size:0.9rem;font-weight:500;">${item.name}</div>
+                            <div style="font-size:0.8rem;color:var(--text-muted);">Qty: ${item.quantity || 1}</div>
                         </div>
-                        <div style="font-weight:600;">&#8377;${(item.price * item.quantity).toFixed(2)}</div>
                     </div>
-                `;
-            });
+                    <div style="font-weight:600;">&#8377;${subtotal.toFixed(2)}</div>
+                </div>
+            `;
 
             html += '</div>';
             html += `
                 <div class="summary-row"><span>Subtotal</span><span>&#8377;${subtotal.toFixed(2)}</span></div>
-                <div class="summary-row"><span>Tax</span><span>&#8377;${tax.toFixed(2)}</span></div>
-                <div class="summary-row"><span>Delivery Charge</span><span>&#8377;${shipping.toFixed(2)}</span></div>
+                <div class="summary-row"><span>Delivery Charge</span><span>&#8377;${deliveryCharge.toFixed(2)}</span></div>
+                ${isCod ? `<div class="summary-row"><span>COD Charge</span><span>&#8377;${codCharge.toFixed(2)}</span></div>` : ''}
                 <div class="summary-row total"><span>Total</span><span>&#8377;${total.toFixed(2)}</span></div>
             `;
 
             summaryArea.innerHTML = html;
         }
+
+        // Listen for payment method changes to re-render summary
+        document.addEventListener('change', (e) => {
+            if (e.target.name === 'paymentMethod') {
+                document.querySelectorAll('.payment-method').forEach(el => {
+                    el.style.borderColor = 'var(--border)';
+                    el.style.background = 'transparent';
+                });
+                const label = e.target.closest('.payment-method');
+                if (label) {
+                    label.style.borderColor = 'var(--primary)';
+                    label.style.background = 'rgba(245,158,11,0.05)';
+                }
+                if (sessionStorage.getItem('khan_direct_order')) {
+                    renderSummary();
+                }
+            }
+        });
 
         // Pre-fill logged-in user's email
         window.addEventListener('auth-state-changed', (e) => {
@@ -288,11 +317,10 @@
 
                 try {
                     await waitForCheckoutManager();
-                    // FIX: Added await so errors thrown inside are properly caught
                     await window.CheckoutManager.processCheckout(form);
                 } catch (error) {
                     btn.disabled = false;
-                    btn.innerHTML = 'Continue to Payment <i data-lucide="arrow-right"></i>';
+                    btn.innerHTML = 'Place Order <i data-lucide="check-circle"></i>';
                     lucide.createIcons();
                     errorDiv.textContent = error.message || 'An error occurred. Please try again.';
                     errorDiv.style.display = 'block';
@@ -330,8 +358,13 @@
             const successDiv = document.getElementById('order-success');
             document.getElementById('generated-order-id').textContent = '#' + orderId.substring(0, 8).toUpperCase();
             successDiv.classList.add('active');
+            sessionStorage.removeItem('khan_direct_order'); // clear order after success
             lucide.createIcons();
-            window.dispatchEvent(new CustomEvent('cart-updated', { detail: { count: 0 } }));
+            
+            // Redirect to home page after 3 seconds
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 3000);
         }
 
         // Run
@@ -345,7 +378,7 @@
                 if (emailField && !emailField.value) {
                     emailField.value = e.detail.user.email || '';
                 }
-                if (window.CartManager && window.CartManager.getCartCount() > 0) {
+                if (sessionStorage.getItem('khan_direct_order')) {
                     renderSummary();
                 }
             }

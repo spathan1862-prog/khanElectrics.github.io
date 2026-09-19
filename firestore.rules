@@ -1,0 +1,43 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Admin checks function
+    function isAdmin() {
+      return request.auth != null && request.auth.token.email == 'spathan1862@gmail.com'; // Use your actual admin email here
+    }
+    
+    // Customers can only see and write to their own customer doc
+    match /customers/{customerId} {
+      allow read, write: if request.auth != null && request.auth.token.email.replace('[@.]', '_') == customerId || isAdmin();
+    }
+    
+    // Users can read/write their own users doc
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId || isAdmin();
+    }
+
+    // Products are globally readable, but only admins can write
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
+    // Categories are globally readable, but only admins can write
+    match /categories/{categoryId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Orders Collection Rules
+    match /orders/{orderId} {
+      // 1. Customers can view their OWN orders
+      allow read: if request.auth != null && (request.auth.uid == resource.data.userId || request.auth.token.email == resource.data.email) || isAdmin();
+      
+      // 2. Unauthenticated and authenticated users can create orders
+      allow create: if true; 
+      
+      // 3. Only admins can update (status) or delete orders
+      allow update, delete: if isAdmin();
+    }
+  }
+}

@@ -72,7 +72,7 @@ const UIManager = (() => {
         const statusColor = isOutOfStock ? '#ef4444' : 'var(--primary)';
         const textColor = isOutOfStock ? '#fff' : '#000';
 
-        const addBtnText = isOutOfStock ? 'Out of Stock' : '<i data-lucide="shopping-cart"></i> Add';
+        const addBtnText = isOutOfStock ? 'Out of Stock' : '<i data-lucide="zap"></i> Order Now';
         const addBtnDisabled = isOutOfStock ? 'disabled' : '';
 
         return `
@@ -116,12 +116,12 @@ const UIManager = (() => {
             });
         });
 
-        // Add-to-cart buttons
+        // Order Now buttons on cards
         container.querySelectorAll('.card-add-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const product = _productMap[btn.dataset.card];
-                if (product && window.CartManager) window.CartManager.addToCart(product);
+                if (product) UIManager.orderNow(product);
             });
         });
 
@@ -279,13 +279,10 @@ const UIManager = (() => {
                             </div>
 
                             <div style="margin-top:20px;">
-                                <button id="modal-add-to-cart-btn" class="btn-primary btn-full" style="justify-content:center; padding:12px;" ${isOutOfStock ? 'disabled' : ''}>
-                                    <i data-lucide="shopping-cart"></i> Add to Cart
+                                <button id="modal-order-now-btn" class="btn-primary btn-full" style="justify-content:center; padding:14px; background:#22c55e; color:#fff; border-color:#22c55e;${isOutOfStock ? ' opacity:0.6; cursor:not-allowed;' : ''}" ${isOutOfStock ? 'disabled' : ''}>
+                                    <i data-lucide="zap"></i> Order Now
                                 </button>
                             </div>
-                            <button id="modal-order-now-btn" class="btn-primary btn-full" style="justify-content:center; margin-top:12px; padding:14px; background:#22c55e; color:#fff; border-color:#22c55e;${isOutOfStock ? ' opacity:0.6; cursor:not-allowed;' : ''}" ${isOutOfStock ? 'disabled' : ''}>
-                                <i data-lucide="check-circle"></i> Order Now
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -295,16 +292,7 @@ const UIManager = (() => {
             if (window.lucide) window.lucide.createIcons();
 
             // Wire up modal buttons safely (avoids inline-onclick HTML-escaping issues)
-            const addToCartBtn = document.getElementById('modal-add-to-cart-btn');
             const orderNowBtn  = document.getElementById('modal-order-now-btn');
-
-            if (addToCartBtn && !isOutOfStock) {
-                addToCartBtn.addEventListener('click', () => {
-                    document.getElementById('product-details-modal').remove();
-                    if (window.CartManager) window.CartManager.addToCart(product);
-                });
-            }
-
 
             if (orderNowBtn && !isOutOfStock) {
                 orderNowBtn.addEventListener('click', () => {
@@ -313,20 +301,21 @@ const UIManager = (() => {
             }
         },
         /**
-         * "Order Now" — add a single product as a cart and go to checkout.
+         * "Order Now" — save single product and go to direct order checkout.
          */
         orderNow: (product) => {
             // Close the modal if open
             const modal = document.getElementById('product-details-modal');
             if (modal) modal.remove();
 
-            // Add the product to cart (quantity 1) then go straight to checkout
-            if (window.CartManager) {
-                window.CartManager.addToCart(product);
-            }
+            // Save the product directly for single checkout
+            sessionStorage.setItem('khan_direct_order', JSON.stringify({
+                ...product,
+                quantity: 1
+            }));
 
-            // Redirect to checkout
-            window.location.href = 'checkout.html';
+            // Redirect to direct order page
+            window.location.href = 'order.html';
         },
         updateProducts,
         elements
