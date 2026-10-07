@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background-color: #030712;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(5, 11, 20, 1) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(0, 210, 255, 0.08) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(11, 21, 40, 1) 0px, transparent 50%),
+    radial-gradient(at 80% 50%, rgba(255, 183, 3, 0.05) 0px, transparent 50%);
+  background-attachment: fixed;
+}
+
+/* Custom Cyber Glassmorphism */
+.glass-panel {
+  background: rgba(8, 17, 32, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 210, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+}
+
+.glass-panel-amber {
+  background: rgba(18, 14, 8, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 183, 3, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(255, 183, 3, 0.1);
+}
+
+.glass-panel-cyan {
+  background: rgba(5, 20, 36, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 210, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(0, 210, 255, 0.15);
+}
+
+.glass-card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 210, 255, 0.6);
+  box-shadow: 0 12px 40px -10px rgba(0, 210, 255, 0.4);
+}
+
+.glass-card-amber-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 183, 3, 0.7);
+  box-shadow: 0 12px 40px -10px rgba(255, 183, 3, 0.4);
+}
+
+/* Metallic text effect */
+.text-metallic {
+  background: linear-gradient(135deg, #ffffff 0%, #b0c4de 40%, #00d2ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gold-metallic {
+  background: linear-gradient(135deg, #ffffff 0%, #ffb703 60%, #e63946 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #030712;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0b1528;
+  border: 1px solid rgba(0, 210, 255, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00d2ff;
+}
+
+/* Pulse Glow Keyframes */
+@keyframes neonPulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.3), inset 0 0 15px rgba(0, 210, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 210, 255, 0.6), inset 0 0 25px rgba(0, 210, 255, 0.4);
+  }
+}
+
+.neon-border-glow {
+  animation: neonPulse 3s infinite;
+}

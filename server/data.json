@@ -1,0 +1,300 @@
+{
+  "settings": {
+    "companyName": "KHAN",
+    "domain": "khanelectrics.in",
+    "phone": "+91  7822886909",
+    "email": "spathan1862@gmail.com",
+    "location": "Badnapur, Jalna, Maharashtra",
+    "website": "www.khanelectrics.in",
+    "heroSubtitle": "Modern websites, professional electrician services, and memorable travel experiences."
+  },
+  "webProjects": [
+    {
+      "id": "proj-1",
+      "title": "Khan Electrics Website",
+      "category": "Multi-Service Web Portal",
+      "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
+      "description": "Business website for electrical services with modern UI.",
+      "link": "https://khanelectrics.in"
+    },
+    {
+      "id": "proj-2",
+      "title": "MedicoManager",
+      "category": "Electron Desktop App",
+      "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80",
+      "description": "Medical shop management app (Electron App).",
+      "link": "#"
+    },
+    {
+      "id": "proj-3",
+      "title": "Travel Website",
+      "category": "Booking & Tours",
+      "image": "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=80",
+      "description": "Tour & travel website with booking system.",
+      "link": "#"
+    },
+    {
+      "id": "proj-4",
+      "title": "E-Commerce Store",
+      "category": "Online Shopping",
+      "image": "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=800&q=80",
+      "description": "Online store with cart & payment integration.",
+      "link": "#"
+    },
+    {
+      "id": "proj-5",
+      "title": "Portfolio Website",
+      "category": "Personal Brand",
+      "image": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80",
+      "description": "Personal portfolio website with high aesthetics.",
+      "link": "#"
+    },
+    {
+      "id": "proj-6",
+      "title": "Business Website",
+      "category": "Corporate Site",
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+      "description": "Corporate website with modern responsive UI.",
+      "link": "#"
+    }
+  ],
+  "electricianServices": [
+    {
+      "id": "elec-1",
+      "title": "House Wiring",
+      "description": "Complete house wiring & installation.",
+      "icon": "Zap"
+    },
+    {
+      "id": "elec-2",
+      "title": "Electrical Repair",
+      "description": "Fixing & maintenance services.",
+      "icon": "Wrench"
+    },
+    {
+      "id": "elec-3",
+      "title": "Welding",
+      "description": "Professional welding services.",
+      "icon": "Flame"
+    },
+    {
+      "id": "elec-4",
+      "title": "CCTV Installation",
+      "description": "Security camera setup & installation.",
+      "icon": "Camera"
+    },
+    {
+      "id": "elec-5",
+      "title": "Inverter & Battery",
+      "description": "Inverter & battery installation.",
+      "icon": "BatteryCharging"
+    },
+    {
+      "id": "elec-6",
+      "title": "Lighting Solutions",
+      "description": "Indoor & outdoor lighting.",
+      "icon": "Lightbulb"
+    },
+    {
+      "id": "elec-7",
+      "title": "Electrical Maintenance",
+      "description": "Regular maintenance & safety check.",
+      "icon": "ShieldCheck"
+    },
+    {
+      "id": "elec-8",
+      "title": "Electrical Upgrades",
+      "description": "Modernization & upgrades.",
+      "icon": "TrendingUp"
+    }
+  ],
+  "electricianGallery": [
+    {
+      "id": "gal-1791370216296",
+      "title": "afroj",
+      "type": "photo",
+      "url": "data:image/jpeg;base64,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"
+    },
+    {
+      "id": "gal-1",
+      "title": "Industrial Panel Wiring",
+      "type": "photo",
+      "url": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "gal-2",
+      "title": "Home Smart Lighting Setup",
+      "type": "photo",
+      "url": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "gal-3",
+      "title": "High Voltage Transformer Repair",
+      "type": "photo",
+      "url": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "gal-4",
+      "title": "CCTV Camera System Inspection",
+      "type": "photo",
+      "url": "https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=600&q=80"
+    }
+  ],
+  "travelDestinations": [
+    {
+      "id": "dest-1",
+      "name": "Kashmir",
+      "tagline": "Nature & Peace",
+      "image": "https://images.unsplash.com/photo-1605649487210-478a983b6c20?auto=format&fit=crop&w=600&q=80",
+      "price": "₹14,999"
+    },
+    {
+      "id": "dest-2",
+      "name": "Goa",
+      "tagline": "Beaches & Fun",
+      "image": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=600&q=80",
+      "price": "₹9,999"
+    },
+    {
+      "id": "dest-3",
+      "name": "Leh Ladakh",
+      "tagline": "Adventure",
+      "image": "https://images.unsplash.com/photo-1581793745862-99fde7fa73d2?auto=format&fit=crop&w=600&q=80",
+      "price": "₹18,500"
+    },
+    {
+      "id": "dest-4",
+      "name": "Rajasthan",
+      "tagline": "Culture & Heritage",
+      "image": "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=600&q=80",
+      "price": "₹12,499"
+    },
+    {
+      "id": "dest-5",
+      "name": "Kerala",
+      "tagline": "Backwaters & Nature",
+      "image": "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=600&q=80",
+      "price": "₹11,999"
+    },
+    {
+      "id": "dest-6",
+      "name": "Andaman",
+      "tagline": "Island Paradise",
+      "image": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=600&q=80",
+      "price": "₹22,999"
+    }
+  ],
+  "travelPackages": [
+    {
+      "id": "pkg-1",
+      "title": "Honeymoon Package",
+      "subtitle": "Romantic Destinations",
+      "duration": "5 Days / 4 Nights",
+      "price": "₹24,999 per couple"
+    },
+    {
+      "id": "pkg-2",
+      "title": "Family Tour",
+      "subtitle": "Fun for Everyone",
+      "duration": "6 Days / 5 Nights",
+      "price": "₹34,999 (4 Persons)"
+    },
+    {
+      "id": "pkg-3",
+      "title": "Adventure Trip",
+      "subtitle": "Thrill & Explore",
+      "duration": "7 Days / 6 Nights",
+      "price": "₹19,500 per person"
+    }
+  ],
+  "apps": [
+    {
+      "id": "app-1",
+      "name": "MedicoManager",
+      "category": "Medical Shop Management",
+      "icon": "PlusSquare",
+      "description": "Medical Shop Management Electron app for inventory, billing & prescriptions.",
+      "downloadUrl": "#"
+    },
+    {
+      "id": "app-2",
+      "name": "Khan Electrics Store",
+      "category": "Online Store App",
+      "icon": "Zap",
+      "description": "Browse and buy electrical supplies directly online.",
+      "downloadUrl": "#"
+    },
+    {
+      "id": "app-3",
+      "name": "Travel Planner",
+      "category": "Tour & Travel Assistant",
+      "icon": "Plane",
+      "description": "Itinerary creator and booking tracker for vacationers.",
+      "downloadUrl": "#"
+    },
+    {
+      "id": "app-4",
+      "name": "Service Tracker",
+      "category": "Track Your Services",
+      "icon": "Activity",
+      "description": "Real-time electrical and web dev request status monitoring.",
+      "downloadUrl": "#"
+    },
+    {
+      "id": "app-5",
+      "name": "Business Tools",
+      "category": "Productivity Tools",
+      "icon": "Briefcase",
+      "description": "Invoicing, quote generator and customer manager for SMEs.",
+      "downloadUrl": "#"
+    },
+    {
+      "id": "app-6",
+      "name": "More Apps",
+      "category": "Coming Soon",
+      "icon": "Grid",
+      "description": "Stay tuned for upcoming mobile & web utility software.",
+      "downloadUrl": "#"
+    }
+  ],
+  "inquiries": [
+    {
+      "id": "inq-101",
+      "serviceType": "Web Development",
+      "name": "Aarav Sharma",
+      "email": "aarav@techstart.in",
+      "phone": "+91 98230 11223",
+      "whatsapp": "+91 98230 11223",
+      "location": "Jalna City",
+      "details": "Need custom e-commerce web app for local supermarket.",
+      "status": "New",
+      "createdAt": "2026-10-06T14:20:00.000Z"
+    },
+    {
+      "id": "inq-102",
+      "serviceType": "Electrician",
+      "name": "Rajesh Deshmukh",
+      "phone": "+91 94221 55443",
+      "rooms": "4 Rooms",
+      "fittingsCount": "12 Lights, 6 Fans, 2 AC points",
+      "details": "Complete rewiring for 2-story house in Badnapur.",
+      "status": "Contacted",
+      "createdAt": "2026-10-07T09:15:00.000Z"
+    },
+    {
+      "id": "inq-103",
+      "serviceType": "Tour & Travel",
+      "name": "Priya Verma",
+      "phone": "+91 97654 88990",
+      "secondaryPhone": "+91 97654 88991",
+      "fromCity": "Aurangabad",
+      "toDestination": "Kashmir",
+      "travelDate": "2026-11-15",
+      "travelers": "4",
+      "budget": "₹60,000",
+      "details": "Family holiday trip with hotel and cab inclusion.",
+      "status": "In-Progress",
+      "createdAt": "2026-10-07T11:00:00.000Z"
+    }
+  ]
+}
