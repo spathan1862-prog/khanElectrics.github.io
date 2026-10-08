@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { Lock, LogOut, CheckCircle2, Trash2, Plus, Edit, Download, Filter, Save, Layers, Phone, Mail, MapPin, Globe, Layout, Grid, Users } from 'lucide-react';
+import { Lock, LogOut, CheckCircle2, Trash2, Plus, Edit, Download, Filter, Save, Layers, Phone, Mail, MapPin, Globe, Layout, Grid, Users, Plane, X } from 'lucide-react';
 
 const AdminDashboard = () => {
   const {
@@ -19,13 +19,20 @@ const AdminDashboard = () => {
     addElectricianGallery,
     deleteElectricianGallery,
     travelDestinations,
+    travelPackages,
+    addTravelDestination,
+    updateTravelDestination,
+    deleteTravelDestination,
+    addTravelPackage,
+    updateTravelPackage,
+    deleteTravelPackage,
     addAppItem,
     deleteAppItem,
     apps
   } = useApp();
 
   const [passcode, setPasscode] = useState('');
-  const [activeTab, setActiveTab] = useState('leads'); // 'leads', 'content', 'apps', 'company'
+  const [activeTab, setActiveTab] = useState('leads'); // 'leads', 'content', 'travel', 'apps', 'company'
   const [filterService, setFilterService] = useState('All');
 
   // Form states for adding items
@@ -34,14 +41,23 @@ const AdminDashboard = () => {
   const [newApp, setNewApp] = useState({ name: '', category: '', icon: 'Grid', description: '', downloadUrl: '' });
   const [companyForm, setCompanyForm] = useState(settings);
 
+  // Form states for Tour & Travel Management
+  const [newDestination, setNewDestination] = useState({ name: '', tagline: '', image: '', price: '' });
+  const [editingDestId, setEditingDestId] = useState(null);
+  const [editDestForm, setEditDestForm] = useState({ name: '', tagline: '', image: '', price: '' });
+
+  const [newPackage, setNewPackage] = useState({ title: '', subtitle: '', duration: '', price: '' });
+  const [editingPkgId, setEditingPkgId] = useState(null);
+  const [editPkgForm, setEditPkgForm] = useState({ title: '', subtitle: '', duration: '', price: '' });
+
   const handleLogin = (e) => {
     e.preventDefault();
-    if (passcode === 'admin123' || passcode === 'admin') {
+    if (passcode.trim().toLowerCase() === 'samirkhan') {
       setIsAdminLoggedIn(true);
       showToast('Welcome to Khan Admin Dashboard CMS!', 'success');
       setCompanyForm(settings);
     } else {
-      showToast('Invalid passcode. Default passcode is: admin123', 'warning');
+      showToast('Invalid passcode. Please try again.', 'warning');
     }
   };
 
@@ -74,6 +90,43 @@ const AdminDashboard = () => {
   const handleSaveCompanySettings = (e) => {
     e.preventDefault();
     updateSettings(companyForm);
+  };
+
+  // Tour & Travel Handlers
+  const handleAddDestinationSubmit = (e) => {
+    e.preventDefault();
+    if (!newDestination.name) return;
+    addTravelDestination(newDestination);
+    setNewDestination({ name: '', tagline: '', image: '', price: '' });
+  };
+
+  const handleStartEditDest = (dest) => {
+    setEditingDestId(dest.id);
+    setEditDestForm({ name: dest.name, tagline: dest.tagline || '', image: dest.image || '', price: dest.price || '' });
+  };
+
+  const handleSaveEditDest = (e, id) => {
+    e.preventDefault();
+    updateTravelDestination(id, editDestForm);
+    setEditingDestId(null);
+  };
+
+  const handleAddPackageSubmit = (e) => {
+    e.preventDefault();
+    if (!newPackage.title) return;
+    addTravelPackage(newPackage);
+    setNewPackage({ title: '', subtitle: '', duration: '', price: '' });
+  };
+
+  const handleStartEditPkg = (pkg) => {
+    setEditingPkgId(pkg.id);
+    setEditPkgForm({ title: pkg.title, subtitle: pkg.subtitle || '', duration: pkg.duration || '', price: pkg.price || '' });
+  };
+
+  const handleSaveEditPkg = (e, id) => {
+    e.preventDefault();
+    updateTravelPackage(id, editPkgForm);
+    setEditingPkgId(null);
   };
 
   const exportInquiriesCSV = () => {
@@ -117,22 +170,19 @@ const AdminDashboard = () => {
               ADMIN CMS AUTHENTICATION
             </h1>
             <p className="text-xs text-slate-300 mt-1">
-              Enter admin passcode to access the website management dashboard.
+              Enter admin passcode to access management dashboard.
             </p>
-            <span className="inline-block mt-2 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-500/30 text-[11px] font-mono text-cyan-300">
-              Default Passcode: admin123
-            </span>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4 text-left">
             <div>
               <label className="block text-xs font-medium text-cyan-300 mb-1">
-                Admin Security Passcode
+                Admin Security Lock
               </label>
               <input
                 type="password"
                 required
-                placeholder="Enter admin passcode..."
+                placeholder="Enter passcode"
                 value={passcode}
                 onChange={(e) => setPasscode(e.target.value)}
                 className="w-full px-4 py-3 rounded-xl bg-cyan-950/50 border border-cyan-500/30 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400"
@@ -205,6 +255,18 @@ const AdminDashboard = () => {
         >
           <Layers className="w-4 h-4" />
           Sub-Pages Media & Showcase
+        </button>
+
+        <button
+          onClick={() => setActiveTab('travel')}
+          className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+            activeTab === 'travel'
+              ? 'bg-teal-500 text-slate-950 shadow-[0_0_15px_rgba(0,210,255,0.4)]'
+              : 'glass-panel text-slate-300 hover:text-white'
+          }`}
+        >
+          <Plane className="w-4 h-4" />
+          Tour & Travel CMS ({travelDestinations?.length || 0})
         </button>
 
         <button
@@ -511,6 +573,311 @@ const AdminDashboard = () => {
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      )}
+
+      {/* TAB: TOUR & TRAVEL CMS */}
+      {activeTab === 'travel' && (
+        <div className="space-y-10">
+          
+          {/* SECTION 1: DESTINATIONS CMS */}
+          <div className="glass-panel p-6 rounded-3xl border border-teal-500/30 space-y-6">
+            <h2 className="font-display font-bold text-xl text-white flex items-center gap-2">
+              <Plane className="w-5 h-5 text-teal-400" />
+              Manage Tour & Travel Destinations
+            </h2>
+
+            {/* Add New Destination Form */}
+            <form onSubmit={handleAddDestinationSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-medium text-teal-300 mb-1">Destination Name *</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Manali, Shimla, Dubai"
+                  value={newDestination.name}
+                  onChange={(e) => setNewDestination({ ...newDestination, name: e.target.value })}
+                  className="w-full px-3.5 py-2 rounded-xl bg-teal-950/50 border border-teal-500/30 text-white text-xs"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-teal-300 mb-1">Tagline / Highlight</label>
+                <input
+                  type="text"
+                  placeholder="e.g. Snow & Mountains"
+                  value={newDestination.tagline}
+                  onChange={(e) => setNewDestination({ ...newDestination, tagline: e.target.value })}
+                  className="w-full px-3.5 py-2 rounded-xl bg-teal-950/50 border border-teal-500/30 text-white text-xs"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-teal-300 mb-1">Image URL</label>
+                <input
+                  type="url"
+                  placeholder="https://images.unsplash.com/..."
+                  value={newDestination.image}
+                  onChange={(e) => setNewDestination({ ...newDestination, image: e.target.value })}
+                  className="w-full px-3.5 py-2 rounded-xl bg-teal-950/50 border border-teal-500/30 text-white text-xs"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-teal-300 mb-1">Starting Price</label>
+                <input
+                  type="text"
+                  placeholder="e.g. ₹15,999"
+                  value={newDestination.price}
+                  onChange={(e) => setNewDestination({ ...newDestination, price: e.target.value })}
+                  className="w-full px-3.5 py-2 rounded-xl bg-teal-950/50 border border-teal-500/30 text-white text-xs"
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <button
+                  type="submit"
+                  className="px-6 py-2.5 rounded-xl bg-teal-500 text-slate-950 font-bold text-xs hover:bg-teal-400 transition-all flex items-center gap-2"
+                >
+                  <Plus className="w-4 h-4" /> Add Destination
+                </button>
+              </div>
+            </form>
+
+            {/* List and Edit Destinations */}
+            <div className="pt-4 border-t border-teal-500/20 space-y-4">
+              <h3 className="font-bold text-sm text-white">Existing Destinations</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {(travelDestinations || []).map(dest => (
+                  <div key={dest.id} className="p-4 rounded-2xl bg-teal-950/40 border border-teal-500/30 space-y-3">
+                    {editingDestId === dest.id ? (
+                      /* Edit Form Inline */
+                      <form onSubmit={(e) => handleSaveEditDest(e, dest.id)} className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-bold text-teal-400">Edit Destination</span>
+                          <button type="button" onClick={() => setEditingDestId(null)} className="text-slate-400 hover:text-white">
+                            <X className="w-4 h-4" />
+                          </button>
+                        </div>
+                        <input
+                          type="text"
+                          required
+                          value={editDestForm.name}
+                          onChange={(e) => setEditDestForm({ ...editDestForm, name: e.target.value })}
+                          className="w-full px-2.5 py-1.5 rounded-lg bg-teal-950 border border-teal-500/40 text-white text-xs"
+                          placeholder="Name"
+                        />
+                        <input
+                          type="text"
+                          value={editDestForm.tagline}
+                          onChange={(e) => setEditDestForm({ ...editDestForm, tagline: e.target.value })}
+                          className="w-full px-2.5 py-1.5 rounded-lg bg-teal-950 border border-teal-500/40 text-white text-xs"
+                          placeholder="Tagline"
+                        />
+                        <input
+                          type="url"
+                          value={editDestForm.image}
+                          onChange={(e) => setEditDestForm({ ...editDestForm, image: e.target.value })}
+                          className="w-full px-2.5 py-1.5 rounded-lg bg-teal-950 border border-teal-500/40 text-white text-xs"
+                          placeholder="Image URL"
+                        />
+                        <input
+                          type="text"
+                          value={editDestForm.price}
+                          onChange={(e) => setEditDestForm({ ...editDestForm, price: e.target.value })}
+                          className="w-full px-2.5 py-1.5 rounded-lg bg-teal-950 border border-teal-500/40 text-white text-xs"
+                          placeholder="Price"
+                        />
+                        <div className="flex items-center gap-2 pt-1">
+                          <button type="submit" className="px-3 py-1 rounded bg-teal-500 text-slate-950 text-xs font-bold hover:bg-teal-400">
+                            Save
+                          </button>
+                          <button type="button" onClick={() => setEditingDestId(null)} className="px-3 py-1 rounded bg-slate-800 text-slate-300 text-xs">
+                            Cancel
+                          </button>
+                        </div>
+                      </form>
+                    ) : (
+                      /* Normal Display Card */
+                      <div>
+                        {dest.image && (
+                          <img src={dest.image} alt={dest.name} className="w-full h-24 object-cover rounded-xl mb-2 border border-teal-500/20" />
+                        )}
+                        <h4 className="font-bold text-sm text-white">{dest.name}</h4>
+                        <p className="text-[11px] text-teal-300">{dest.tagline}</p>
+                        <p className="text-xs font-semibold text-teal-400 mt-1">{dest.price}</p>
+
+                        <div className="flex items-center gap-2 mt-3 pt-2 border-t border-teal-500/10 justify-end">
+                          <button
+                            onClick={() => handleStartEditDest(dest)}
+                            className="px-2.5 py-1 rounded bg-cyan-950 border border-cyan-500/30 text-cyan-300 hover:bg-cyan-900 text-xs font-semibold flex items-center gap-1"
+                          >
+                            <Edit className="w-3.5 h-3.5" /> Edit
+                          </button>
+                          <button
+                            onClick={() => deleteTravelDestination(dest.id)}
+                            className="p-1 rounded bg-red-950 text-red-400 hover:bg-red-900 border border-red-500/20"
+                            title="Delete"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* SECTION 2: PACKAGES CMS */}
+          <div className="glass-panel p-6 rounded-3xl border border-teal-500/30 space-y-6">
+            <h2 className="font-display font-bold text-xl text-white flex items-center gap-2">
+              <Plus className="w-5 h-5 text-teal-400" />
+              Manage Travel Packages
+            </h2>
+
+            {/* Add New Package Form */}
+            <form onSubmit={handleAddPackageSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-medium text-teal-300 mb-1">Package Title *</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Honeymoon Special"
+                  value={newPackage.title}
+                  onChange={(e) => setNewPackage({ ...newPackage, title: e.target.value })}
+                  className="w-full px-3.5 py-2 rounded-xl bg-teal-950/50 border border-teal-500/30 text-white text-xs"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-teal-300 mb-1">Subtitle / Highlights</label>
+                <input
+                  type="text"
+                  placeholder="e.g. Romantic Trips"
+                  value={newPackage.subtitle}
+                  onChange={(e) => setNewPackage({ ...newPackage, subtitle: e.target.value })}
+                  className="w-full px-3.5 py-2 rounded-xl bg-teal-950/50 border border-teal-500/30 text-white text-xs"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-teal-300 mb-1">Duration</label>
+                <input
+                  type="text"
+                  placeholder="e.g. 5 Days / 4 Nights"
+                  value={newPackage.duration}
+                  onChange={(e) => setNewPackage({ ...newPackage, duration: e.target.value })}
+                  className="w-full px-3.5 py-2 rounded-xl bg-teal-950/50 border border-teal-500/30 text-white text-xs"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-teal-300 mb-1">Package Price</label>
+                <input
+                  type="text"
+                  placeholder="e.g. ₹24,999 per couple"
+                  value={newPackage.price}
+                  onChange={(e) => setNewPackage({ ...newPackage, price: e.target.value })}
+                  className="w-full px-3.5 py-2 rounded-xl bg-teal-950/50 border border-teal-500/30 text-white text-xs"
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <button
+                  type="submit"
+                  className="px-6 py-2.5 rounded-xl bg-teal-500 text-slate-950 font-bold text-xs hover:bg-teal-400 transition-all flex items-center gap-2"
+                >
+                  <Plus className="w-4 h-4" /> Add Travel Package
+                </button>
+              </div>
+            </form>
+
+            {/* List and Edit Packages */}
+            <div className="pt-4 border-t border-teal-500/20 space-y-4">
+              <h3 className="font-bold text-sm text-white">Existing Travel Packages</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {(travelPackages || []).map(pkg => (
+                  <div key={pkg.id} className="p-4 rounded-2xl bg-teal-950/40 border border-teal-500/30 space-y-3">
+                    {editingPkgId === pkg.id ? (
+                      /* Edit Form Inline */
+                      <form onSubmit={(e) => handleSaveEditPkg(e, pkg.id)} className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-bold text-teal-400">Edit Package</span>
+                          <button type="button" onClick={() => setEditingPkgId(null)} className="text-slate-400 hover:text-white">
+                            <X className="w-4 h-4" />
+                          </button>
+                        </div>
+                        <input
+                          type="text"
+                          required
+                          value={editPkgForm.title}
+                          onChange={(e) => setEditPkgForm({ ...editPkgForm, title: e.target.value })}
+                          className="w-full px-2.5 py-1.5 rounded-lg bg-teal-950 border border-teal-500/40 text-white text-xs"
+                          placeholder="Title"
+                        />
+                        <input
+                          type="text"
+                          value={editPkgForm.subtitle}
+                          onChange={(e) => setEditPkgForm({ ...editPkgForm, subtitle: e.target.value })}
+                          className="w-full px-2.5 py-1.5 rounded-lg bg-teal-950 border border-teal-500/40 text-white text-xs"
+                          placeholder="Subtitle"
+                        />
+                        <input
+                          type="text"
+                          value={editPkgForm.duration}
+                          onChange={(e) => setEditPkgForm({ ...editPkgForm, duration: e.target.value })}
+                          className="w-full px-2.5 py-1.5 rounded-lg bg-teal-950 border border-teal-500/40 text-white text-xs"
+                          placeholder="Duration"
+                        />
+                        <input
+                          type="text"
+                          value={editPkgForm.price}
+                          onChange={(e) => setEditPkgForm({ ...editPkgForm, price: e.target.value })}
+                          className="w-full px-2.5 py-1.5 rounded-lg bg-teal-950 border border-teal-500/40 text-white text-xs"
+                          placeholder="Price"
+                        />
+                        <div className="flex items-center gap-2 pt-1">
+                          <button type="submit" className="px-3 py-1 rounded bg-teal-500 text-slate-950 text-xs font-bold hover:bg-teal-400">
+                            Save
+                          </button>
+                          <button type="button" onClick={() => setEditingPkgId(null)} className="px-3 py-1 rounded bg-slate-800 text-slate-300 text-xs">
+                            Cancel
+                          </button>
+                        </div>
+                      </form>
+                    ) : (
+                      /* Normal Display Card */
+                      <div>
+                        <h4 className="font-bold text-sm text-white">{pkg.title}</h4>
+                        <p className="text-[11px] text-teal-300">{pkg.subtitle}</p>
+                        <p className="text-xs text-slate-300 mt-1">Duration: {pkg.duration}</p>
+                        <p className="text-xs font-semibold text-teal-400 mt-1">{pkg.price}</p>
+
+                        <div className="flex items-center gap-2 mt-3 pt-2 border-t border-teal-500/10 justify-end">
+                          <button
+                            onClick={() => handleStartEditPkg(pkg)}
+                            className="px-2.5 py-1 rounded bg-cyan-950 border border-cyan-500/30 text-cyan-300 hover:bg-cyan-900 text-xs font-semibold flex items-center gap-1"
+                          >
+                            <Edit className="w-3.5 h-3.5" /> Edit
+                          </button>
+                          <button
+                            onClick={() => deleteTravelPackage(pkg.id)}
+                            className="p-1 rounded bg-red-950 text-red-400 hover:bg-red-900 border border-red-500/20"
+                            title="Delete"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>

@@ -91,15 +91,11 @@ const Navbar = () => {
           </Link>
         </nav>
 
-        {/* Right CTA / Admin Link */}
-        <div className="flex items-center gap-3">
-          <Link
-            to="/admin"
-            className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-cyan-950/60 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-900/80 hover:border-cyan-400 hover:shadow-[0_0_15px_rgba(0,210,255,0.3)] transition-all flex items-center gap-1.5"
-          >
-            <Lock className="w-3.5 h-3.5 text-cyan-400" />
-            Admin
-          </Link>
+        {/* Right Section / Menu indicator */}
+        <div className="flex items-center gap-3 text-xs text-cyan-400 font-mono">
+          <span className="hidden sm:inline-block px-3 py-1 rounded-full bg-cyan-950/40 border border-cyan-500/20">
+            {settings.companyName || 'KHAN'} Portal
+          </span>
         </div>
 
       </div>

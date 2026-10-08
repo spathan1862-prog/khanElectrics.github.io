@@ -301,6 +301,75 @@ export const AppProvider = ({ children }) => {
     showToast('App removed from catalog.', 'info');
   };
 
+  // Tour & Travel Management
+  const addTravelDestination = async (dest) => {
+    const newItem = { id: 'dest-' + Date.now(), ...dest };
+    setData(prev => ({
+      ...prev,
+      travelDestinations: [newItem, ...(prev.travelDestinations || [])]
+    }));
+    try {
+      await addDoc(collection(db, "travelDestinations"), dest);
+    } catch (e) {}
+    showToast('New Travel Destination added!', 'success');
+  };
+
+  const updateTravelDestination = async (id, updatedDest) => {
+    setData(prev => ({
+      ...prev,
+      travelDestinations: (prev.travelDestinations || []).map(d => d.id === id ? { ...d, ...updatedDest } : d)
+    }));
+    try {
+      await setDoc(doc(db, "travelDestinations", id), updatedDest, { merge: true });
+    } catch (e) {}
+    showToast('Travel Destination updated!', 'success');
+  };
+
+  const deleteTravelDestination = async (id) => {
+    setData(prev => ({
+      ...prev,
+      travelDestinations: (prev.travelDestinations || []).filter(d => d.id !== id)
+    }));
+    try {
+      await deleteDoc(doc(db, "travelDestinations", id));
+    } catch (e) {}
+    showToast('Travel Destination deleted.', 'info');
+  };
+
+  const addTravelPackage = async (pkg) => {
+    const newItem = { id: 'pkg-' + Date.now(), ...pkg };
+    setData(prev => ({
+      ...prev,
+      travelPackages: [newItem, ...(prev.travelPackages || [])]
+    }));
+    try {
+      await addDoc(collection(db, "travelPackages"), pkg);
+    } catch (e) {}
+    showToast('New Travel Package added!', 'success');
+  };
+
+  const updateTravelPackage = async (id, updatedPkg) => {
+    setData(prev => ({
+      ...prev,
+      travelPackages: (prev.travelPackages || []).map(p => p.id === id ? { ...p, ...updatedPkg } : p)
+    }));
+    try {
+      await setDoc(doc(db, "travelPackages", id), updatedPkg, { merge: true });
+    } catch (e) {}
+    showToast('Travel Package updated!', 'success');
+  };
+
+  const deleteTravelPackage = async (id) => {
+    setData(prev => ({
+      ...prev,
+      travelPackages: (prev.travelPackages || []).filter(p => p.id !== id)
+    }));
+    try {
+      await deleteDoc(doc(db, "travelPackages", id));
+    } catch (e) {}
+    showToast('Travel Package deleted.', 'info');
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -320,7 +389,13 @@ export const AppProvider = ({ children }) => {
         addElectricianGallery,
         deleteElectricianGallery,
         addAppItem,
-        deleteAppItem
+        deleteAppItem,
+        addTravelDestination,
+        updateTravelDestination,
+        deleteTravelDestination,
+        addTravelPackage,
+        updateTravelPackage,
+        deleteTravelPackage
       }}
     >
       {children}
