@@ -14,7 +14,11 @@ const Footer = () => {
           {/* Brand Info */}
           <div className="space-y-4 md:col-span-1">
             <Link to="/" className="flex items-center gap-3 group">
-              <Crown className="w-8 h-8 text-cyan-400 group-hover:text-amber-400 transition-colors drop-shadow-[0_0_10px_rgba(0,210,255,0.8)]" />
+              <img
+                src="/logo.png"
+                alt="KHAN Logo"
+                className="w-10 h-10 object-contain group-hover:scale-105 transition-all duration-300 drop-shadow-[0_0_10px_rgba(0,210,255,0.8)]"
+              />
               <div>
                 <span className="font-display font-extrabold text-2xl tracking-wider text-metallic">
                   {settings.companyName || 'KHAN'}

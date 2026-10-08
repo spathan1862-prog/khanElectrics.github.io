@@ -16,7 +16,11 @@ const HomePage = () => {
 
         {/* 3D Brand Crown Emblem */}
         <div className="relative inline-block mb-4 animate-float">
-          <Crown className="w-16 h-16 sm:w-20 sm:h-20 text-cyan-400 mx-auto filter drop-shadow-[0_0_20px_rgba(0,210,255,0.9)] text-glow" />
+          <img
+            src="/logo.png"
+            alt="KHAN Official Logo"
+            className="w-28 h-28 sm:w-36 sm:h-36 object-contain mx-auto filter drop-shadow-[0_0_25px_rgba(0,210,255,0.9)]"
+          />
           <div className="absolute inset-0 bg-cyan-400/30 blur-2xl rounded-full -z-10" />
         </div>
 

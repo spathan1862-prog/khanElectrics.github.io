@@ -23,11 +23,15 @@ const Navbar = () => {
             <Menu className="w-6 h-6" />
           </button>
 
-          {/* Brand Logo & Crown Motif */}
+          {/* Brand Logo & Crown Emblem Image */}
           <Link to="/" className="flex items-center gap-3 group">
             <div className="relative flex items-center justify-center">
-              <Crown className="w-7 h-7 text-cyan-400 group-hover:text-amber-400 transition-all duration-300 drop-shadow-[0_0_10px_rgba(0,210,255,0.8)]" />
-              <div className="absolute inset-0 bg-cyan-400/20 blur-md rounded-full"></div>
+              <img
+                src="/logo.png"
+                alt="KHAN Logo"
+                className="w-10 h-10 object-contain group-hover:scale-105 transition-all duration-300 drop-shadow-[0_0_12px_rgba(0,210,255,0.8)]"
+              />
+              <div className="absolute inset-0 bg-cyan-400/20 blur-md rounded-full -z-10"></div>
             </div>
             <div className="flex flex-col">
               <span className="font-display font-extrabold text-2xl tracking-wider text-metallic group-hover:drop-shadow-[0_0_15px_rgba(0,210,255,0.9)] transition-all">
