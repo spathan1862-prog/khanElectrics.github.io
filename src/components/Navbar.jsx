@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-[#030712]/80 border-b border-cyan-500/20 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        
+
         {/* Left: Hamburger Drawer Trigger */}
         <div className="flex items-center gap-4">
           <button
@@ -44,11 +44,10 @@ const Navbar = () => {
         <nav className="hidden md:flex items-center gap-1 bg-cyan-950/30 p-1.5 rounded-full border border-cyan-500/20">
           <Link
             to="/"
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
-              isActive('/')
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 ${isActive('/')
                 ? 'bg-cyan-500 text-slate-950 font-semibold shadow-[0_0_15px_rgba(0,210,255,0.5)]'
                 : 'text-slate-300 hover:text-white hover:bg-cyan-900/40'
-            }`}
+              }`}
           >
             <Home className="w-4 h-4" />
             Home
@@ -56,11 +55,10 @@ const Navbar = () => {
 
           <Link
             to="/about"
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
-              isActive('/about')
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 ${isActive('/about')
                 ? 'bg-cyan-500 text-slate-950 font-semibold shadow-[0_0_15px_rgba(0,210,255,0.5)]'
                 : 'text-slate-300 hover:text-white hover:bg-cyan-900/40'
-            }`}
+              }`}
           >
             <Info className="w-4 h-4" />
             About
@@ -68,11 +66,10 @@ const Navbar = () => {
 
           <Link
             to="/contact"
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
-              isActive('/contact')
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 ${isActive('/contact')
                 ? 'bg-cyan-500 text-slate-950 font-semibold shadow-[0_0_15px_rgba(0,210,255,0.5)]'
                 : 'text-slate-300 hover:text-white hover:bg-cyan-900/40'
-            }`}
+              }`}
           >
             <Phone className="w-4 h-4" />
             Contact
@@ -80,22 +77,26 @@ const Navbar = () => {
 
           <Link
             to="/apps"
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
-              isActive('/apps')
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 ${isActive('/apps')
                 ? 'bg-cyan-500 text-slate-950 font-semibold shadow-[0_0_15px_rgba(0,210,255,0.5)]'
                 : 'text-slate-300 hover:text-white hover:bg-cyan-900/40'
-            }`}
+              }`}
           >
             <Grid className="w-4 h-4" />
             Apps
           </Link>
         </nav>
 
-        {/* Right Section / Menu indicator */}
-        <div className="flex items-center gap-3 text-xs text-cyan-400 font-mono">
-          <span className="hidden sm:inline-block px-3 py-1 rounded-full bg-cyan-950/40 border border-cyan-500/20">
-            {settings.companyName || 'KHAN'} Portal
-          </span>
+        {/* Right Quick Contact CTA */}
+        <div className="flex items-center gap-3">
+          <a
+            href={`tel:${settings?.phone ? settings.phone.replace(/[^0-9+]/g, '') : '+917822886909'}`}
+            className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-cyan-950/60 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-900/80 hover:border-cyan-400 hover:shadow-[0_0_15px_rgba(0,210,255,0.3)] transition-all flex items-center gap-1.5"
+            title="Call Khan Electrics"
+          >
+            <Phone className="w-3.5 h-3.5 text-cyan-400" />
+            <span className="hidden sm:inline">Call:</span> {settings?.phone || '+91 7822886909'}
+          </a>
         </div>
 
       </div>

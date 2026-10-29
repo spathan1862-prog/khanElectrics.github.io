@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/prepare-dist.mjs",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "server": "node server/index.js",
@@ -13,6 +13,7 @@
     "deploy": "npm run build && npx firebase-tools deploy"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.109.0",
     "canvas-confetti": "^1.9.2",
     "firebase": "^12.19.0",
     "lucide-react": "^0.344.0",

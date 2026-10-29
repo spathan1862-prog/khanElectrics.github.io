@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
+import SEOHead from '../components/SEOHead';
 import { Phone, Mail, MapPin, Globe, Send, MessageSquare } from 'lucide-react';
 
 const ContactPage = () => {
@@ -14,19 +15,27 @@ const ContactPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    await submitInquiry({
+    const result = await submitInquiry({
       serviceType: 'General Contact',
       name: formData.name,
       email: formData.email,
       details: formData.message
     });
     setIsSubmitting(false);
-    setFormData({ name: '', email: '', message: '' });
+    if (result && result.success) {
+      setFormData({ name: '', email: '', message: '' });
+    }
   };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
-      
+      <SEOHead
+        title="Contact Khan Electrics | Hotline 7822886909 | Badnapur & Jalna"
+        description="Get in touch with Khan Electrics for electrical wiring, website development, software inquiries, or tour booking. Call/WhatsApp +91 7822886909."
+        keywords="Contact Khan Electrics, Electrician contact Jalna, Khan Electrics phone number 7822886909, Badnapur electrician phone"
+        canonicalUrl="https://khanelectrics.in/contact"
+      />
+
       {/* HEADER */}
       <div className="text-center max-w-3xl mx-auto space-y-3">
         <h1 className="font-display font-extrabold text-4xl sm:text-5xl text-metallic tracking-wide">
@@ -38,14 +47,12 @@ const ContactPage = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        
         {/* LEFT COL: CONTACT CARDS & EMBEDDED MAP */}
         <div className="space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            
             {/* Phone */}
             <a
-              href={`tel:${settings.phone}`}
+              href={`tel:${settings.phone || '+917822886909'}`}
               className="glass-panel p-5 rounded-2xl border border-cyan-500/20 hover:border-cyan-400 transition-all flex items-center gap-3 group"
             >
               <div className="p-3 rounded-xl bg-cyan-500/20 text-cyan-400 border border-cyan-400/30 group-hover:scale-110 transition-transform">
@@ -54,14 +61,32 @@ const ContactPage = () => {
               <div className="overflow-hidden">
                 <span className="text-[11px] text-slate-400 block font-mono">CALL US</span>
                 <span className="text-xs font-bold text-white group-hover:text-cyan-300 transition-colors truncate block">
-                  {settings.phone || '+91 96765 43210'}
+                  {settings.phone || '+91 7822886909'}
+                </span>
+              </div>
+            </a>
+
+            {/* WhatsApp */}
+            <a
+              href="https://wa.me/917822886909?text=Hello%20Khan%20Electrics,%20I%20would%20like%20to%20enquire%20about%20your%20services."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="glass-panel p-5 rounded-2xl border border-emerald-500/20 hover:border-emerald-400 transition-all flex items-center gap-3 group"
+            >
+              <div className="p-3 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-400/30 group-hover:scale-110 transition-transform">
+                <MessageSquare className="w-5 h-5" />
+              </div>
+              <div className="overflow-hidden">
+                <span className="text-[11px] text-slate-400 block font-mono">WHATSAPP US</span>
+                <span className="text-xs font-bold text-white group-hover:text-emerald-300 transition-colors truncate block">
+                  {settings.whatsapp || '+91 7822886909'}
                 </span>
               </div>
             </a>
 
             {/* Email */}
             <a
-              href={`mailto:${settings.email}`}
+              href={`mailto:${settings.email || 'spathan1862@gmail.com'}`}
               className="glass-panel p-5 rounded-2xl border border-cyan-500/20 hover:border-cyan-400 transition-all flex items-center gap-3 group"
             >
               <div className="p-3 rounded-xl bg-blue-500/20 text-blue-400 border border-blue-400/30 group-hover:scale-110 transition-transform">
@@ -70,7 +95,7 @@ const ContactPage = () => {
               <div className="overflow-hidden">
                 <span className="text-[11px] text-slate-400 block font-mono">EMAIL US</span>
                 <span className="text-xs font-bold text-white group-hover:text-cyan-300 transition-colors truncate block">
-                  {settings.email || 'info@khanelectrics.in'}
+                  {settings.email || 'spathan1862@gmail.com'}
                 </span>
               </div>
             </a>

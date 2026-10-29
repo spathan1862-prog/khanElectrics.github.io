@@ -1,5 +1,6 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
+import SEOHead from '../components/SEOHead';
 import { Crown, Code2, Zap, Plane, ShieldCheck, Headphones, Smile, Award } from 'lucide-react';
 
 const AboutPage = () => {
@@ -7,6 +8,12 @@ const AboutPage = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
+      <SEOHead
+        title="About Us | Khan Electrics - Badnapur & Jalna Maharashtra"
+        description="Learn more about Khan Electrics. Providing reliable house wiring, expert electrician works, software and modern web development across Jalna, Badnapur and Aurangabad."
+        keywords="About Khan Electrics, Electrician in Badnapur, Jalna Maharashtra electrician, Web developer Badnapur, Shahnawaz Khan"
+        canonicalUrl="https://khanelectrics.in/about"
+      />
       
       {/* HEADER HERO */}
       <div className="text-center max-w-3xl mx-auto space-y-4">

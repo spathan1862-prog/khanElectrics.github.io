@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Crown, Phone, Mail, MapPin, Globe, Lock } from 'lucide-react';
+import { Crown, Phone, Mail, MapPin, Globe } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
 const Footer = () => {
@@ -47,11 +47,6 @@ const Footer = () => {
               <li>
                 <Link to="/apps" className="hover:text-cyan-400 transition-colors">Our Apps</Link>
               </li>
-              <li>
-                <Link to="/admin" className="hover:text-amber-400 transition-colors flex items-center gap-1">
-                  <Lock className="w-3 h-3 text-amber-400" /> Admin CMS
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -88,13 +83,13 @@ const Footer = () => {
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-cyan-400 shrink-0" />
                 <a href={`tel:${settings.phone}`} className="hover:text-cyan-300 transition-colors">
-                  {settings.phone || '+91 96765 43210'}
+                  {settings.phone || '+91 7822886909'}
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-cyan-400 shrink-0" />
                 <a href={`mailto:${settings.email}`} className="hover:text-cyan-300 transition-colors truncate">
-                  {settings.email || 'info@khanelectrics.in'}
+                  {settings.email || 'spathan1862@gmail.com'}
                 </a>
               </li>
               <li className="flex items-start gap-2">

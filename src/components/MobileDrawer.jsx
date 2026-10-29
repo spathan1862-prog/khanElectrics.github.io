@@ -188,14 +188,16 @@ const MobileDrawer = () => {
             </div>
           </div>
 
-          {/* Footer of Drawer - Admin Login Link */}
-          <div className="p-6 border-t border-cyan-500/20 bg-cyan-950/30">
+          {/* Footer of Drawer - Discreet Admin Entry */}
+          <div className="p-4 border-t border-cyan-500/10 bg-slate-950/60 flex items-center justify-between text-xs text-slate-500">
+            <span className="font-mono text-[10px]">KHAN CMS v1.0</span>
             <button
               onClick={() => handleLinkClick('/admin')}
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-semibold text-sm shadow-[0_0_20px_rgba(0,210,255,0.4)] hover:shadow-[0_0_30px_rgba(0,210,255,0.6)] hover:from-cyan-500 hover:to-blue-500 transition-all flex items-center justify-center gap-2"
+              className="text-[11px] text-slate-400 hover:text-cyan-300 transition-colors flex items-center gap-1.5 font-mono py-1 px-2.5 rounded-lg hover:bg-cyan-950/40"
+              aria-label="Staff Administration Login"
             >
-              <Lock className="w-4 h-4" />
-              Admin Portal Access
+              <Lock className="w-3 h-3 text-slate-400" />
+              Staff Login
             </button>
           </div>
 

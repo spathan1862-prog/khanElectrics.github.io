@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import MobileDrawer from './components/MobileDrawer';
 import HeroParticles from './components/HeroParticles';
 import Toast from './components/Toast';
+import WhatsAppButton from './components/WhatsAppButton';
 
 import HomePage from './pages/HomePage';
 import WebDevPage from './pages/WebDevPage';
@@ -52,6 +53,8 @@ function App() {
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/apps" element={<AppsPage />} />
               <Route path="/admin" element={<AdminDashboard />} />
+              {/* Fallback route for undefined paths */}
+              <Route path="*" element={<HomePage />} />
             </Routes>
           </main>
 
@@ -60,6 +63,9 @@ function App() {
 
           {/* Toast Notification Container */}
           <Toast />
+
+          {/* Floating WhatsApp Quick Action Button */}
+          <WhatsAppButton />
         </div>
       </Router>
     </AppProvider>
