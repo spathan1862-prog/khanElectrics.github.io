@@ -20,7 +20,7 @@ const Footer = () => {
                   {settings.companyName || 'KHAN'}
                 </span>
                 <p className="text-xs text-cyan-400 font-mono">
-                  {settings.domain || 'khanelectrics.in'}
+                  {settings.domain || 'khaneletrics.in'}
                 </p>
               </div>
             </Link>
@@ -98,7 +98,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-2">
                 <Globe className="w-4 h-4 text-cyan-400 shrink-0" />
-                <span>{settings.website || 'www.khanelectrics.in'}</span>
+                <span>{settings.website || 'www.khaneletrics.in'}</span>
               </li>
             </ul>
           </div>
@@ -106,7 +106,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-10 pt-6 border-t border-cyan-500/10 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-          <p>© {new Date().getFullYear()} KHAN (khanelectrics.in). All rights reserved.</p>
+          <p>© {new Date().getFullYear()} KHAN (khaneletrics.in). All rights reserved.</p>
           <div className="flex items-center gap-4 text-[11px]">
             <span className="text-cyan-400/70">Dark Cyber Futuristic Glow Theme</span>
             <span>•</span>

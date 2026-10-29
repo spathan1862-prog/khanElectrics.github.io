@@ -12,13 +12,13 @@ const isUUID = (str) => typeof str === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-
 const INITIAL_FALLBACK_DATA = {
   settings: {
     companyName: "KHAN",
-    domain: "khanelectrics.in",
+    domain: "khaneletrics.in",
     phone: "+91 7822886909",
     whatsapp: "+91 7822886909",
     email: "spathan1862@gmail.com",
     location: "Badnapur, Jalna, Maharashtra",
     serviceAreas: "Badnapur, Jalna, Aurangabad, Maharashtra",
-    website: "www.khanelectrics.in",
+    website: "www.khaneletrics.in",
     heroSubtitle: "Modern websites, professional electrician services, and memorable travel experiences.",
     githubUrl: "https://github.com/spathan1862-prog",
     linkedinUrl: "",
@@ -72,7 +72,7 @@ const INITIAL_FALLBACK_DATA = {
       ],
       faqs: [
         { question: 'How long does it take to develop a business website?', answer: 'Standard business websites are typically delivered within 5 to 10 days, depending on custom features and revisions.' },
-        { question: 'Do you provide hosting and custom domain support?', answer: 'Yes, we handle complete setup including domain linking (like khanelectrics.in), fast cloud hosting, SSL certificates, and Google indexing.' },
+        { question: 'Do you provide hosting and custom domain support?', answer: 'Yes, we handle complete setup including domain linking (like khaneletrics.in), fast cloud hosting, SSL certificates, and Google indexing.' },
         { question: 'Can I edit my website content after launch?', answer: 'Yes! Through our integrated Admin CMS, you can update text, images, and service items directly without coding.' }
       ],
       seoTitle: 'Web Development in Badnapur & Jalna | Modern Websites & Software | KHAN',
@@ -140,7 +140,7 @@ const INITIAL_FALLBACK_DATA = {
       category: "Multi-Service Web Portal",
       image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
       description: "Business website for electrical services with modern UI.",
-      link: "https://khanelectrics.in",
+      link: "https://khaneletrics.in",
       isPublished: true
     },
     {

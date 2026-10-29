@@ -81,7 +81,7 @@ const WebDevPage = () => {
         title={pageData.seoTitle || "Web Development in Badnapur & Jalna | Modern Websites & Software | KHAN"}
         description={pageData.seoDescription || "Custom web development, responsive business websites, and software applications in Badnapur, Jalna, and Aurangabad Maharashtra."}
         keywords={pageData.seoKeywords || "web development in Badnapur, website development in Jalna Maharashtra, web developer in Jalna, website design and development in Aurangabad Maharashtra, business website development in Jalna"}
-        canonicalUrl="https://khanelectrics.in/services/web-development"
+        canonicalUrl="https://khaneletrics.in/services/web-development"
       />
 
       {/* HERO SECTION */}

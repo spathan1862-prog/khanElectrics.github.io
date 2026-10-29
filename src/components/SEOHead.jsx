@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const DEFAULT_TITLE = 'KHAN - khanelectrics.in | Web Dev, Electrician, Tour & Travel';
+const DEFAULT_TITLE = 'KHAN - khaneletrics.in | Web Dev, Electrician, Tour & Travel';
 const DEFAULT_DESC = 'KHAN is a multi-service platform offering professional web development, trusted electrician services, and memorable tour & travel experiences in Badnapur, Jalna, and Maharashtra.';
-const DOMAIN = 'https://khanelectrics.in';
+const DOMAIN = 'https://khaneletrics.in';
 
 const SEOHead = ({
   title,

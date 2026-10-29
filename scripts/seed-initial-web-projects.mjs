@@ -54,7 +54,7 @@ async function seed() {
       short_description: 'Official multi-service portal for Khan Electrics with Admin CMS.',
       detailed_description: 'Full-stack responsive web application featuring custom CMS, PostgreSQL database, storage uploads, and mobile-friendly service inquiries.',
       description: 'Official multi-service portal for Khan Electrics with Admin CMS.',
-      link: 'https://khanelectrics.in',
+      link: 'https://khaneletrics.in',
       is_featured: true,
       is_published: true,
       sort_order: 1

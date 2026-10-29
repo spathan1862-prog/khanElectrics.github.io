@@ -108,7 +108,7 @@ const ElectricianPage = () => {
         title={pageData.seoTitle || "Electrician in Badnapur & Jalna Maharashtra | House Wiring Services"}
         description={pageData.seoDescription || "Certified electrician services in Badnapur, Jalna & Aurangabad. House wiring, electrical repair, CCTV, inverter installation, and safety upgrades."}
         keywords={pageData.seoKeywords || "electrician in Badnapur, electrician in Jalna Maharashtra, electrician services in Aurangabad, house wiring services in Jalna, electrical repair and installation Jalna"}
-        canonicalUrl="https://khanelectrics.in/services/electrician"
+        canonicalUrl="https://khaneletrics.in/services/electrician"
       />
 
       {/* HERO SECTION - Warm Amber Industrial Glow */}

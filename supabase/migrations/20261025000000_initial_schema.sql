@@ -25,11 +25,11 @@ $$ LANGUAGE plpgsql;
 CREATE TABLE IF NOT EXISTS public.site_settings (
   id TEXT PRIMARY KEY DEFAULT 'company',
   company_name TEXT NOT NULL DEFAULT 'KHAN',
-  domain TEXT NOT NULL DEFAULT 'khanelectrics.in',
+  domain TEXT NOT NULL DEFAULT 'khaneletrics.in',
   phone TEXT NOT NULL DEFAULT '+91 7822886909',
   email TEXT NOT NULL DEFAULT 'spathan1862@gmail.com',
   location TEXT NOT NULL DEFAULT 'Badnapur, Jalna, Maharashtra',
-  website TEXT NOT NULL DEFAULT 'www.khanelectrics.in',
+  website TEXT NOT NULL DEFAULT 'www.khaneletrics.in',
   hero_subtitle TEXT NOT NULL DEFAULT 'Modern websites, professional electrician services, and memorable travel experiences.',
   created_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now()),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now())
@@ -41,11 +41,11 @@ INSERT INTO public.site_settings (
 ) VALUES (
   'company',
   'KHAN',
-  'khanelectrics.in',
+  'khaneletrics.in',
   '+91 7822886909',
   'spathan1862@gmail.com',
   'Badnapur, Jalna, Maharashtra',
-  'www.khanelectrics.in',
+  'www.khaneletrics.in',
   'Modern websites, professional electrician services, and memorable travel experiences.'
 ) ON CONFLICT (id) DO NOTHING;
 
@@ -186,7 +186,7 @@ CREATE TRIGGER trigger_apps_updated_at
 -- SEED DATA FOR EXISTING SHOWCASE (Preserves Initial Experience)
 -- ==============================================================================
 INSERT INTO public.web_projects (title, category, image, description, link, sort_order)
-SELECT 'Khan Electrics Website', 'Multi-Service Web Portal', 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80', 'Business website for electrical services with modern UI.', 'https://khanelectrics.in', 1
+SELECT 'Khan Electrics Website', 'Multi-Service Web Portal', 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80', 'Business website for electrical services with modern UI.', 'https://khaneletrics.in', 1
 WHERE NOT EXISTS (SELECT 1 FROM public.web_projects WHERE title = 'Khan Electrics Website');
 
 INSERT INTO public.web_projects (title, category, image, description, link, sort_order)

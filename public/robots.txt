@@ -1,7 +1,7 @@
-# robots.txt for https://khanelectrics.in
+# robots.txt for https://khaneletrics.in
 User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /api/
 
-Sitemap: https://khanelectrics.in/sitemap.xml
+Sitemap: https://khaneletrics.in/sitemap.xml

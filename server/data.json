@@ -1,11 +1,11 @@
 {
   "settings": {
     "companyName": "KHAN",
-    "domain": "khanelectrics.in",
+    "domain": "khaneletrics.in",
     "phone": "+91  7822886909",
     "email": "spathan1862@gmail.com",
     "location": "Badnapur, Jalna, Maharashtra",
-    "website": "www.khanelectrics.in",
+    "website": "www.khaneletrics.in",
     "heroSubtitle": "Modern websites, professional electrician services, and memorable travel experiences."
   },
   "webProjects": [
@@ -15,7 +15,7 @@
       "category": "Multi-Service Web Portal",
       "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
       "description": "Business website for electrical services with modern UI.",
-      "link": "https://khanelectrics.in"
+      "link": "https://khaneletrics.in"
     },
     {
       "id": "proj-2",

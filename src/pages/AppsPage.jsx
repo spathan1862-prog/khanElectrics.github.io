@@ -48,7 +48,7 @@ const AppsPage = () => {
         title="Our Apps & Digital Utilities | Android APKs & Windows Installers | Khan Electrics"
         description="Download free and commercial desktop software, Android APKs, and Windows utility applications built by Khan Electrics. Fast direct downloads via GitHub Releases."
         keywords="Khan Electrics apps, MedicoManager download, Android APK Jalna, Windows software Badnapur, business utility software Maharashtra"
-        canonicalUrl="https://khanelectrics.in/apps"
+        canonicalUrl="https://khaneletrics.in/apps"
       />
 
       {/* HEADER */}

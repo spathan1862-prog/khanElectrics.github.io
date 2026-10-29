@@ -123,7 +123,7 @@ async function runTests() {
 
     // 11. Test Password reset request API for registered email
     const { error: resetErr } = await adminClient.auth.resetPasswordForEmail(OWNER_EMAIL, {
-      redirectTo: 'https://khanelectrics.in/admin'
+      redirectTo: 'https://khaneletrics.in/admin'
     });
     // Note: If Supabase rate-limits or accepts it, both test reachability of the Auth reset API
     report('Password reset endpoint reachable and validates email', resetErr === null || resetErr?.status === 429 || resetErr?.message?.includes('rate limit'));

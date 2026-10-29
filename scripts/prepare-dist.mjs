@@ -15,7 +15,7 @@ if (fs.existsSync(indexHtmlPath)) {
   console.log('✓ Created dist/404.html for GitHub Pages direct route refreshes');
 }
 
-// 2. Ensure CNAME exists in dist for custom domain khanelectrics.in
+// 2. Ensure CNAME exists in dist for custom domain khaneletrics.in
 const publicCname = path.join(publicDir, 'CNAME');
 const rootCname = path.join(rootDir, 'CNAME');
 const distCname = path.join(distDir, 'CNAME');
@@ -25,5 +25,5 @@ if (fs.existsSync(rootCname) && !fs.existsSync(publicCname)) {
 }
 if (fs.existsSync(publicCname)) {
   fs.copyFileSync(publicCname, distCname);
-  console.log('✓ Verified dist/CNAME for custom domain khanelectrics.in');
+  console.log('✓ Verified dist/CNAME for custom domain khaneletrics.in');
 }

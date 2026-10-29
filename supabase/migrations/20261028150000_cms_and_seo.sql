@@ -71,7 +71,7 @@ INSERT INTO public.service_pages (
   ]'::jsonb,
   '[
     {"question": "How long does it take to develop a business website?", "answer": "Standard business websites are typically delivered within 5 to 10 days, depending on custom features and revisions."},
-    {"question": "Do you provide hosting and custom domain support?", "answer": "Yes, we handle complete setup including domain linking (like khanelectrics.in), fast cloud hosting, SSL certificates, and Google indexing."},
+    {"question": "Do you provide hosting and custom domain support?", "answer": "Yes, we handle complete setup including domain linking (like khaneletrics.in), fast cloud hosting, SSL certificates, and Google indexing."},
     {"question": "Can I edit my website content after launch?", "answer": "Yes! Through our integrated Admin CMS, you can update text, images, and service items directly without coding."}
   ]'::jsonb,
   'Web Development in Badnapur & Jalna | Modern Websites & Software | KHAN',

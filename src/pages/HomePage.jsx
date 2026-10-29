@@ -35,8 +35,8 @@ const HomePage = () => {
       <SEOHead
         title="Khan Electrics | Web Development, Electrician Works & Tour Travels in Jalna & Badnapur"
         description="Official portal for Khan Electrics. Professional electrician works in Badnapur & Jalna, responsive website development, software apps, and customized tour & travels."
-        keywords="Khan Electrics, Electrician in Badnapur, Electrician in Jalna Maharashtra, Web Development in Badnapur, Tour and Travel Jalna, khanelectrics.in"
-        canonicalUrl="https://khanelectrics.in"
+        keywords="Khan Electrics, Electrician in Badnapur, Electrician in Jalna Maharashtra, Web Development in Badnapur, Tour and Travel Jalna, khaneletrics.in"
+        canonicalUrl="https://khaneletrics.in"
       />
       
       {/* HERO SECTION: Glowing 3D Brand Emblem "KHAN" */}
@@ -64,7 +64,7 @@ const HomePage = () => {
         <div className="mt-2 flex items-center justify-center gap-4">
           <div className="h-[1px] w-12 sm:w-24 bg-gradient-to-r from-transparent to-cyan-400" />
           <span className="font-mono text-sm sm:text-lg font-semibold text-cyan-400 tracking-[0.3em] uppercase drop-shadow-[0_0_10px_rgba(0,210,255,0.8)]">
-            {settings.domain || 'khanelectrics.in'}
+            {settings.domain || 'khaneletrics.in'}
           </span>
           <div className="h-[1px] w-12 sm:w-24 bg-gradient-to-l from-transparent to-cyan-400" />
         </div>

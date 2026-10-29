@@ -33,7 +33,7 @@ const ContactPage = () => {
         title="Contact Khan Electrics | Hotline 7822886909 | Badnapur & Jalna"
         description="Get in touch with Khan Electrics for electrical wiring, website development, software inquiries, or tour booking. Call/WhatsApp +91 7822886909."
         keywords="Contact Khan Electrics, Electrician contact Jalna, Khan Electrics phone number 7822886909, Badnapur electrician phone"
-        canonicalUrl="https://khanelectrics.in/contact"
+        canonicalUrl="https://khaneletrics.in/contact"
       />
 
       {/* HEADER */}
@@ -121,7 +121,7 @@ const ContactPage = () => {
               <div>
                 <span className="text-[11px] text-slate-400 block font-mono">WEBSITE</span>
                 <span className="text-xs font-bold text-white block">
-                  {settings.website || 'www.khanelectrics.in'}
+                  {settings.website || 'www.khaneletrics.in'}
                 </span>
               </div>
             </div>

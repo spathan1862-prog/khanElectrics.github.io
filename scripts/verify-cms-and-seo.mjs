@@ -129,7 +129,7 @@ async function run() {
   // 5. Verify local files: sitemap.xml, robots.txt, index.html schema
   const sitemapPath = path.join(rootDir, 'public', 'sitemap.xml');
   const sitemapContent = fs.existsSync(sitemapPath) ? fs.readFileSync(sitemapPath, 'utf8') : '';
-  assert(sitemapContent.includes('https://khanelectrics.in/') &&
+  assert(sitemapContent.includes('https://khaneletrics.in/') &&
          sitemapContent.includes('/services/web-development') &&
          sitemapContent.includes('/services/electrician') &&
          sitemapContent.includes('/services/tour-travel'),
@@ -144,7 +144,7 @@ async function run() {
   const indexHtmlContent = fs.existsSync(indexHtmlPath) ? fs.readFileSync(indexHtmlPath, 'utf8') : '';
   assert(indexHtmlContent.includes('application/ld+json') && indexHtmlContent.includes('LocalBusiness'),
     'index.html contains Schema.org LocalBusiness structured data');
-  assert(indexHtmlContent.includes('rel="canonical" href="https://khanelectrics.in/"'),
+  assert(indexHtmlContent.includes('rel="canonical" href="https://khaneletrics.in/"'),
     'index.html contains valid canonical link');
 
   // 6. Verify WhatsApp component configuration

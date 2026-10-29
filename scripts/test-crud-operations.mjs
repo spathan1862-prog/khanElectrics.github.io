@@ -77,7 +77,7 @@ await runTest('Web Projects: Add, Edit, Toggle Publish, and Delete', async () =>
       detailed_description: 'Detailed description for test project',
       photos: ['https://images.unsplash.com/photo-1555066931-4365d14bab8c'],
       video_url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-      link: 'https://test.khanelectrics.in',
+      link: 'https://test.khaneletrics.in',
       github_url: 'https://github.com/spathan1862-prog/test',
       is_featured: true,
       is_published: true,

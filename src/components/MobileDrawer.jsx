@@ -36,7 +36,7 @@ const MobileDrawer = () => {
                     {settings.companyName || 'KHAN'}
                   </h2>
                   <p className="text-xs text-cyan-400 font-mono">
-                    {settings.domain || 'khanelectrics.in'}
+                    {settings.domain || 'khaneletrics.in'}
                   </p>
                 </div>
               </div>

@@ -117,6 +117,27 @@ async function runAudit() {
     }
   }
 
+  let previewProc = null;
+  const isServerRunning = await fetch(BASE_URL).then(() => true).catch(() => false);
+  if (!isServerRunning) {
+    console.log('Starting vite preview server on port 4173...');
+    previewProc = spawn('npx', ['vite', 'preview', '--port', '4173', '--strictPort'], {
+      shell: true,
+      cwd: rootDir,
+      stdio: 'ignore'
+    });
+    let attempts = 0;
+    while (attempts < 20) {
+      await new Promise(r => setTimeout(r, 500));
+      const ok = await fetch(BASE_URL).then(() => true).catch(() => false);
+      if (ok) {
+        console.log('Vite preview server is ready.\n');
+        break;
+      }
+      attempts++;
+    }
+  }
+
   const tmpDir = path.join(os.tmpdir(), 'chrome-audit-' + Date.now());
   const chromeProc = spawn(CHROME_PATH, [
     '--headless=new',
@@ -218,8 +239,8 @@ async function runAudit() {
     `);
     record(`${route.name} all images have valid source URLs`, Array.isArray(invalidImageSources) && invalidImageSources.length === 0, `Invalid: ${invalidImageSources?.join(', ')}`);
 
-    // Verify canonical tag matches https://khanelectrics.in
-    record(`${route.name} canonical URL links to khanelectrics.in`, Boolean(canonical && canonical.startsWith('https://khanelectrics.in')), `Canonical: ${canonical}`);
+    // Verify canonical tag matches https://khaneletrics.in
+    record(`${route.name} canonical URL links to khaneletrics.in`, Boolean(canonical && canonical.startsWith('https://khaneletrics.in')), `Canonical: ${canonical}`);
 
     // Verify direct refresh
     await page.send('Page.reload');
@@ -227,6 +248,32 @@ async function runAudit() {
     const titleAfterReload = await page.eval('document.title');
     record(`${route.name} direct page refresh maintains route`, Boolean(titleAfterReload && titleAfterReload === title));
   }
+
+  // ----------------------------------------------------------------------------
+  // SECTION: HEADER BRANDING & PHONE REMOVAL AUDIT
+  // ----------------------------------------------------------------------------
+  console.log('\n--- HEADER BRANDING & PHONE REMOVAL AUDIT ---');
+  await page.send('Page.navigate', { url: BASE_URL + '/' });
+  await new Promise(r => setTimeout(r, 1500));
+
+  const headerChecks = await page.eval(`
+    (() => {
+      const header = document.querySelector('header');
+      if (!header) return { found: false };
+      const text = header.innerText;
+      const phoneLinks = Array.from(header.querySelectorAll('a[href^="tel:"]'));
+      return {
+        found: true,
+        text,
+        hasKhanPorduction: text.includes('Khan Porduction'),
+        hasPhoneNumber: phoneLinks.length > 0 || /\\+?91[\\s-]?7822886909/.test(text),
+        phoneLinksCount: phoneLinks.length
+      };
+    })()
+  `);
+
+  record('Website header renders Khan Porduction badge', Boolean(headerChecks.hasKhanPorduction), `Header text: ${headerChecks.text?.replace(/\\s+/g, ' ')}`);
+  record('Website header has NO phone number or tel: link in top-right', !headerChecks.hasPhoneNumber, `phoneLinksCount=${headerChecks.phoneLinksCount}`);
 
   // ----------------------------------------------------------------------------
   // SECTION 2: RESPONSIVE VIEWPORT & HORIZONTAL OVERFLOW CHECKS (PHASE 9)
@@ -462,6 +509,9 @@ async function runAudit() {
   page.close();
   browser.close();
   chromeProc.kill();
+  if (previewProc) {
+    try { previewProc.kill(); } catch {}
+  }
   try { fs.rmSync(tmpDir, { recursive: true, force: true }); } catch {}
 
   console.log('\n==============================================================================');

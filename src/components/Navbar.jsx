@@ -34,7 +34,7 @@ const Navbar = () => {
                 {settings.companyName || 'KHAN'}
               </span>
               <span className="text-[10px] tracking-widest text-cyan-400/90 font-mono -mt-1">
-                {settings.domain || 'khanelectrics.in'}
+                {settings.domain || 'khaneletrics.in'}
               </span>
             </div>
           </Link>
@@ -87,16 +87,12 @@ const Navbar = () => {
           </Link>
         </nav>
 
-        {/* Right Quick Contact CTA */}
+        {/* Right Header: Khan Porduction Badge */}
         <div className="flex items-center gap-3">
-          <a
-            href={`tel:${settings?.phone ? settings.phone.replace(/[^0-9+]/g, '') : '+917822886909'}`}
-            className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-cyan-950/60 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-900/80 hover:border-cyan-400 hover:shadow-[0_0_15px_rgba(0,210,255,0.3)] transition-all flex items-center gap-1.5"
-            title="Call Khan Electrics"
-          >
-            <Phone className="w-3.5 h-3.5 text-cyan-400" />
-            <span className="hidden sm:inline">Call:</span> {settings?.phone || '+91 7822886909'}
-          </a>
+          <div className="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-display font-bold tracking-wider bg-gradient-to-r from-cyan-950/80 to-teal-950/80 text-cyan-300 border border-cyan-500/40 shadow-[0_0_15px_rgba(0,210,255,0.25)] flex items-center gap-2 select-none">
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            <span className="text-metallic font-extrabold tracking-wide">Khan Porduction</span>
+          </div>
         </div>
 
       </div>

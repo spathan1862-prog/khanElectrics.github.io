@@ -12,14 +12,14 @@ const AboutPage = () => {
         title="About Us | Khan Electrics - Badnapur & Jalna Maharashtra"
         description="Learn more about Khan Electrics. Providing reliable house wiring, expert electrician works, software and modern web development across Jalna, Badnapur and Aurangabad."
         keywords="About Khan Electrics, Electrician in Badnapur, Jalna Maharashtra electrician, Web developer Badnapur, Shahnawaz Khan"
-        canonicalUrl="https://khanelectrics.in/about"
+        canonicalUrl="https://khaneletrics.in/about"
       />
       
       {/* HEADER HERO */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-950/80 border border-cyan-500/30 text-cyan-300 text-xs font-mono">
           <Crown className="w-4 h-4 text-cyan-400" />
-          ABOUT KHAN - KHANELECTRICS.IN
+          ABOUT KHAN - KHANELETRICS.IN
         </div>
         <h1 className="font-display font-extrabold text-4xl sm:text-5xl text-metallic tracking-wide">
           ABOUT US

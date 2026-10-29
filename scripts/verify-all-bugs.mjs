@@ -106,7 +106,7 @@ await runTest('Site Settings Seed Integrity (KHAN, domain, phone, email, locatio
   if (!data || data.company_name !== 'KHAN') {
     throw new Error(`Invalid company_name: ${data?.company_name}`);
   }
-  if (!data.domain.includes('khanelectrics.in')) {
+  if (!data.domain.includes('khaneletrics.in')) {
     throw new Error(`Invalid domain: ${data?.domain}`);
   }
 });

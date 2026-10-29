@@ -94,7 +94,7 @@ const TourTravelPage = () => {
         title={pageData.seoTitle || "Tour and Travel Services in Jalna | Jalna to Mumbai, Pune, Aurangabad Travel"}
         description={pageData.seoDescription || "Custom tour packages, outstation cabs, and holiday planning in Jalna. Daily travel from Jalna to Mumbai, Pune, Aurangabad, plus Kashmir & Goa tours."}
         keywords={pageData.seoKeywords || "tour and travel services in Jalna, Jalna to Mumbai travel, Jalna to Pune travel, Jalna to Aurangabad travel, holiday tour packages Jalna Maharashtra"}
-        canonicalUrl="https://khanelectrics.in/services/tour-travel"
+        canonicalUrl="https://khaneletrics.in/services/tour-travel"
       />
 
       {/* HERO SECTION - Scenic Glow Environment */}
